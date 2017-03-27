@@ -43,7 +43,7 @@ Lista de métodos:
 //Middlewares
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "path" => ["/", ""],
-    "passthrough" => ["/auth"],
+    "passthrough" => ["/login","/car/auth"],
     "secret" => "SUPER_SECRET_KET",
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];
@@ -71,9 +71,8 @@ $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     "users" => ["test" => "test"]
 ]));
 
-$app->get("/car/gate", function ($request, $response, $arguments) {
-
-    
+$app->post("/car/auth", function ($request, $response, $arguments) {
+ 
     $now = new DateTime();
     $future = new DateTime("now +5 minutes");
     $server = $request->getServerParams();
@@ -81,7 +80,7 @@ $app->get("/car/gate", function ($request, $response, $arguments) {
     $payload = [
         "iat" => $now->getTimeStamp(),
         "exp" => $future->getTimeStamp(),
-        "car_sn" => "giovanni",
+        "car_sn" => "M0B1L1S_c10e34",
     ]; 
     
     $secret = "SUPER_SECRET_KET";
@@ -94,33 +93,41 @@ $app->get("/car/gate", function ($request, $response, $arguments) {
         ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });
 
-$app->get("/login", function ($request, $response, $arguments) {
+$app->post("/login", function ($request, $response, $arguments) {
     
-    $now = new DateTime();
-    $future = new DateTime("now +5 minutes");
-    $server = $request->getServerParams();
+    $db = getDB();                
+    $email = $request->getParam('email'); 
+    $senha = $request->getParam('password');
+    $result = $db->query("SELECT * FROM `usuários` WHERE `email` = '$email' AND `passowrd`= '$password'");
+     
+    if(mysql_num_rows ($result) > 0 )
+    {
+      $now = new DateTime();
+      $future = new DateTime("now +5 minutes");
+      $server = $request->getServerParams();
 
-    $payload = [
-        "iat" => $now->getTimeStamp(),
-        "exp" => $future->getTimeStamp(),
-        "user_id" => "giovanni",
-    ];     
-    
-    $secret = "SUPER_SECRET_KET";
-    $token = JWT::encode($payload, $secret, "HS256");
-    $data["status"] = "ok";
-    $data["token"] = $token;
+      $payload = [
+          "iat" => $now->getTimeStamp(),
+          "exp" => $future->getTimeStamp(),
+          "user" => "engenharia05@mobilis.me",
+      ];     
+      
+      $secret = "SUPER_SECRET_KET";
+      $token = JWT::encode($payload, $secret, "HS256");
+      $data["status"] = "ok";
+      $data["token"] = $token;
 
-    return $response->withStatus(201)
-        ->withHeader("Content-Type", "application/json")
-        ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+      return $response->withStatus(201)
+          ->withHeader("Content-Type", "application/json")
+          ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+      
+    } 
+    else {
+      return $response->withStatus(201)->write("Unauthorized");
+    }
 });
 
 $app->post('/car/update/', function ($request, $response, $args) {
-    return $response->write("Login, " . $args['name']);
-});
-
-$app->post('/car/auth/', function ($request, $response, $args) {
     return $response->write("Login, " . $args['name']);
 });
 
