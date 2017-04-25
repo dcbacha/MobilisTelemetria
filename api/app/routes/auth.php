@@ -5,11 +5,14 @@ require __DIR__ . '/../database.php';
 use Firebase\JWT\JWT;
 
 //Rotina de login pela área de usuário
-$app->post("/login", function ($request, $response, $arguments) 
-{
-    $db = getDB();   
+$app->post("/login", function ($request, $response, $arguments) use ($app)
+{ 
+    $db = getDB(); 
+  
+    // esses funcionam se rolar um post direto do formulario, sem json e etc
     $email = $request->getParam('email'); 
     $password = $request->getParam('password');
+   
        
     try {   
         $result = $db->prepare("SELECT * FROM `usuarios` WHERE `email` = ? AND `password`= ?");
@@ -27,17 +30,19 @@ $app->post("/login", function ($request, $response, $arguments)
     if($num_rows > 0)
     {
       $now = new DateTime();
-      $future = new DateTime("now +5 minutes");
+      $future = new DateTime("now +15 minutes");
       $server = $request->getServerParams();
 
       $payload = [
           "iat" => $now->getTimeStamp(),
           "exp" => $future->getTimeStamp(),
-          "idusuario" => $rows[0]["idusuario"]
+          "idusuario" => $rows[0]["idusuario"],
+          "idgrupo" => $rows[0]["idgrupo"] //mudança nisso para que o acesso do ususario ja retorne o id do carro (talvez mudar para o grupo, já que podem ser varios carros)
+
       ];     
       
       $secret = "SUPER_SECRET_KET";
-      $token = JWT::encode($payload, $secret, "HS256");
+      $token = JWT::encode($payload, $secret, "HS256"); //define o json com as informacoes em JWT
       $data["status"] = "ok";
       $data["token"] = $token;
                                                

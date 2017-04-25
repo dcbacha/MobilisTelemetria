@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Mobilis</title>
+  <link rel="icon" href="../img/versoes-logo-mobilis-05.png">
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../vendor/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="../css/mobilisstyle.css">
+  <link rel="stylesheet" type="text/css" href="../css/mobilisformat.css">
+ <!-- <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
+</head>
+ <!-- gif loading
+ <div class="center" id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <img src="../img/loading.gif">
+  </div>
+<body>-->
+
+
+ 
+
+  <header>
+  <div class="navbar-fixed">
+  <nav class="mobilisblue" role="navigation">
+    <div class="nav-wrapper">
+      <a id="logo-container" href="#" class="brand-logo" style="margin-left: 15px;">
+        <img src="../img/logo_mobilis_colored.png" class="logo">
+      </a>
+      
+
+      <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only">
+        <i class="material-icons">menu</i>
+      </a>
+    </div>
+  </nav>
+  </div>
+ 
+   <ul id="nav-mobile" class="side-nav fixed grey lighten-4">
+      <li><div class="userView">
+        <div class="background">
+
+        </div>
+        <a href="#!user"></a>
+        <a href="#!name"><span class="black-text name">Usuário</span></a>
+        <a href="#!email"><span class="black-text email">usuario@mobilis.me</span></a>
+      </div></li>
+      
+     
+
+      <li><a href="#">Resumo da Frota</a></li>
+      <li><a id="buttonusuario">Controle de Usuário</a></li>
+      <li><a href="http://localhost/rds/api/app/cadastro.html">Cadastro</a></li>
+    </ul>
+    <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>-->
+  </header>
+
+ 
+
+  <!--*******************************************************  DINÂMICA  **********************************************************************-->
+
+
+  <div class="container">
+
+      
+
+
+      <div class="row center">
+        <h5 class="header col s12 light">Resumo da frota</h5>
+
+        <!-- gif loading tabela -->
+        <div class="preloader-wrapper small active" id="loadingFrota">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+
+        <table class="bordered" id="tabelaDinamica" hidden>
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Carro</th>
+              <th>Número de série</th>
+              <th>Total de Km</th>
+              <th>Total de Horas</th>
+              <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          
+        </tbody>
+      </table>
+      </div>
+
+    </div> <!-- fim container tabela -->
+
+<!--*****************************************************************************************************************************-->
+
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center yellow-text"><i class="small material-icons">flash_on</i></h2>
+            <h5 class="center">Economia</h5>
+
+            <p class="light">Frase motivacional para usuário ver que carro elétrico é melhor.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block" id="tabelaComunidade">
+            <h2 class="center light-blue-text"><i class="small material-icons">group</i></h2>
+            <h5 class="center">Comunidade</h5>
+
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center red-text"><i class="small material-icons">report_problem</i></h2>
+            <h5 class="center">Alerta</h5>
+
+            <p class="light">Carga excessiva no Carro 1.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+
+
+
+  <!--  Scripts-->
+  <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+  <script src="../vendor/materialize/js/materialize.js"></script>
+  <script src="../js/main.js"></script>
+  <!--<script src="js/init.js"></script>-->
+
+  </body>
+</html>

@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Mobilis</title>
+  <link rel="icon" href="../img/versoes-logo-mobilis-05.png">
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../vendor/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="../css/mobilisstyle.css">
+  <link rel="stylesheet" type="text/css" href="../css/mobilisformat.css">
+ <!-- <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
+</head>
+ <!-- gif loading
+ <div class="center" id="loading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <img src="../img/loading.gif">
+  </div>
+<body>-->
+
+
+ 
+
+  <header>
+  <div class="navbar-fixed">
+  <nav class="mobilisblue" role="navigation">
+    <div class="nav-wrapper">
+      <a id="logo-container" href="#" class="brand-logo" style="margin-left: 15px;">
+        <img src="../img/logo_mobilis_colored.png" class="logo">
+      </a>
+      
+
+      <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only">
+        <i class="material-icons">menu</i>
+      </a>
+    </div>
+  </nav>
+  </div>
+ 
+   <ul id="nav-mobile" class="side-nav fixed grey lighten-4">
+      <li><div class="userView">
+        <div class="background">
+
+        </div>
+        <a href="#!user"></a>
+        <a href="#!name"><span class="black-text name">Usuário</span></a>
+        <a href="#!email"><span class="black-text email">usuario@mobilis.me</span></a>
+      </div></li>
+      
+     
+
+      <li><a href="#">Resumo da Frota</a></li>
+      <li><a id="buttonusuario">Controle de Usuário</a></li>
+      <li><a href="http://localhost/rds/api/app/cadastro.html">Cadastro</a></li>
+    </ul>
+    <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>-->
+  </header>
+
+
+  <div class="container">
+
+<!--************************************************************************** real ************************************************************************************* -->
+<div id="MotoristaDinamico">
+<!--
+   <div class="card drivercard hoverable">
+          <div class="card-content">
+              <span class="card-title">Motorista 1</span>
+              <ul class="collapsible hover" data-collapsible="accordion" hidden>
+              <li>
+                <div class="collapsible-header">Carro 1 - data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                            
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                        
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                          
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                      </ul>
+
+                </div>
+              </li>
+              
+            </ul>
+        </div>
+    </div>
+-->
+</div>
+
+<!--********************************************************************** fictícia ************************************************************************************* -->
+<div hidden>
+          <div class="card drivercard hoverable">
+            <div class="card-content">
+              <span class="card-title">Motorista 1</span>
+              <ul class="collapsible hover" data-collapsible="accordion" hidden>
+              <li>
+                <div class="collapsible-header">Carro 1 - data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                            
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                        
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                          
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                      </ul>
+
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 2 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                       
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                   
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                     
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                        
+                          </div>
+                        </li>
+                      </ul>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 3 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                         
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                      
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                       
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                          </div>
+                        </li>
+                      </ul>
+                </div>
+              </li>
+            </ul>
+            </div>
+         </div>
+  
+        <!--******************************************************************************************************************************************************************************* -->
+  
+          <div class="card drivercard  hoverable">
+            <div class="card-content">
+              <span class="card-title">Motorista 2</span>
+              <ul class="collapsible hover" data-collapsible="accordion" hidden>
+              <li>
+                <div class="collapsible-header">Carro 1 - data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                      </ul>
+
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 2 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                     
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                        
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          <span>
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                         
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                       
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                      
+                          </div>
+                        </li>
+                      </ul>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 3 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                  
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                     
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                 
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                        
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                       
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                        
+                          </div>
+                        </li>
+                      </ul>
+                </div>
+              </li>
+            </ul>
+            </div>
+         </div>
+     
+
+        <!--******************************************************************************************************************************************************************************* -->
+ 
+          <div class="card drivercard hoverable">
+            <div class="card-content">
+              <span class="card-title zoom">Motorista 3</span>
+              <ul class="collapsible hover" data-collapsible="accordion" hidden>
+              <li>
+                <div class="collapsible-header">Carro 1 - data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                     
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                            
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                         
+                          </div>
+                        </li>
+                      </ul>
+
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 2 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                      
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                       
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                     
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                    
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                    
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                     
+                          </div>
+                        </li>
+                      </ul>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 3 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                          
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                 
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                   
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                   
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                    
+                          </div>
+                        </li>
+                      </ul>
+                </div>
+              </li>
+            </ul>
+            </div>
+         </div>
+    
+ 
+<!--******************************************************************************************************************************************************************************* -->
+ 
+          <div class="card drivercard hoverable">
+            <div class="card-content">
+              <span class="card-title zoom">Motorista 4</span>
+              <ul class="collapsible hover" data-collapsible="accordion" hidden>
+              <li>
+                <div class="collapsible-header">Carro 1 - data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+           
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                      
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                   
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                      
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                    
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                       
+                          </div>
+                        </li>
+                      </ul>
+
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 2 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                          
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                          
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                        
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                        
+                          </div>
+                        </li>
+                      </ul>
+              </li>
+              <li>
+                <div class="collapsible-header">Carro 3 - Data de uso</div>
+                <div class="collapsible-body grey lighten-2">
+
+                      <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                          <div class="collapsible-header">Evento 1 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                        
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  AI01 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                          
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 2 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                       
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  L004 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                         
+                          </div>
+                        </li>
+                        <li>
+                          <div class="collapsible-header">Evento 3 - Horário</div>
+                          <div class="collapsible-body grey lighten-5">
+                         
+                              <strong>Horário de Envio:</strong> 12:48 <br/>
+                              <strong>Código de Erro:</strong>  FI03 <br/>
+                              <strong>Dados:</strong> aqui o que enviaram
+                           
+                          </div>
+                        </li>
+                      </ul>
+                </div>
+              </li>
+            </ul>
+            </div>
+         </div>
+     </div> <!-- ficticia -->
+  <!--***************************************************************************************************************************************************************************** -->
+
+  
+  </div> <!-- container -->
+
+
+
+
+
+   <!--  Scripts-->
+  <script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+  <script src="../vendor/materialize/js/materialize.js"></script>
+  <script src="../js/driver.js"></script>
+  <!--<script src="js/init.js"></script>-->
+
+  </body>
+</html>
