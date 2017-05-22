@@ -1,4 +1,4 @@
-  $(document).ready(function() {
+  $(function() {
     $('select').material_select();
 
   });
@@ -21,6 +21,10 @@ $.ajax({
 		var dec_data = atob(data.data[0].dados);
 		//console.log(dec_data);
 		processPoints(dec_data);
+
+		
+
+		
 		
 	}
 });
@@ -281,16 +285,18 @@ function processPoints(dec_data){
 	}
 
 	///////////////////// Plots ///////////////////////////////
-	navigate(points_vel_tempo, "placeholder_vel");	
-	navigate(points_torque_tempo, "placeholder_torque");
+	navigate(points_vel_tempo, "placeholder_vel", "overview_vel");	
+	navigate(points_torque_tempo, "placeholder_torque", "overview_torque");
 	navigate(points_torque_rotacao, "placeholder_torque_rotacao");
 	navigate(points_potencia_rotacao, "placeholder_pot_rotacao")
 
-	multiplePlot(datasets1, "placeholder_choices1", "choices1");
-	multiplePlot(datasets2, "placeholder_choices2", "choices2");
-	multiplePlot(datasets3, "placeholder_pot_tempo", "choices3" );
+	multiplePlot(datasets1, "placeholder_choices1", "choices1", "overview_choices1");
+	multiplePlot(datasets2, "placeholder_choices2", "choices2", "overview_choices2");
+	multiplePlot(datasets3, "placeholder_pot_tempo", "choices3", "overview_choices3" );
 
-	multiplePlot(dataset_misc, "placeholder_all", "choices_all");
+	multiplePlot(dataset_misc, "placeholder_all", "choices_all", "overview_all");
+
+
 
 	$("#btnplot").click(function(){
 		var name_x = $("#eixo-x").val();
@@ -335,16 +341,18 @@ function processPoints(dec_data){
 			points_misc[i-1] =  [ x[i-1] , y[i-1] ];
 		}
 
-		navigate(points_misc, "placeholder_misc");
+		navigate(points_misc, "placeholder_misc", "overview_misc");
 
 	});
 	/////////////////////////////////////////////////////////////
+	$(".overview").find($(".legend")).hide();
 }
 
-function navigate(plot_points, placeholder_id){
+function navigate(plot_points, placeholder_id, overview){
 
 		var data = [ plot_points ],
-			placeholder = $("#"+placeholder_id);
+			placeholder = $("#"+placeholder_id),
+			overview_id = $("#"+overview);
 
 		var plot = $.plot(placeholder, data, {
 				series: {
@@ -361,13 +369,57 @@ function navigate(plot_points, placeholder_id){
 					interactive: true
 				},
 				grid: {
-		        hoverable: true,
-		        color: '#000',
-		        borderWidth: 1,
-		        borderColor: "#000",
-		        aboveData: false
-	      	}
+			        hoverable: true,
+			        color: '#000',
+			        borderWidth: 1,
+			        borderColor: "#000",
+			        aboveData: false
+	      		}
+			});
+
+		var overview = $.plot(overview_id, data, {
+			series: {
+				lines: {
+					show: true,
+					lineWidth: 1
+				},
+				shadowSize: 0
+			},
+			xaxis: {
+				ticks: [],
+			},
+			yaxis: {
+				ticks: [],
+				min: 0,
+				autoscaleMargin: 0.1
+			},
+			selection: {
+				mode: "x"
+			}
 		});
+
+		placeholder.bind("plotselected", function (event, ranges) {
+
+			// do the zooming
+			$.each(plot.getXAxes(), function(_, axis) {
+				var opts = axis.options;
+				opts.min = ranges.xaxis.from;
+				opts.max = ranges.xaxis.to;
+			});
+			plot.setupGrid();
+			plot.draw();
+			plot.clearSelection();
+
+			// don't fire event on the overview to prevent eternal loop
+
+			overview.setSelection(ranges, true);
+		});
+
+		$(overview_id).bind("plotselected", function (event, ranges) {
+			plot.setSelection(ranges);
+		});
+
+
 
 		function toolTip(f, h, x,y) {
 	      $('<div id="tooltip">x: '+x+'</br>y: '+y+'</div>').css({
@@ -437,7 +489,7 @@ function navigate(plot_points, placeholder_id){
 		addArrow("down", 40, 75, { top: 100 });
 }
 
-function multiplePlot(datasets, placeholder_id, choices_id){
+function multiplePlot(datasets, placeholder_id, choices_id, overview_id){
 
 		var i = 0;
 		$.each(datasets, function(key, val) {
@@ -457,6 +509,19 @@ function multiplePlot(datasets, placeholder_id, choices_id){
 				+ val.label + "</label>");
 		});
 
+		//var choices = $(".choices");
+		var top = choiceContainer.parent().position().top;
+
+		var styles = {
+	      position : "absolute",
+	      right: "5%",
+	      top: top
+	    }
+
+	    console.log();
+		
+		choiceContainer.css(styles);
+
 		choiceContainer.find("input").click(plotAccordingToChoices);
 
 		function plotAccordingToChoices() {
@@ -471,7 +536,7 @@ function multiplePlot(datasets, placeholder_id, choices_id){
 			});
 
 			if (data.length > 0) {
-				$.plot("#"+placeholder_id, data, {
+			  var plot = $.plot("#"+placeholder_id, data, {
 					yaxis: {
 						min: 0
 					},
@@ -491,6 +556,27 @@ function multiplePlot(datasets, placeholder_id, choices_id){
 				        borderColor: "#000",
 				        aboveData: false
 				     }
+				});
+
+				var overview = $.plot("#"+overview_id, data, {
+					series: {
+						lines: {
+							show: true,
+							lineWidth: 1
+						},
+						shadowSize: 0
+					},
+					xaxis: {
+						ticks: [],
+					},
+					yaxis: {
+						ticks: [],
+						min: 0,
+						autoscaleMargin: 0.1
+					},
+					selection: {
+						mode: "x"
+					}
 				});
 			}
 
@@ -523,9 +609,35 @@ function multiplePlot(datasets, placeholder_id, choices_id){
 		        b = null;
 		      }
 		    });
+
+
+			$("#"+placeholder_id).bind("plotselected", function (event, ranges) {
+
+				// do the zooming
+				$.each(plot.getXAxes(), function(_, axis) {
+					var opts = axis.options;
+					opts.min = ranges.xaxis.from;
+					opts.max = ranges.xaxis.to;
+				});
+				plot.setupGrid();
+				plot.draw();
+				plot.clearSelection();
+
+				// don't fire event on the overview to prevent eternal loop
+
+				overview.setSelection(ranges, true);
+			});
+
+			$("#"+overview_id).bind("plotselected", function (event, ranges) {
+				plot.setSelection(ranges);
+			});
 		}
 
+
+
 		plotAccordingToChoices();
+		//$(".legend").css("display","none");
+		
 }
 
 function checkMaxValue(param, value, time){
@@ -571,76 +683,79 @@ function setCalculatedValues(){
 	var cabecalho = "<thead><tr><th></th>"+
 					    "<th>Máxima</th>"+
 					    "<th>Médio</th>"+
-				    "</tr></thead><tbody>";	
+				    "</tr></thead><tbody>";
 
-	$("#table_vel").empty().append(cabecalho+
-					         "<tr>"+
-					            "<td>Velocidade</td>"+
-					            "<td>"+max_vel+"  ("+max_vel_time+"s)</td>"+
-					            "<td>"+avg_vel+"</td>"+
-					         "</tr>"+
-				          	"</tbody>");
+	var html1= "<tr>"+
+					"<td>Velocidade</td>"+
+					"<td>"+max_vel+"  ("+max_vel_time+"s)</td>"+
+					"<td>"+avg_vel+"</td>"+
+				"</tr>";
+	
+	var html2 = "<tr>"+
+					"<td>Aceledador</td>"+
+					"<td>"+max_acel+"</td>"+
+					"<td>"+avg_acel+"</td>"+
+				"</tr>"+
+				"<tr>"+
+					"<td>Freio</td>"+
+					"<td>"+max_freio+"</td>"+
+					"<td>"+avg_freio+"</td>"+
+				"</tr>";
 
-	$("#table_acel").empty().append(cabecalho+
-					         "<tr>"+
-					            "<td>Aceledador</td>"+
-					            "<td>"+max_acel+"</td>"+
-					            "<td>"+avg_acel+"</td>"+
-					         "</tr>"+
-					         "<tr>"+
-					            "<td>Freio</td>"+
-					            "<td>"+max_freio+"</td>"+
-					            "<td>"+avg_freio+"</td>"+
-					         "</tr>"+
-				          	"</tbody>");
 
-	$("#table_torque").empty().append(cabecalho+
-					         "<tr>"+
-					            "<td>Torque</td>"+
-					            "<td>"+max_torque+"  ("+max_torque_time+"s)</td>"+
-					            "<td>"+avg_torque+"</td>"+
-					         "</tr>"+
-					         "<tr>"+
-					            "<td>Rotação</td>"+
-					            "<td>"+max_rotacao+"  ("+max_rotacao_time+"s)</td>"+
-					            "<td>"+avg_rotacao+"</td>"+
-					         "</tr>"+
-				          	"</tbody>");
+	var html3 = "<tr>"+
+					"<td>Torque</td>"+
+					"<td>"+max_torque+"  ("+max_torque_time+"s)</td>"+
+					"<td>"+avg_torque+"</td>"+
+				"</tr>"+
+				"<tr>"+
+					"<td>Rotação</td>"+
+					"<td>"+max_rotacao+"  ("+max_rotacao_time+"s)</td>"+
+					"<td>"+avg_rotacao+"</td>"+
+				"</tr>";
 
-	$("#table_corrente").empty().append(cabecalho+
-					         "<tr>"+
-					            "<td>Tensão Bateria</td>"+
-					            "<td>"+max_tensao_bat+"  ("+max_tensao_bat_time+"s)</td>"+
-					            "<td>"+avg_tensao_bat+"</td>"+
-					         "</tr>"+
-					         "<tr>"+
-					            "<td>Tensão Motor</td>"+
-					            "<td>"+max_tensao_motor+"  ("+max_tensao_motor_time+"s)</td>"+
-					            "<td>"+avg_tensao_motor+"</td>"+
-					         "</tr>"+
-					          "<tr>"+
-					            "<td>Corrente Pack</td>"+
-					            "<td>"+max_corrente_pack+"  ("+max_corrente_pack_time+"s)</td>"+
-					            "<td>"+avg_corrente_pack+"</td>"+
-					         "</tr>"+
-					          "<tr>"+
-					            "<td>Corrente Motor</td>"+
-					            "<td>"+max_corrente_motor+"  ("+max_corrente_motor_time+"s)</td>"+
-					            "<td>"+avg_corrente_motor+"</td>"+
-					         "</tr>"+
-				          	"</tbody>");
+	var html_torque = "<tr>"+
+						"<td>Torque</td>"+
+						"<td>"+max_torque+"  ("+max_torque_time+"s)</td>"+
+						"<td>"+avg_torque+"</td>"+
+					"</tr>";
 
-	$("#table_potencia").empty().append(cabecalho+
-					         "<tr>"+
-					            "<td>Potência</td>"+
-					            "<td>"+max_potencia.toFixed(2)+"  ("+max_potencia_time+"s)</td>"+
-					            "<td>"+avg_potencia+"</td>"+
-					         "</tr>"+
-					         "<tr>"+
-					            "<td>Rotação</td>"+
-					            "<td>"+max_rotacao+"   ("+max_rotacao_time+"s)</td>"+
-					            "<td>"+avg_rotacao+"</td>"+
-					         "</tr>"+
-				          	"</tbody>");
+	var html4 = "<tr>"+
+					"<td>Tensão Bateria</td>"+
+					"<td>"+max_tensao_bat+"  ("+max_tensao_bat_time+"s)</td>"+
+					"<td>"+avg_tensao_bat+"</td>"+
+				"</tr>"+
+				"<tr>"+
+					"<td>Tensão Motor</td>"+
+					"<td>"+max_tensao_motor+"  ("+max_tensao_motor_time+"s)</td>"+
+					"<td>"+avg_tensao_motor+"</td>"+
+				"</tr>"+
+				"<tr>"+
+					"<td>Corrente Pack</td>"+
+					"<td>"+max_corrente_pack+"  ("+max_corrente_pack_time+"s)</td>"+
+					"<td>"+avg_corrente_pack+"</td>"+
+				"</tr>"+
+				"<tr>"+
+					"<td>Corrente Motor</td>"+
+					"<td>"+max_corrente_motor+"  ("+max_corrente_motor_time+"s)</td>"+
+					"<td>"+avg_corrente_motor+"</td>"+
+				"</tr>";
 
+	var html5 = "<tr>"+
+					"<td>Potência</td>"+
+					"<td>"+max_potencia.toFixed(2)+"  ("+max_potencia_time+"s)</td>"+
+					"<td>"+avg_potencia+"</td>"+
+				"</tr>"+
+				"<tr>"+
+					"<td>Rotação</td>"+
+					"<td>"+max_rotacao+"   ("+max_rotacao_time+"s)</td>"+
+					"<td>"+avg_rotacao+"</td>"+
+				"</tr>";
+
+	$("#table_vel").empty().append(cabecalho+ html1+"</tbody>");
+	$("#table_acel").empty().append(cabecalho+html2+"</tbody>");
+	$("#table_torque").empty().append(cabecalho+html3+"</tbody>");
+	$("#table_corrente").empty().append(cabecalho+html4+"</tbody>");
+	$("#table_potencia").empty().append(cabecalho+html5+"</tbody>");
+	$("#table_all").empty().append(cabecalho+html1+html2+html_torque+html4+html5+"</tbody>");
 }
