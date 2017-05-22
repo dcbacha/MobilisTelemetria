@@ -1,0 +1,27 @@
+.mobilisblue {
+  background-color: #2A1856 !important;
+}
+
+.mobilisred {
+  background-color: #E6354D !important;
+}
+
+.mobilisdarkgrey{
+	background-color: #575756 !important;
+}
+
+.mobilislightblue{
+	background-color: #4Ec1E0 !important;
+}
+
+.logo {
+   max-height: 30px;
+}
+
+.warningcolor{
+	background-color: #ffecb3 !important;
+}
+
+.dangercolor{
+	background-color: #ffcdd2 !important;
+}

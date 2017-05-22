@@ -1,0 +1,98 @@
+@media only screen and (min-width: 992px){
+	.container {
+		padding-left: 240px;
+	}
+
+	#nav-mobile{
+		margin-top: 65px;
+	}
+
+
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+    		padding-left: 0;
+    }
+
+}
+
+body    {overflow-y:scroll;}
+
+#scrollSpyId{
+    position: absolute;
+    right: 5%;
+    width: 100px;
+}
+
+.demo-container {
+	box-sizing: border-box;
+	width: 100%;
+	height: 450px;
+	padding: 20px 15px 15px 15px;
+	margin: 15px auto 30px auto;
+	border: 1px solid #ddd;
+	background: #fff;
+	background: linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
+	box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+	-o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+
+.demo-placeholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+.legend {
+	position: absolute; width: 87px; height: 74px; top: 13px; right: 14px; background-color: rgb(255, 255, 255); opacity: 0.85;
+}
+
+
+.legendLabel{
+	padding: 0px;
+}
+.legendColorBox{
+	padding: 4px;
+	width:4px;height:0;border:5px;overflow:hidden
+}
+
+.navigate .button {
+	position: absolute;
+	cursor: pointer;
+}
+
+.navigate div.button {
+	font-size: smaller;
+	color: #999;
+	background-color: #eee;
+	padding: 2px;
+}
+.message {
+	padding-left: 50px;
+	font-size: smaller;	
+}
+
+.plot_values th{
+	padding: 0px;
+}
+
+.plot_values td{
+	padding: 5px;
+}
+.plot_values{
+	margin: 5px;
+}
+
+table.plot_values > tbody > tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}

@@ -5,19 +5,20 @@ require __DIR__ . '/../database.php';
 use Firebase\JWT\JWT;
 
 //Rotina de login pela área de usuário
-$app->post("/login", function ($request, $response, $arguments) use ($app)
-{ 
+$app->post("/login", function ($request, $response, $arguments) use ($app){ 
     $db = getDB(); 
   
     // esses funcionam se rolar um post direto do formulario, sem json e etc
     $email = $request->getParam('email'); 
     $password = $request->getParam('password');
+
+    $password_enc = md5($password);
    
        
     try {   
         $result = $db->prepare("SELECT * FROM `usuarios` WHERE `email` = ? AND `password`= ?");
         $result->bindParam(1, $email);
-        $result->bindParam(2, $password);  
+        $result->bindParam(2, $password_enc);  
         $result -> execute();  
     }
     catch(Exception $db) {
@@ -30,13 +31,14 @@ $app->post("/login", function ($request, $response, $arguments) use ($app)
     if($num_rows > 0)
     {
       $now = new DateTime();
-      $future = new DateTime("now +15 minutes");
+      $future = new DateTime("now +60 minutes");
       $server = $request->getServerParams();
 
       $payload = [
           "iat" => $now->getTimeStamp(),
           "exp" => $future->getTimeStamp(),
-          "idusuario" => $rows[0]["idusuario"],
+          "nome" => $rows[0]["nome"],
+          "email" => $rows[0]["email"],
           "idgrupo" => $rows[0]["idgrupo"] //mudança nisso para que o acesso do ususario ja retorne o id do carro (talvez mudar para o grupo, já que podem ser varios carros)
 
       ];     

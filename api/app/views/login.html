@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link rel="stylesheet" type="text/css" href="css/mobilisstyle.css">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="icon" href="img/versoes-logo-mobilis-05.png">
+
+	<title>Mobilis</title>
+</head>
+
+
+<body class="mobilisblue loaded">
+	<div class="valign-wrapper" >
+	<div class="row" style="padding-top: 10%">
+
+		
+
+		<div class="col s12 z-depth-4 card-panel" style="width: 320px">
+		<!-- erro time out-->
+		
+		<div class="col s12 z-depth-0 card-panel yellow lighten-1" id="errortimeout" hidden>
+			<div class="center"> <p><strong>TIME OUT:</strong> Realize novo Login</p></div>
+		</div>
+
+		<div class="col s12 z-depth-0 card-panel yellow lighten-1" id="errorunauthorized" hidden>
+			<div class="center"> <p><strong>ERRO:</strong> Faça Login</p></div>
+		</div>
+
+
+		<form class="login-form" method="post" id="#formLogin">
+		<div class="row">
+			<div class="input-field center">
+				<!--<img src="../img/logo_mobilis.png">-->
+				<img src="img/versoes-logo-mobilis-03.png" style="max-width: 300px">
+			</div>
+			
+		</div>
+	      <div class="row">
+	        <div class="input-field">
+	          <i class="material-icons prefix">perm_identity</i>
+	          <input id="email" type="email" name="email" class="validate">
+	          <label for="email">Email</label>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="input-field">
+	       	  <i class="material-icons prefix">vpn_key</i>
+	          <input id="password" type="password" name="password" class="validate">
+	          <label for="password">Password</label>
+	        </div>
+	      </div>
+
+	<!--	<div class="row" hidden id="loginerror"> -->
+        <div class="col s12" id="loginerror" hidden>
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <p>Usuario ou senha errados :(</p>
+            </div>
+          </div>
+        </div>
+
+       <!-- </div> -->
+
+	      <div class="row">
+	      	<div class="input-field col s12">
+	      		<button class="waves-effect waves-light btn col s12 mobilisred" id="login">login</button>
+	      	</div>
+	      </div>
+	    </form>
+
+	    
+      </div>
+
+    	</div>
+
+	</div>
+	</div>
+
+	
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="js/commonfunctions.js"></script>
+    <script type="text/javascript" src="js/logincheck.js"></script>
+</body>
+</html>

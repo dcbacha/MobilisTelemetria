@@ -6,7 +6,8 @@
 //JWT Login Protection
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "path" => ["/", ""],
-    "passthrough" => ["/login","/car/auth"],
+    "secure" => false, //segurança "frouxa" -- só true se usarmos https no servidor, como não estamos, = false
+    "passthrough" => ["/login","/car/auth", '/home', '/fleet', '/drivers', '/diagRequest', '/logeventos', "/rpi", "/plot", "/plotter", "/log", '/cadastro'],
     "secret" => "SUPER_SECRET_KET",
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];

@@ -7,12 +7,15 @@ namespace Composer\Autoload;
 class ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Slim\\Views\\' => 11,
             'Slim\\Middleware\\' => 16,
             'Slim\\' => 5,
         ),
@@ -34,6 +37,14 @@ class ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Slim\\Views\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/twig-view/src',
+        ),
         'Slim\\Middleware\\' => 
         array (
             0 => __DIR__ . '/..' . '/tuupola/slim-jwt-auth/src',
@@ -70,6 +81,13 @@ class ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6
     );
 
     public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
         'P' => 
         array (
             'Pimple' => 
@@ -79,12 +97,24 @@ class ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6
         ),
     );
 
+    public static $classMap = array (
+        'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
+        'PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
+        'PHPMailerOAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauth.php',
+        'PHPMailerOAuthGoogle' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
+        'POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.pop3.php',
+        'SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.smtp.php',
+        'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
+        'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitfc98ea68794fa7e31d5bde0efdac7ba6::$classMap;
 
         }, null, ClassLoader::class);
     }
