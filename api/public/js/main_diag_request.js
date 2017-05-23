@@ -6,7 +6,7 @@ $("#btndiagnostic").parent().siblings().removeClass("active");
 $(function(){
 
 	sessions(token);
-	// $('select').material_select();
+	//$('select').material_select();
 
 	$("#btnsolicitar").click(function(){
 		console.log("solicitou - btn não tem ação");

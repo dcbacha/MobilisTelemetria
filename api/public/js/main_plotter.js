@@ -1,14 +1,10 @@
-  $(function() {
-    $('select').material_select();
-
-  });
-
-
+//var token = checktoken();
 
 $.ajax({
 	type: "GET",
 	url: "http://192.168.0.35/rds/api/public/plotter",
 	dataType: 'json',
+
 	error: function(data, status) {
 		console.log("erro ajax");
 		console.log(data);
@@ -20,14 +16,16 @@ $.ajax({
 		//console.log(data);
 		var dec_data = atob(data.data[0].dados);
 		//console.log(dec_data);
-		processPoints(dec_data);
-
-		
-
-		
-		
+		processPoints(dec_data);	
 	}
 });
+
+
+$(function() {
+	$('select').material_select();
+
+});
+
 //console.time('processPoints');
 //console.timeEnd('processPoints');
 
@@ -316,7 +314,7 @@ function processPoints(dec_data){
 			case "tensao_motor": x = tensao_motor; break;
 			case "corrente_pack": x = corrente_pack; break;
 			case "corrente_motor": x = corrente_motor; break;
-			case "potencia": x = potencia; break;
+			case "potencia": x = potencia;
 		}
 
 		switch (name_y){
@@ -330,7 +328,7 @@ function processPoints(dec_data){
 			case "tensao_motor": y = tensao_motor; break;
 			case "corrente_pack": y = corrente_pack; break;
 			case "corrente_motor": y = corrente_motor; break;
-			case "potencia": y = potencia; break;
+			case "potencia": y = potencia;
 		}
 
 		for(let i=1; i < linhas.length ; i++){
@@ -345,7 +343,7 @@ function processPoints(dec_data){
 
 	});
 	/////////////////////////////////////////////////////////////
-	$(".overview").find($(".legend")).hide();
+	//$(".overview").find($(".legend")).hide();
 }
 
 function navigate(plot_points, placeholder_id, overview){
@@ -518,10 +516,7 @@ function multiplePlot(datasets, placeholder_id, choices_id, overview_id){
 	      top: top
 	    }
 
-	    console.log();
-		
 		choiceContainer.css(styles);
-
 		choiceContainer.find("input").click(plotAccordingToChoices);
 
 		function plotAccordingToChoices() {
@@ -631,13 +626,11 @@ function multiplePlot(datasets, placeholder_id, choices_id, overview_id){
 			$("#"+overview_id).bind("plotselected", function (event, ranges) {
 				plot.setSelection(ranges);
 			});
+
+			$(".overview").find($(".legend")).hide();
 		}
 
-
-
 		plotAccordingToChoices();
-		//$(".legend").css("display","none");
-		
 }
 
 function checkMaxValue(param, value, time){

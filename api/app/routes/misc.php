@@ -70,7 +70,7 @@ $app->get("/listlogperm", function ($request, $response, $arguments) use ($app) 
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
-$app->get("/listdrivers", function ($request, $response, $arguments) use ($app) {
+$app->get("/listfleet", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    
     $idgrupo = $this->get('jwt')->idgrupo;

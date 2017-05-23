@@ -55,6 +55,7 @@ function processData(data){
   		var timestamp_evt = data[x].timestamp_evt;
   		var timestamp_rcv = data[x].timestamp_rcv;
 		var dados = data[x].data;
+		var nome = data[x].nome;
 		
   		if ($.inArray(idcarro, listacarros) == -1){
   			listacarros.push(idcarro);
@@ -63,7 +64,7 @@ function processData(data){
   			i++;
   		}
 
-  		objEvt[j] = createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados);
+  		objEvt[j] = createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados, nome);
   		j++;
   	
 	} //fim for
@@ -105,7 +106,7 @@ function createObjCarros(idcarro, numserie, odometro, horimetro){
 	return obj;
 }
 
-function createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados){
+function createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados, nome){
 
 	var status = warningcheck(errorcode, dados, idcarro);
 
@@ -122,7 +123,8 @@ function createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados){
 								"<span>"+
 									"<strong>Dados: </strong>"+dados+"<br/>"+
 									"<strong>Código de Erro: </strong>"+errorcode+"<br/>"+
-									"<strong>Horário de Envio: </strong>"+timestamp_rcv+""+
+									"<strong>Horário de Envio: </strong>"+timestamp_rcv+"<br/>"+
+									"<strong>Responsável: </strong>"+nome+""+
 								"</span>"+
 							"</div>"+
 						"</li>"};

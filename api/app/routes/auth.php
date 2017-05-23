@@ -31,7 +31,7 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
     if($num_rows > 0)
     {
       $now = new DateTime();
-      $future = new DateTime("now +60 minutes");
+      $future = new DateTime("now +15 minutes");
       $server = $request->getServerParams();
 
       $payload = [
