@@ -329,7 +329,7 @@ $app->post("/logeventos", function ($request, $response, $arguments) use ($app) 
     $arr_erros=array();
     
 
-    $sql = "INSERT INTO `logeventos-teste`(`car-id`, `idmotorista`, `error-code`, `data`, `timestamp-evt`) VALUES ";
+    $sql = "INSERT INTO `logeventos`(`car-id`, `idmotorista`, `error-code`, `data`, `timestamp-evt`) VALUES ";
     
     foreach ($content as $line) {
             

@@ -530,7 +530,7 @@ function multiplePlot(datasets, placeholder_id, choices_id, overview_id){
 				}
 			});
 
-			if (data.length > 0) {
+			if (data.length >= 0) {
 			  var plot = $.plot("#"+placeholder_id, data, {
 					yaxis: {
 						min: 0

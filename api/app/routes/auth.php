@@ -13,48 +13,52 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
     $password = $request->getParam('password');
 
     $password_enc = md5($password);
-   
+  // $password_hash = password_verify();
        
     try {   
-        $result = $db->prepare("SELECT * FROM `usuarios` WHERE `email` = ? AND `password`= ?");
+        $result = $db->prepare("SELECT nome, email, idgrupo, password FROM `usuarios` WHERE `email` = ? LIMIT 1");
         $result->bindParam(1, $email);
-        $result->bindParam(2, $password_enc);  
+       // $result->bindParam(2, $password_enc);  
         $result -> execute();  
     }
     catch(Exception $db) {
         return $response->withStatus(401)->write("Unauthorized");
     }                                   
     
-    $rows = $result->fetchAll();
-    $num_rows = count($rows);  
+    $rows = $result->fetchObject();
+    $num_rows = count($rows);
      
-    if($num_rows > 0)
-    {
-      $now = new DateTime();
-      $future = new DateTime("now +15 minutes");
-      $server = $request->getServerParams();
-
-      $payload = [
-          "iat" => $now->getTimeStamp(),
-          "exp" => $future->getTimeStamp(),
-          "nome" => $rows[0]["nome"],
-          "email" => $rows[0]["email"],
-          "idgrupo" => $rows[0]["idgrupo"] //mudança nisso para que o acesso do ususario ja retorne o id do carro (talvez mudar para o grupo, já que podem ser varios carros)
-
-      ];     
+    if($num_rows){
       
-      $secret = "SUPER_SECRET_KET";
-      $token = JWT::encode($payload, $secret, "HS256"); //define o json com as informacoes em JWT
-      $data["status"] = "ok";
-      $data["token"] = $token;
-                                               
-      return $response->withStatus(201)
-          ->withHeader("Content-Type", "application/json")
-          ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));     
-      
-    } 
+      if(password_verify($request->getParam('password'), $rows->password)){
+  
+        $now = new DateTime();
+        $future = new DateTime("now +15 minutes");
+        $server = $request->getServerParams();
+
+        $payload = [
+            "iat" => $now->getTimeStamp(),
+            "exp" => $future->getTimeStamp(),
+            "nome" => $rows->nome,
+            "email" => $rows->email,
+            "idgrupo" => $rows->idgrupo
+        ];     
+        
+        $secret = "SUPER_SECRET_KET";
+        $token = JWT::encode($payload, $secret, "HS256"); //define o json com as informacoes em JWT
+        $data["status"] = "ok";
+        $data["token"] = $token;
+                                                 
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+      }   
+      else {
+        return $response->withStatus(401)->write("Usuario ou senha errados");
+      }
+    }
     else {
-      return $response->withStatus(401)->write("Wrong username or password");
+      return $response->withStatus(401)->write("Usuário não existe");
     }
 });
 

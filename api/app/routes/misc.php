@@ -1,6 +1,6 @@
 <?php
 
-$app->put("/subscribe", function ($request, $response, $arguments) use ($app) {
+$app->put("/register", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    
     $idgrupo = $this->get('jwt')->idgrupo;
@@ -15,7 +15,9 @@ $app->put("/subscribe", function ($request, $response, $arguments) use ($app) {
     $grupo = $request->getParam('grupo');
     $nivel = $request->getParam('nivel');
 
-    $senha_enc = md5($senha);
+    //$senha_enc = md5($senha);
+    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+    echo $senha_hash;
 
     try{
         $result = $db->prepare("INSERT INTO `usuarios` (`nome`, `sobrenome`, `username`, `email`, `password`, `idgrupo`, `nivelpermissao`) VALUES (?, ?, ?, ?, ?, ?, ?)" );
@@ -23,7 +25,7 @@ $app->put("/subscribe", function ($request, $response, $arguments) use ($app) {
         $result->bindParam(2, $sobrenome);
         $result->bindParam(3, $user);
         $result->bindParam(4, $email);
-        $result->bindParam(5, $senha_enc);
+        $result->bindParam(5, $senha_hash);
         $result->bindParam(6, $idgrupo);
         $result->bindParam(7, $nivel);
 

@@ -57,6 +57,7 @@
 	    <select id="grupo">
 	      	<option value="" disabled selected>Selecione</option>
 	  	    <option value="1">Grupo 1</option>
+          <option value="2">Grupo 2</option>
 	    </select>
 	    <label>Grupo</label>
 	  	</div>
@@ -64,7 +65,8 @@
 	  	<div class="input-field col s6">
 	    <select id="nivel">
 	      <option value="" disabled selected>Selecione</option>
-	      <option value="1">Nível 1</option>
+	      <option value="0">Nível 0</option>
+        <option value="1">Nível 1</option>
 	      <option value="2">Nível 2</option>
 	    </select>
 	    <label>Nível de Acesso</label>

@@ -48,9 +48,11 @@ $("#login").click(function(){
                     }, 2500);
                    } 
                 },
-                error: function(data) {
-                    
-                    console.log(data);
+                error: function(data, status, message) {
+                     console.log(data);
+                    console.log(data.responseText);
+                    console.log(status);
+                  //  console.log(message);
                     console.log("Erro no login");
                      $("#loginerror").stop().slideToggle();
 

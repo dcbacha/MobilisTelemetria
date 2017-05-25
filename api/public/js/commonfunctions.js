@@ -12,10 +12,10 @@ var url_cadastro = 	url_global + "/cadastro";
 var url_req_readdata = 			url_global + "/carros/readdata";
 var url_req_readdata_driver = 	url_global + "/carros/readdata-motor";
 var url_req_login = 			url_global + "/login";
-var url_req_cadastro = 			url_global + "/subscribe";
+var url_req_cadastro = 			url_global + "/register";
 
 //variaveis globais
-var arr_danger = ["L5690"]; //["FI01", "FI02", "FI03"];
+var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
 var arr_warning = ["erro1"]; //["AI01", "AI02", "AI03", "AI04", "AI05", "AI06", "AI07", "AI08"];
 var num_warnings = 0;
 

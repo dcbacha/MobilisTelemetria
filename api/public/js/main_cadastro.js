@@ -86,6 +86,7 @@ function cadastra(form_json){
 			},
 			success: function(data, status) {
 				console.log("sucesso ajax cadastro");
+				console.log(data);
 
 				$("#sucesso").slideToggle(400);
 				setTimeout(function(){
