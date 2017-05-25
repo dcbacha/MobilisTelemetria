@@ -24,7 +24,6 @@ $container['view'] = function ($container){
 		'cache' => false,
 	]);
 
-	
 	$view->addExtension(new \Slim\Views\TwigExtension(
 		$container->router,
 		$container->request->getUri()
