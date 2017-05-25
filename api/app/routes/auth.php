@@ -90,7 +90,7 @@ $app->post("/car/auth", function ($request, $response, $arguments)
       $payload = [
           //"iat" => $now->getTimeStamp(),
           "exp" => $future->getTimeStamp(),
-          "idcarro" => $rows[0]["idcarro"]
+          "idc" => $rows[0]["idcarro"]
       ];     
       
       $secret = "SUPER_SECRET_KET";

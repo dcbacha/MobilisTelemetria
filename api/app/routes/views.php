@@ -8,7 +8,6 @@ $app->get('/home', function($request, $response){
 
 $app->get('/fleet', function($request, $response){
 
-//	return 'Home';
 	$this->view->render($response, 'template.php');
     return $this->view->render($response, 'page_fleet.php');
 
