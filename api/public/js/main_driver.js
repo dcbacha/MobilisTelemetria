@@ -22,7 +22,7 @@ $(function(){
 	
 			},
 			success: function(data, status) {
-				console.log(data);
+				//console.log(data);
 				processData(data);
 				//inicializacao_hover();
 				warningset();

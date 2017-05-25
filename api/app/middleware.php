@@ -7,7 +7,7 @@
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "path" => ["/", ""],
     "secure" => false, //segurança "frouxa" -- só true se usarmos https no servidor, como não estamos, = false
-    "passthrough" => ['/home', '/fleet', '/drivers', '/diagRequest', '/cadastro', "/plot", "/login", "/car/auth", '/logeventos', "/rpi", "/plotter", "/log"],
+    "passthrough" => ['/home', '/fleet', '/drivers', '/diagnostic', '/register', "/plot", "/login", "/car/auth", '/logeventos', "/rpi", "/plotter", "/log"],
     "secret" => "SUPER_SECRET_KET",
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];

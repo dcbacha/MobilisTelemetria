@@ -23,12 +23,12 @@ $(function(){
 			},
 			error: function(data, status) {
 				console.log("erro ajax -> main fleet");
-				console.log(data);
+				//console.log(data);
 				console.log(data.responseText);
 				redirect("timeout");
 			},
 			success: function(data, status) {
-				console.log(data);
+				//console.log(data);
 				processData(data);
 				inicializacao();
 			}

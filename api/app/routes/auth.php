@@ -18,7 +18,6 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
     try {   
         $result = $db->prepare("SELECT nome, email, idgrupo, password FROM `usuarios` WHERE `email` = ? LIMIT 1");
         $result->bindParam(1, $email);
-       // $result->bindParam(2, $password_enc);  
         $result -> execute();  
     }
     catch(Exception $db) {
@@ -37,11 +36,11 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
         $server = $request->getServerParams();
 
         $payload = [
-            "iat" => $now->getTimeStamp(),
+           // "iat" => $now->getTimeStamp(),
             "exp" => $future->getTimeStamp(),
-            "nome" => $rows->nome,
-            "email" => $rows->email,
-            "idgrupo" => $rows->idgrupo
+            "nme" => $rows->nome,
+            "eml" => $rows->email,
+            "idg" => $rows->idgrupo
         ];     
         
         $secret = "SUPER_SECRET_KET";
@@ -58,7 +57,7 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
       }
     }
     else {
-      return $response->withStatus(401)->write("Usuário não existe");
+      return $response->withStatus(401)->write("Usuario não existe");
     }
 });
 
@@ -89,7 +88,7 @@ $app->post("/car/auth", function ($request, $response, $arguments)
       $server = $request->getServerParams();
 
       $payload = [
-          "iat" => $now->getTimeStamp(),
+          //"iat" => $now->getTimeStamp(),
           "exp" => $future->getTimeStamp(),
           "idcarro" => $rows[0]["idcarro"]
       ];     

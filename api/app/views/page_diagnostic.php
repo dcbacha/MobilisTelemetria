@@ -3,7 +3,7 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/commonfunctions.js"></script>
-  <script src="js/main_diag_request.js"></script>
+  <script src="js/main_diagnostic.js"></script>
 
 
 <div class="container">

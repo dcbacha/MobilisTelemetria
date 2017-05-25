@@ -1,11 +1,11 @@
 <?php
 
-$app->put("/register", function ($request, $response, $arguments) use ($app) {
+$app->put("/cadastro", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    
-    $idgrupo = $this->get('jwt')->idgrupo;
-    $nome_user = $this->get('jwt')->nome;
-    $email_user = $this->get('jwt')->email;
+    $idgrupo = $this->get('jwt')->idg;
+    $nome_user = $this->get('jwt')->nme;
+    $email_user = $this->get('jwt')->eml;
 
     $nome = $request->getParam('nome');
     $sobrenome = $request->getParam('sobrenome');
@@ -42,7 +42,7 @@ $app->put("/register", function ($request, $response, $arguments) use ($app) {
 $app->get("/listlogperm", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    
-    $idgrupo = $this->get('jwt')->idgrupo;
+    $idgrupo = $this->get('jwt')->idg;
 
     try{
         $result = $db->prepare("SELECT `logpermanente`.`odometro`, `logpermanente`.`horimetro`, `veiculos`.`numserie`, `veiculos`.`idcarro`
@@ -75,7 +75,7 @@ $app->get("/listlogperm", function ($request, $response, $arguments) use ($app) 
 $app->get("/listfleet", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    
-    $idgrupo = $this->get('jwt')->idgrupo;
+    $idgrupo = $this->get('jwt')->idg;
 
     try{
         $result = $db->prepare("SELECT idcarro, numserie FROM veiculos where idgrupo = ?");
@@ -105,7 +105,7 @@ $app->get("/listfleet", function ($request, $response, $arguments) use ($app) {
 $app->get("/listgroup", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    
-    $idgrupo = $this->get('jwt')->idgrupo;
+    $idgrupo = $this->get('jwt')->idg;
 
     try{
         $result = $db->prepare("SELECT nome FROM usuarios where idgrupo = ?");

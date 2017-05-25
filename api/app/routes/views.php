@@ -2,7 +2,7 @@
 
 $app->get('/home', function($request, $response){
 
-    return $this->view->render($response, 'login.html');
+    return $this->view->render($response, 'page_login.html');
 
 });
 
@@ -10,29 +10,29 @@ $app->get('/fleet', function($request, $response){
 
 //	return 'Home';
 	$this->view->render($response, 'template.php');
-    return $this->view->render($response, 'fleetpage.php');
+    return $this->view->render($response, 'page_fleet.php');
 
 });
 
 $app->get('/drivers', function($request, $response){
 
 	$this->view->render($response, 'template.php');
-    return $this->view->render($response, 'driverpage.php');
+    return $this->view->render($response, 'page_driver.php');
 
 });
 
 
-$app->get('/diagRequest', function($request, $response){
+$app->get('/diagnostic', function($request, $response){
 
     $this->view->render($response, 'template.php');
-    return $this->view->render($response, 'diagrequestpage.php');
+    return $this->view->render($response, 'page_diagnostic.php');
 
 });
 
-$app->get('/cadastro', function($request, $response){
+$app->get('/register', function($request, $response){
 
     $this->view->render($response, 'template.php');
-    return $this->view->render($response, 'cadastropage.php');
+    return $this->view->render($response, 'page_register.php');
 
 });
 
@@ -49,7 +49,7 @@ $app->get('/log', function($request, $response){
 $app->get('/plot', function($request, $response){
 
     //$this->view->render($response, 'template.php');
-    return $this->view->render($response, 'plotpage.html');
+    return $this->view->render($response, 'page_plot.html');
 
 });
 

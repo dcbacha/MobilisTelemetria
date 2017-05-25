@@ -2,17 +2,17 @@
 var url_global = "http://192.168.0.35/rds/api/public";
 
 //link views
-var url_fleet = 	url_global + "/fleet";
-var url_drivers = 	url_global + "/drivers";
-var url_home = 		url_global + "/home";
-var url_diag_req = 	url_global + "/diagRequest";
-var url_cadastro = 	url_global + "/cadastro";
+var url_fleet = 		url_global + "/fleet";
+var url_drivers = 		url_global + "/drivers";
+var url_home = 			url_global + "/home";
+var url_diagnostic = 	url_global + "/diagnostic";
+var url_cadastro = 		url_global + "/register";
 
 // links servidor
 var url_req_readdata = 			url_global + "/carros/readdata";
 var url_req_readdata_driver = 	url_global + "/carros/readdata-motor";
 var url_req_login = 			url_global + "/login";
-var url_req_cadastro = 			url_global + "/register";
+var url_req_cadastro = 			url_global + "/cadastro";
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
@@ -21,8 +21,6 @@ var num_warnings = 0;
 
 var horimetro_total =0;
 var odometro_total =0;
-
-//***************************************************************//
 
 
 //******************* Botões do Tamplate *************************//
@@ -45,7 +43,7 @@ $("#btndriver").click(function(){
 $("#btndiagnostic").click(function(){
 	var url = "?t="+token;
 	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
-	document.location = url_diag_req+url;
+	document.location = url_diagnostic+url;
 });
 
 $("#btncadastro").click(function(){
@@ -113,8 +111,8 @@ function sessions(token){
     var claims = arr[1];
     var claims_decoded = jQuery.parseJSON(atob(claims));
    // console.log(claims_decoded);
-    var user = claims_decoded.nome;
-    var email = claims_decoded.email;
+    var user = claims_decoded.nme;
+    var email = claims_decoded.eml;
 
     $("#usuario").text(user);
     $("#email").text(email);
