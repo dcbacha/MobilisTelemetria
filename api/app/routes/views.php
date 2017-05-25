@@ -8,6 +8,7 @@ $app->get('/home', function($request, $response){
 
 $app->get('/fleet', function($request, $response){
 
+
 	$this->view->render($response, 'template.php');
     return $this->view->render($response, 'page_fleet.php');
 
@@ -50,6 +51,11 @@ $app->get('/plot', function($request, $response){
     //$this->view->render($response, 'template.php');
     return $this->view->render($response, 'page_plot.html');
 
+});
+
+$app->get('/404', function($request, $response){
+
+    return $this->view->render($response, 'page_404.html');
 });
 
 
