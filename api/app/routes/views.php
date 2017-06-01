@@ -36,6 +36,14 @@ $app->get('/register', function($request, $response){
 
 });
 
+$app->get('/dashboard', function($request, $response){
+
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_dashboard.php');
+
+});
+
+
 
 
 ////////////////////////////////////////////////////

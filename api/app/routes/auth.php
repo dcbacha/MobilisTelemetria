@@ -32,7 +32,7 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
       if(password_verify($request->getParam('password'), $rows->password)){
   
         $now = new DateTime();
-        $future = new DateTime("now +15 minutes");
+        $future = new DateTime("now +60 minutes");
         $server = $request->getServerParams();
 
         $payload = [

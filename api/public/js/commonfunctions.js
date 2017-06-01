@@ -7,12 +7,14 @@ var url_drivers = 		url_global + "/drivers";
 var url_home = 			url_global + "/home";
 var url_diagnostic = 	url_global + "/diagnostic";
 var url_cadastro = 		url_global + "/register";
+var url_dashboard =		url_global + "/dashboard";
 
 // links servidor
 var url_req_readdata = 			url_global + "/carros/readdata";
 var url_req_readdata_driver = 	url_global + "/carros/readdata-motor";
 var url_req_login = 			url_global + "/login";
 var url_req_cadastro = 			url_global + "/cadastro";
+var url_req_log_perm = 			url_global + "/listlogperm";
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
@@ -50,6 +52,12 @@ $("#btncadastro").click(function(){
 	var url = "?t="+token;
 	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_cadastro+url;
+});
+
+$("#btndashboard").click(function(){
+	var url = "?t="+token;
+	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
+	document.location = url_dashboard+url;
 });
 
 

@@ -135,7 +135,8 @@ function getPermLog(){
 	
 	$.ajax({
 			type: "GET",
-			url: "http://192.168.0.35/rds/api/public/listlogperm",
+			//url: "http://192.168.0.35/rds/api/public/listlogperm",
+			url: url_req_log_perm,
 			headers: {
 			  'Authorization': 'Bearer ' + token
 			},

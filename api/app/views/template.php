@@ -53,6 +53,7 @@
       <li><a id="btndriver">Controle de Usuário</a></li>
       <li><a id="btndiagnostic">Diagnóstico</a></li>
       <li><a id="btncadastro">Cadastro</a></li>
+      <li><a id="btndashboard">Dashboard</a></li>
     </ul>
     <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>-->
   </header>

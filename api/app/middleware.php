@@ -7,7 +7,7 @@
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "path" => ["/", ""],
     "secure" => false, //segurança "frouxa" -- só true se usarmos https no servidor, como não estamos, = false
-    "passthrough" => ['/home', '/fleet', '/drivers', '/diagnostic', '/register', "/plot", "/login", "/car/auth", '/logeventos', "/rpi", "/plotter", "/log", "/404"],
+    "passthrough" => ['/home', '/fleet', '/drivers', '/diagnostic', '/register', '/dashboard',  "/plot", "/login", "/car/auth", '/logeventos', "/rpi", "/plotter", "/log", "/404"],
     "secret" => "SUPER_SECRET_KET",
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];
@@ -17,8 +17,8 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
         $data["message"] = $arguments["message"];
         return $response
             ->withHeader("Content-Type", "application/json")
-            ->withRedirect("/rds/api/public/404");
-          //  ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+           // ->withRedirect("/rds/api/public/404");
+            ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     }
 ]));
 

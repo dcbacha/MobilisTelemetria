@@ -45,10 +45,13 @@ $app->get("/listlogperm", function ($request, $response, $arguments) use ($app) 
     $idgrupo = $this->get('jwt')->idg;
 
     try{
-        $result = $db->prepare("SELECT `logpermanente`.`odometro`, `logpermanente`.`horimetro`, `veiculos`.`numserie`, `veiculos`.`idcarro`
-                                FROM `veiculos`
-                                    LEFT JOIN `logpermanente` ON `logpermanente`.`car-id` = `veiculos`.`idcarro`
-                                WHERE `veiculos`.`idgrupo` = ?");
+        $result = $db->prepare("SELECT lp.`last-update` as last_update, lp.`indice-eficiencia` as indice_eficiencia, lp.`km-kwh` as km_kwh, lp.`odometro`,
+                                        lp.`horimetro`, lp.`soh`, lp.`horas-carga-0` as carga0, lp.`horas-carga-1` as carga1 , lp.`horas-carga-2` as carga2,
+                                        lp.`tem-max-motor` as temp_max_motor, lp.`temp-max-inversor` as temp_max_inversor, lp.`temp-max-bateria` as temp_max_bateria,
+                                        v.`numserie`, v.`idcarro` 
+                                FROM `veiculos` as v
+                                    LEFT JOIN `logpermanente` as lp ON lp.`car-id` = v.`idcarro`
+                                WHERE v.`idgrupo` = ?");
         $result->bindParam(1, $idgrupo);
         $result -> execute();  
     }
