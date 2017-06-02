@@ -340,7 +340,7 @@ function stacking(data){
 				yaxis: {
 					max: 100,
 					tickFormatter: function (n) {
-						return (n*100).toFixed(0) + "%";
+						return (n).toFixed(0) + "%";
 					}
 				},
 				legend: {
@@ -410,14 +410,14 @@ function multipleBars(data){
 		ticks.push([i, "Carro "+ idcarro]);
 
 	}
- 
+ 	var barwidth = 0.15;
     var data1 = [
         {
             label: "Temperatura Máxima Bateria", 
             data: d1,
             bars: {
                 show: true,
-                barWidth: 0.15,
+                barWidth: barwidth,
                 fill: true,
                 lineWidth: 1,
                 order: 3,
@@ -431,7 +431,7 @@ function multipleBars(data){
             data: d2,
             bars: {
                 show: true,
-                barWidth: 0.15,
+                barWidth: barwidth,
                 fill: true,
                 lineWidth: 1,
                 order: 2,
@@ -445,7 +445,7 @@ function multipleBars(data){
             data: d3,
             bars: {
                 show: true,
-                barWidth: 0.15,
+                barWidth: barwidth,
                 fill: true,
                 lineWidth: 1,
                 order: 1,
