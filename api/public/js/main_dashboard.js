@@ -273,6 +273,9 @@ function stacking(data){
 		var d1 = [],
 			d2 = [],
 			d3 = [];
+		var v1 = [],
+			v2 = [],
+			v3 = [];
 		var teste = [];
 		var ticks = [];
 		var value = [];
@@ -292,47 +295,36 @@ function stacking(data){
 			var idcarro = data[i].idcarro;
 
 			var total = carga0 + carga1 + carga2;
-			//console.log(total);
 
-			porc_carga0[i] = carga0/total;
-			porc_carga1[i] = carga1/total;
-			porc_carga2[i] = carga2/total;
+			var int_carga0 =  (carga0/total).toFixed(2);
+			var int_carga1 =  (carga1/total).toFixed(2);
+			var int_carga2 =  (carga2/total).toFixed(2);
 
-	
-
-			d1[i] = [i, porc_carga0];
-			d2[i] = [i, porc_carga1];
-			d3[i] = [i, porc_carga2];
-
-			perm = [ {data: d1, label: "Carga 0", color: mobilislightblue},
-					 {data: d2, label: "Carga 1", color: mobilisblue}, 
-					 {data: d3, label: "Carga 2", color: mobilisred} ];
+			porc_carga0[i] = Math.round(int_carga0*100);
+			porc_carga1[i] = Math.round(int_carga1*100);
+			porc_carga2[i] = Math.round(int_carga2*100);
 
 			d1[i] = [i, 0];
 			d2[i] = [i, 0];
 			d3[i] = [i, 0];
 
-			value.push(porc_carga0[i].toFixed(3));
-			value.push(porc_carga1[i].toFixed(3));
-			value.push(porc_carga2[i].toFixed(3));
+			value.push(porc_carga0[i].toFixed(2));
+			value.push(porc_carga1[i].toFixed(2));
+			value.push(porc_carga2[i].toFixed(2));
 
 			ticks.push([(i), "Carro "+ idcarro ]);
 
 		}
 
-	
-		//console.log("teste", teste);
-		console.log(value);
+		
 		var max = (Math.max.apply( Math, value )*100);
 		var legendcontainer = $("#legenda4");
 
-		
-
 		var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
-					 {data: d2, label: "Carga 1", color: mobilisblue}, 
-					 {data: d3, label: "Carga 2", color: mobilisred} ];
+					{data: d2, label: "Carga 1", color: mobilisblue}, 
+					{data: d3, label: "Carga 2", color: mobilisred} ];
 
-		var plot = $.plot("#placeholder4", perm , {
+		var plot = $.plot("#placeholder4", tmp , {
 				series: {
 					stack: 0,
 					bars: {
@@ -347,7 +339,7 @@ function stacking(data){
 					tickLength: 0
 				},
 				yaxis: {
-					max: 1,
+					max: 100,
 					tickFormatter: function (n) {
 						return (n*100).toFixed(0) + "%";
 					}
@@ -367,27 +359,20 @@ function stacking(data){
 		            borderWidth: 0
 		        },
 		});
-////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 	var updateInterval = 1;
-	//console.log(max);
 	var loop = 0;
-	function update() {
-	//console.log("size: ",size);
 	
-
-		if(loop/100 < 1){
-	       
-	  
+	function update() {
+	
+		if(loop < 100){
+	     	  		
 	        for(let i = 0; i < size; i++){
-
-				//console.log("loop: ", loop);
 	        	
-	        	if(loop/100 < porc_carga0[i]){ d1[i] = 0; d1[i] = [i, loop/100];}
-	        	if(loop/100 < porc_carga1[i]){ d2[i] = 0; d2[i] = [i, loop/100];}
-				if(loop/100 < porc_carga2[i]){ d3[i] = 0; d3[i] = [i, loop/100];}	
+	        	if(loop <= porc_carga0[i]){ d1[i] = 0; d1[i] = [i, loop];}
+	        	if(loop <= porc_carga1[i]){ d2[i] = 0; d2[i] = [i, loop];}
+				if(loop <= porc_carga2[i]){ d3[i] = 0; d3[i] = [i, loop];}	
 	        }
-			
 
 			var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
 						{data: d2, label: "Carga 1", color: mobilisblue}, 
@@ -396,71 +381,12 @@ function stacking(data){
 			plot.setData(tmp);
 	 		plot.draw();
 
-	 		if(loop/100 > 0.5){
-	 			//plot.setData(perm);
-	 			//console.log("perm: ", perm)
-	 			//plot.draw();
-	 			loop +=0.2;
-	 		}
-	 		else{ loop += .2;}
+	 		loop += 1;
 	       	setTimeout(update, updateInterval);
 		}
-		else{
-			console.log("acabou: ", perm);
-    		
-
-    		//finaliza();
-   		}
-
-
-		
     }
 
     update();
-
-    function finaliza(){
-    	console.log("final: ", perm);
-    	plot.setData(perm);
-    	plot.draw();
-
-    	$.plot("#placeholder4", perm , {
-				series: {
-					stack: 0,
-					bars: {
-						align: "center",
-						show: true,
-						barWidth: 0.9,
-						lineWidth: 0
-					}
-				},
-				xaxis: {
-					ticks: ticks,
-					tickLength: 0
-				},
-				yaxis: {
-					max: 1,
-					tickFormatter: function (n) {
-						return (n*100).toFixed(0) + "%";
-					}
-				},
-				legend: {
-					container: legendcontainer,
-					labelFormatter: function(label, series) {
-					    return label;
-					},
-					sorted: "ascending",
-					noColumns: 0,
-					labelBoxBorderColor: "none",
-				},
-				grid: {
-		            hoverable: false,
-		            clickable: false,
-		            borderWidth: 0
-		        },
-		});
-    }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 function multipleBars(data){
