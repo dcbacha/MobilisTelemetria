@@ -33,7 +33,7 @@ $.ajax({
 		//redirect("timeout");
 	},
 	success: function(data, status) {
-		console.log(data);
+		//console.log(data);
 		processData(data);
 		//inicializacao();
 	}
@@ -42,7 +42,6 @@ $.ajax({
 function processData(data){
 
 	var size = data.length;
-	console.log(size);
 
 	var d1 = [];
 	var d2 = [];
@@ -151,10 +150,7 @@ function plotBars(d2, placeholder){
 	var placeholder = $("#"+placeholder);
 	placeholder.unbind();
 
-	console.log(d2[0].data);
-
 	var size = d2.length;
-	console.log(size);
 	var value = [];
 	var tmp = [];
 	var ticks = [];
@@ -207,7 +203,10 @@ function plotBars(d2, placeholder){
 	        		tmp[i] = { label: d2[i].label, data:[ [i, loop]], color: "#4Ec1E0"};
 	        	}
 	        }
-			loop += 2;
+			
+			if(max - loop < 5){ loop += 1; }
+			else{ loop += 2; }
+			
 			
 			plot.setData(tmp);
 	 		plot.draw();
@@ -317,7 +316,7 @@ function stacking(data){
 		}
 
 		
-		var max = (Math.max.apply( Math, value )*100);
+		var max = (Math.max.apply( Math, value ));
 		var legendcontainer = $("#legenda4");
 
 		var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
@@ -365,7 +364,7 @@ function stacking(data){
 	
 	function update() {
 	
-		if(loop < 100){
+		if(loop < max){
 	     	  		
 	        for(let i = 0; i < size; i++){
 	        	
