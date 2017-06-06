@@ -232,17 +232,17 @@ function inicializacao(){
 	$(".danger").addClass("dangercolor");
 
 	var click =0;
-	$(".car").click(function(){
+	$(".car .collapsible-header").click(function(){
 		click++;
 
 		if(click == 1){
-			$(this).children().find("i").css({
+			$(this).find("i").css({
 		        "-webkit-transform": "rotate(270deg)",
 		        "-moz-transform": "rotate(270deg)"
 		    });
 		}
 		if(click == 2){
-			$(this).children().find("i").css({
+			$(this).find("i").css({
 		        "-webkit-transform": "rotate(0deg)",
 		        "-moz-transform": "rotate(0deg)"
 		    });
