@@ -11,7 +11,21 @@
   <link rel="stylesheet" type="text/css" href="css/mobilisstyle.css">
   <link rel="stylesheet" type="text/css" href="css/mobilisformat.css">
  <!-- <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
+<style type="text/css">
+  
+  .menu a.active {
+    font-weight: 500;
+    border-right: 2px solid #ee6e73;
+
+  }
+
+
+</style>
+
+
 </head>
+
+
 <body>
 
   <header>
@@ -49,11 +63,12 @@
      
       <li><div class="divider"></div></li>
 
-      <li><a id="btnfleet">Resumo da Frota</a></li>
-      <li><a id="btndriver">Controle de Usuário</a></li>
-      <li><a id="btndiagnostic">Diagnóstico</a></li>
-      <li><a id="btncadastro">Cadastro</a></li>
-      <li><a id="btndashboard">Dashboard</a></li>
+      <li class="menu"><a id="btnfleet">Resumo da Frota</a></li>
+      <li class="menu"><a id="btndriver">Controle de Usuário</a></li>
+      <li class="menu"><a id="btndashboard">Painel de Controle</a></li>
+      <li class="menu"><a id="btndiagnostic">Diagnóstico</a></li>
+      <li class="menu"><a id="btncadastro">Cadastro Usuários</a></li>
+      <li class="menu"><a id="btncadastroveiculo">Cadastro Veículos</a></li>
     </ul>
     <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>-->
   </header>

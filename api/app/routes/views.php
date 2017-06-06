@@ -36,6 +36,13 @@ $app->get('/register', function($request, $response){
 
 });
 
+$app->get('/registervehicle', function($request, $response){
+
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_register_vehicle.php');
+
+});
+
 $app->get('/dashboard', function($request, $response){
 
     $this->view->render($response, 'template.php');

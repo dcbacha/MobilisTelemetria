@@ -25,3 +25,10 @@
 .dangercolor{
 	background-color: #ffcdd2 !important;
 }
+
+html {
+  line-height: 1.5;
+  font-family: "Nexa", sans-serif;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.87);
+}

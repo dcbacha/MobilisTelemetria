@@ -7,6 +7,7 @@ var url_drivers = 		url_global + "/drivers";
 var url_home = 			url_global + "/home";
 var url_diagnostic = 	url_global + "/diagnostic";
 var url_cadastro = 		url_global + "/register";
+var url_cadastro_car = 		url_global + "/registervehicle";
 var url_dashboard =		url_global + "/dashboard";
 
 // links servidor
@@ -14,6 +15,7 @@ var url_req_readdata = 			url_global + "/carros/readdata";
 var url_req_readdata_driver = 	url_global + "/carros/readdata-motor";
 var url_req_login = 			url_global + "/login";
 var url_req_cadastro = 			url_global + "/cadastro";
+var url_req_cadastro_car = 			url_global + "/cadastroveiculo";
 var url_req_log_perm = 			url_global + "/listlogperm";
 
 //variaveis globais
@@ -52,6 +54,12 @@ $("#btncadastro").click(function(){
 	var url = "?t="+token;
 	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_cadastro+url;
+});
+
+$("#btncadastroveiculo").click(function(){
+	var url = "?t="+token;
+	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
+	document.location = url_cadastro_car+url;
 });
 
 $("#btndashboard").click(function(){

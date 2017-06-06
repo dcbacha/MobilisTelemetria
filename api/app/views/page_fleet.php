@@ -13,11 +13,13 @@
 
   <div class="container">
 
-      
-
-
+    
       <div class="row center">
         <h5 class="header col s12 light">Resumo da frota</h5>
+      </div>
+      <div class="divider"></div>
+      
+      <div class="row center"> 
 
         <!-- gif loading tabela -->
         <div class="preloader-wrapper small" id="loadingFrota">
@@ -35,7 +37,7 @@
         <table class="bordered" id="tabelaDinamica" hidden>
         <thead>
           <tr>
-              <th>#</th>
+              <th></th>
               <th>Carro</th>
               <th>Número de série</th>
               <th>Total de Km</th>

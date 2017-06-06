@@ -39,6 +39,40 @@ $app->put("/cadastro", function ($request, $response, $arguments) use ($app) {
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
+
+
+$app->put("/cadastroveiculo", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+   
+    $idgrupo = $this->get('jwt')->idg;
+    $nome_user = $this->get('jwt')->nme;
+    $email_user = $this->get('jwt')->eml;
+
+    $numserie = $request->getParam('numserie');
+    $chaveacesso = $request->getParam('chaveacesso');
+    $responsavel = $request->getParam('responsavel'); 
+    $grupo = $request->getParam('grupo');
+
+
+    try{
+        $result = $db->prepare("INSERT INTO `veiculos` (`numserie`, `chaveacesso`,`idgrupo`) VALUES (?, ?, ?)" );
+        $result->bindParam(1, $numserie);
+        $result->bindParam(2, $chaveacesso);
+        $result->bindParam(3, $grupo);
+      //  $result->bindParam(4, $responsavel);
+
+        $result -> execute();
+        return $response->withStatus(201)->write("sucesso");
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write($db);
+    } 
+
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
 $app->get("/listlogperm", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
    

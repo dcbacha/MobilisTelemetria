@@ -1,12 +1,11 @@
 var token = checktoken();
 sessions(token);
 
-$("#btncadastro").parent().addClass("active");
-$("#btncadastro").addClass("active");
-$("#btncadastro").parent().siblings().removeClass("active");
+$("#btncadastroveiculo").parent().addClass("active");
+$("#btncadastroveiculo").addClass("active");
+$("#btncadastroveiculo").parent().siblings().removeClass("active");
 
 $(function(){
-
 	$('select').material_select();
 
 	$("#btnsubmit").click(function(){
@@ -16,33 +15,22 @@ $(function(){
 
 function formSender(){
 
-	var nome = $("#first_name").val();
-	var sobrenome = $("#last_name").val();
-	var user = $("#user_name").val();
-	var email = $("#cad_email").val();
-	var senha = $("#password").val();
+	var num_serie = $("#num_serie").val();
+	var chave_acesso = $("#chave_acesso").val();
+	var responsavel = $("#responsavel").val();
 	var grupo = $("#grupo").val();
-	var nivel = $("#nivel").val();
 
 	var form_json = {
-		nome: nome,
-		sobrenome: sobrenome,
-		user: user,
-		email: email,
-		senha: senha,
-		grupo: grupo,
-		nivel: nivel
+		numserie: num_serie,
+		chaveacesso: chave_acesso,
+		responsavel: responsavel,
+		grupo: grupo
 	};
 
 	console.log(form_json);
 
-	if($("#cad_email")[0].className == "validate invalid"){
-		$("#emailerror").slideToggle(400);
-		setTimeout(function(){
-			$("#emailerror").slideToggle(400);
-		}, 2000);	
-	}
-	else if(!nome || !sobrenome || !user || !email || !senha || !grupo || !nivel){
+	
+	if(!num_serie || !chave_acesso || !responsavel || !grupo){
 		$("#dataerror").slideToggle(400);
 		setTimeout(function(){
 			$("#dataerror").slideToggle(400);
@@ -57,7 +45,7 @@ function cadastra(form_json){
 
 	$.ajax({
 			type: "PUT",
-			url: url_req_cadastro,
+			url: url_req_cadastro_car,
 			contentType: "application/x-www-form-urlencoded",
 			//dataType: 'json',
 			data: form_json,

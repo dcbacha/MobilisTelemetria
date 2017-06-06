@@ -1,6 +1,7 @@
 var token = checktoken();
 
 $("#btndashboard").parent().addClass("active");
+$("#btndashboard").addClass("active");
 $("#btndashboard").parent().siblings().removeClass("active");
 
 var mobilisblue = "#2A1856";
@@ -155,7 +156,7 @@ function plotBars(d2, placeholder){
 	var tmp = [];
 	var ticks = [];
 
-	var markings = [ { color: "#f6f6f6", yaxis: { from: 100 } }];
+	var markings = [ { color: "#ffcdd2", yaxis: { from: 100 } }];
 
 	for (let x = 0 ; x < size ; x++){
 		value[x] = d2[x].data[0][1];
@@ -183,7 +184,8 @@ function plotBars(d2, placeholder){
 		},
 		grid: { 
 			markings: markings,
-			borderWidth: 0
+			borderWidth: 0,
+			hoverable: true
 		},
 		legend: {
 			show: false

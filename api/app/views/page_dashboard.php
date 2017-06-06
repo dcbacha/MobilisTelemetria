@@ -45,9 +45,9 @@
     padding-left: 5px;
   }
 
-.container {
+/*.container {
   width: 90%;
-}
+}*/
 
 div.legendaMedia {
   height: 10em;
@@ -84,6 +84,11 @@ div.legendaMedia {
 
 <!--<body class="mobilislightblue"> -->
 <div class="container">
+
+  <div class="row center">
+        <h5 class="header col s12 light">Painel de Controle</h5>
+  </div>
+  <div class="divider"></div>
 
   <div class="row">
 

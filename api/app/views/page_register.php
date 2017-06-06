@@ -9,7 +9,7 @@
 <div class="container">
 	
   <div class="row center">
-    <h5 class="header col s12 light">Cadastro</h5>
+    <h5 class="header col s12 light">Cadastro de Usuários</h5>
   </div>
   <div class="divider"></div>
 

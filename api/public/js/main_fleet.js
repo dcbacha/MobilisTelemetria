@@ -1,6 +1,7 @@
 var token = checktoken();
 
 $("#btnfleet").parent().addClass("active");
+$("#btnfleet").addClass("active");
 $("#btnfleet").parent().siblings().removeClass("active");
 
 
@@ -158,7 +159,7 @@ function getPermLog(){
 					horimetro_total += parseInt(horimetro);
 					odometro_total += parseInt(odometro);
 
-					$("#tr_"+idcarro).append("<td>"+(x+1)+"</td>"+
+					$("#tr_"+idcarro).append("<td><i class='material-icons'>keyboard_arrow_down</i></td>"+
 											"<td>"+idcarro+"</td>"+
 											"<td>"+numserie+"</td>"+
 											"<td>"+odometro+"</td>"+
@@ -214,10 +215,26 @@ function inicializacao(){
 	$("#tabelaDinamica tr:not(.odd)").hide();
 	$("#tabelaDinamica tr:first-child").show();
 
-
+	var click = 0;
+	
 	$("#tabelaDinamica tr.odd").click(function(){
+		click ++;
 		$(this).next("tr").toggle(250);
 		$(this).find(".row").toggleClass("up");
+
+		if(click == 1){
+			$(this).find("i").css({
+		        "-webkit-transform": "rotate(270deg)",
+		        "-moz-transform": "rotate(270deg)"
+		    });
+		}
+		if(click == 2){
+			$(this).find("i").css({
+		        "-webkit-transform": "rotate(0deg)",
+		        "-moz-transform": "rotate(0deg)"
+		    });
+			click =0;
+		}
 	});
 	
 	$("#loadingFrota").removeClass("active");

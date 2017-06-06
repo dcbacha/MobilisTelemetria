@@ -1,6 +1,7 @@
 var token = checktoken();
 
 $("#btndriver").parent().addClass("active");
+$("#btndriver").addClass("active");
 $("#btndriver").parent().siblings().removeClass("active");
 
 $(function(){
@@ -153,7 +154,7 @@ function createObjCarros(user, idcarro){
 
 	var obj = { user: user,
                 idcarro: idcarro,
-                data: "<li>"+
+                data: "<li class='car'>"+
 						" <div class='collapsible-header'><i class='material-icons'>keyboard_arrow_down</i>Carro "+idcarro+"</div>"+
 						" <div class='collapsible-body grey lighten-4' style='padding: 10px;'>"+
 							" <ul class='collapsible z-depth-0' data-collapsible='expandable' style='margin: 0px'>"};
@@ -229,5 +230,24 @@ function inicializacao(){
 	
 	$(".warning").addClass("warningcolor");
 	$(".danger").addClass("dangercolor");
+
+	var click =0;
+	$(".car").click(function(){
+		click++;
+
+		if(click == 1){
+			$(this).children().find("i").css({
+		        "-webkit-transform": "rotate(270deg)",
+		        "-moz-transform": "rotate(270deg)"
+		    });
+		}
+		if(click == 2){
+			$(this).children().find("i").css({
+		        "-webkit-transform": "rotate(0deg)",
+		        "-moz-transform": "rotate(0deg)"
+		    });
+			click =0;
+		}
+	});
 
 }
