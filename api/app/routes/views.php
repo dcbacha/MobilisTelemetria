@@ -50,6 +50,13 @@ $app->get('/dashboard', function($request, $response){
 
 });
 
+$app->get('/edit', function($request, $response){
+
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_edit.php');
+
+});
+
 
 
 

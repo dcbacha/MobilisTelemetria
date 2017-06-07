@@ -17,7 +17,7 @@ $app->put("/cadastro", function ($request, $response, $arguments) use ($app) {
 
     //$senha_enc = md5($senha);
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-    echo $senha_hash;
+    //echo $senha_hash;
 
     try{
         $result = $db->prepare("INSERT INTO `usuarios` (`nome`, `sobrenome`, `username`, `email`, `password`, `idgrupo`, `nivelpermissao`) VALUES (?, ?, ?, ?, ?, ?, ?)" );
@@ -198,3 +198,115 @@ $app->get("/plotter", function ($request, $response, $arguments) use ($app) {
     }     
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
+
+$app->get("/getInfo", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $id = $request->getParam('id');
+
+    try{
+        $result = $db->prepare("SELECT nome, sobrenome, email, username, nivelpermissao FROM usuarios where idusuario = ?");
+        $result->bindParam(1, $id);
+        $result -> execute();  
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write($db);
+    } 
+            
+    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+    $num_rows = count($rows);
+
+    if($num_rows > 0){
+
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($rows, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    } // end if ususarios                                        
+    else {
+      return $response->withStatus(401)->write("Algo de errado não está certo");
+    } 
+
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+$app->get("/refreshuser", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $id = $request->getParam('id');
+    $nome = $request->getParam('nome');
+    $sobrenome = $request->getParam('sobrenome');
+    $username = $request->getParam('username');
+    $email = $request->getParam('email');
+    $nivel = $request->getParam('nivel');
+    $senhaatual = $request->getParam('senhaatual');
+    $senhanova = $request->getParam('senhanova');
+
+  /* echo "/".$nome;
+   echo "/".$sobrenome;
+   echo "/".$username;
+   echo "/".$email;
+   echo "/".$nivel;*/
+   $trocarsenha = false;
+
+   if($senhanova){
+        try {   
+            $result = $db->prepare("SELECT password FROM `usuarios` WHERE `idusuario` = ? LIMIT 1");
+            $result->bindParam(1, $id);
+            $result -> execute();  
+        }
+        catch(Exception $db) { return $response->withStatus(401)->write("Unauthorized");}                                   
+        
+        $rows = $result->fetchObject();
+        $num_rows = count($rows);
+         
+        if($num_rows){
+          if(password_verify($senhaatual, $rows->password)){ $trocarsenha = true; }   
+          else { return $response->withStatus(401)->write("Senha errada"); }
+        }
+        else { return $response->withStatus(401)->write("Usuario não existe"); }
+   }
+
+   if($trocarsenha){
+   // echo "trocar senha";
+
+    $senha_hash = password_hash($senhanova, PASSWORD_DEFAULT);
+
+         try {   
+            $result = $db->prepare("UPDATE usuarios SET nome =  ?, sobrenome = ?, username = ?, email = ?, nivelpermissao = ?, password = ?
+                                        WHERE idusuario = ?");
+            $result->bindParam(1, $nome);
+            $result->bindParam(2, $sobrenome);
+            $result->bindParam(3, $username);
+            $result->bindParam(4, $email);
+            $result->bindParam(5, $nivel);
+            $result->bindParam(6, $senha_hash);
+            $result->bindParam(7, $id);
+            $result -> execute();
+
+            return $response->withStatus(201)->write("Usuario alterado com sucesso"); 
+        }
+        catch(Exception $db) { return $response->withStatus(401)->write("Unauthorized");}                                   
+        
+   }
+   else{
+   // echo "nao troca senha";
+        try {   
+            $result = $db->prepare("UPDATE usuarios SET nome =  ?, sobrenome = ?, username = ?, email = ?, nivelpermissao = ?
+                                        WHERE idusuario = ?");
+            $result->bindParam(1, $nome);
+            $result->bindParam(2, $sobrenome);
+            $result->bindParam(3, $username);
+            $result->bindParam(4, $email);
+            $result->bindParam(5, $nivel);
+            $result->bindParam(6, $id);
+            $result -> execute();
+
+            return $response->withStatus(401)->write("Usuario alterado com sucesso");
+
+        }
+        catch(Exception $db) { return $response->withStatus(401)->write("Unauthorized");}                                   
+   }
+
+});

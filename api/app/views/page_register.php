@@ -71,7 +71,7 @@
 	    </select>
 	    <label>Nível de Acesso</label>
 	  	</div>
-	  	</div>
+	  </div>
 
     </form>
     <button class="btn waves-effect waves-light mobilisblue col s12" id="btnsubmit">Cadastrar</button>

@@ -542,7 +542,7 @@ function multipleBars(data){
 		ticks.push([i, "Carro "+ idcarro]);
 
 	}
- 	var barwidth = 0.15;
+ 	var barwidth = 0.2;
     var data1 = [
         {
             label: "Temperatura Máxima Bateria", 
@@ -823,7 +823,8 @@ function media2(data, placeholder, param){
 		top: "62%",//"-"+a/2+"px",
 		left: "50%",//l/2+"px",
 		color: "#4Ec1E0",
-		"font-size": "2em" }
+		"font-size": "1.8em",
+		"font-weight": 900 }
 
 	containerlegenda.css(style);
 

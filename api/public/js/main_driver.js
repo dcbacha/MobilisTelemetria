@@ -5,7 +5,7 @@ $("#btndriver").addClass("active");
 $("#btndriver").parent().siblings().removeClass("active");
 
 $(function(){
-
+	
 	$("#loadingUsers").addClass("active");
 
 		sessions(token);
@@ -140,13 +140,64 @@ function processScrollSpy(user, idmotorista){
 
 
 function createObjUsers(user, idmotorista){
+	getInfo(idmotorista);
+
 	var obj = {	user: user,
 		  		data: "<div id='"+idmotorista+"' class='section scrollspy' style='padding:0px'>"+
 		  				"<div class='card drivercard'>"+
 						"<div class='card-content '>"+
-							"<span class='card-title'>"+user+"</span>"+
+							"<span class='card-title'>"+user+""+
+								"<span class='right'>"+
+								"<a class='btn-flat'>"+
+									"<i class='material-icons valign-wrapper tooltipped' data-html='true' data-position='bottom' data-delay='50' data-tooltip='' id='id1_"+idmotorista+"'>info_outline</i>"+
+								"</a>"+
+								"<a class='btn-flat edit' id='id2_"+idmotorista+"'>"+
+									"<i class='material-icons valign-wrapper'>mode_edit</i>"+
+								"</a>"+
+								"</span>"+
+							"</span>"+
 							"<ul class='collapsible z-depth-0' data-collapsible='expandable'>"}; // hidden>"};  //para hover, esse hover tem q começar com hidden
 	return obj;								            
+}
+
+
+function getInfo(id){
+
+	var json = {id: id};
+
+	$.ajax({
+			type: "GET",
+			url: url_req_getInfo,
+			contentType: "application/x-www-form-urlencoded",
+			data: json,
+			headers: {
+			  'Authorization': 'Bearer ' + token
+			},
+			error: function(data, status, xhr) {
+				console.log("erro ajax get Info");
+				console.log(data);
+				
+			},
+			success: function(data, status) {
+				console.log("sucesso ajax get Info");
+				console.log(data);
+
+				var nome = data[0].nome;
+				var email = data[0].email;
+				
+				if(data[0].sobrenome){var sobrenome = data[0].sobrenome;}
+				else { var sobrenome = "";}
+
+				var tooltip = "Nome: "+nome+" "+sobrenome+"<br>"+
+							"Email:"+email+"";
+
+				$("#id1_"+id).attr("data-tooltip", tooltip);
+				console.log($("#id1_"+id));
+				$('.tooltipped').tooltip({delay: 50});
+
+			}
+	});
+
 }
 
 
@@ -215,6 +266,7 @@ function inicializacao(){
 	$("#loadingUsers").hide();
 	$('.collapsible').collapsible();
 	$('.scrollspy').scrollSpy();
+
 	var timer;
 	var delay = 1000;
 				
@@ -248,6 +300,14 @@ function inicializacao(){
 		    });
 			click =0;
 		}
+	});
+
+	$(".edit").click(function(){
+		var url = "?t="+token;
+
+		var id = $(this).attr("id").split("_")[1];
+		var l = "?id="+id;
+		document.location = url_edit_user+url+l;
 	});
 
 }

@@ -7,16 +7,19 @@ var url_drivers = 		url_global + "/drivers";
 var url_home = 			url_global + "/home";
 var url_diagnostic = 	url_global + "/diagnostic";
 var url_cadastro = 		url_global + "/register";
-var url_cadastro_car = 		url_global + "/registervehicle";
+var url_cadastro_car = 	url_global + "/registervehicle";
 var url_dashboard =		url_global + "/dashboard";
+var url_edit_user = 	url_global + "/edit";
 
 // links servidor
 var url_req_readdata = 			url_global + "/carros/readdata";
 var url_req_readdata_driver = 	url_global + "/carros/readdata-motor";
 var url_req_login = 			url_global + "/login";
 var url_req_cadastro = 			url_global + "/cadastro";
-var url_req_cadastro_car = 			url_global + "/cadastroveiculo";
+var url_req_cadastro_car = 		url_global + "/cadastroveiculo";
 var url_req_log_perm = 			url_global + "/listlogperm";
+var url_req_getInfo = 			url_global + "/getInfo";
+var url_req_refresh_user =		url_global + "/refreshuser"
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
