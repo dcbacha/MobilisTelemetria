@@ -59,7 +59,7 @@
         </a>
       </li>
       
-      <div class="center-align"><a class="waves-effect waves-light btn mobilisred" style="width: 220px" id="logout">Logout</a></div>
+      <div class="center-align"><a class="waves-effect waves-light btn mobilisred" style="width: 180px" id="logout">Logout</a></div>
      
       <li><div class="divider"></div></li>
 

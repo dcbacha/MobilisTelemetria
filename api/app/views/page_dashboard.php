@@ -207,7 +207,7 @@ div.legendaMedia {
         <div class="wrap">
           <div id="placeholder" class="placeholder"></div>
        </div>
-       <div id="legenda" style="padding-left: 5%;"></div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
   </div>
 
@@ -215,10 +215,10 @@ div.legendaMedia {
     <div class="card-panel cardteste medium">
         <p class="title">Odometro</p>
         <p  class="subtitle">Porcentagens por veículo</p>
-        <div class="wrap">
+        <div class="wrap center">
           <div id="placeholder9" class="placeholder"></div>
        </div>
-       <div id="legenda9" style="padding-left: 5%;"></div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
   </div>
 

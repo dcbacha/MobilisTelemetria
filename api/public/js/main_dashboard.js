@@ -117,6 +117,19 @@ function processData(data){
 function plotPie(data, placeholder){
 
 	var placeholder = $("#"+placeholder);
+	var size = data.length;
+	var total = 0;
+	var parcial = [];
+	var label = [];
+
+	for(let i=0 ; i < size ; i++){
+		total += parseInt(data[i].data);
+		parcial[i] = parseInt(data[i].data);
+		label[i] = data[i].label;
+
+	}	
+	
+
 	placeholder.unbind();
 
 	$.plot(placeholder, data, {
@@ -141,6 +154,55 @@ function plotPie(data, placeholder){
             borderWidth: 0
         }
 	});
+
+		function toolTip(f, h, x,y, leg, index) {
+			var legenda = leg.parent().next();
+
+			var place = leg;
+			//console.log(legenda);
+			var pos = place.position();
+			var height = place.height();
+			var width = place.width();
+			
+
+			x = Math.round(x);
+			
+
+	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 0.8em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
+	        position: 'relative',
+	        width: '50px',
+	        color: mobilislightblue,
+	        top: - (pos.top + height/2 - 15),
+	        left: - (pos.left - width/2 + 11.5),
+	        'background-color': "transparent",
+	        opacity: 0.8
+	      }).appendTo(legenda).fadeIn(200)
+	    }
+
+	    var b = null;
+
+	    placeholder.bind('plothover', function (i, k, h) {
+	      if (h) {
+	        if (b != h.datapoint) {
+	          b = h.datapoint;
+	          $('#tooltip').remove();
+	          var x = h.datapoint[0],
+	          	y = h.datapoint[1];
+	         
+	 
+	          //console.log(h.datapoint[0]);
+	          //console.log("tooltip");
+	      
+	          var leg = $(this);
+	          //console.log($(this).parent().next());
+	          var index = h.seriesIndex;
+	          toolTip(h.pageX, h.pageY, x,y, leg, index);
+	        }
+	      } else {
+	        //$("#tooltip").remove();
+	        b = null;
+	      }
+	    });
 }
 
 function labelFormatter(label, series) {
@@ -216,6 +278,38 @@ function plotBars(d2, placeholder){
 		}
     }
     update();
+
+
+    function toolTip(f, h, x,y) {
+	      $('<div id="tooltip">'+y+'ºC</div>').css({
+	        position: 'absolute',
+	        display: 'none',
+	        'font-size': '1em',
+	        'font-weight': 900, 
+	        top: h + 5,
+	        left: f + 15,
+	        padding: '0 4px',
+	        'background-color': "white",
+	        opacity: 0.8
+	      }).appendTo("body").fadeIn(200)
+	    }
+
+	    var b = null;
+
+	    placeholder.bind('plothover', function (i, k, h) {
+	      if (h) {
+	        if (b != h.datapoint) {
+	          b = h.datapoint;
+	          $('#tooltip').remove();
+	          var x = h.datapoint[0],
+	          	y = h.datapoint[1];
+	          toolTip(h.pageX, h.pageY, x,y)
+	        }
+	      } else {
+	        $("#tooltip").remove();
+	        b = null;
+	      }
+	    });
 }
 
 
@@ -324,6 +418,7 @@ function stacking(data){
 		var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
 					{data: d2, label: "Carga 1", color: mobilisblue}, 
 					{data: d3, label: "Carga 2", color: mobilisred} ];
+		var placeholder = $("#placeholder4");
 
 		var plot = $.plot("#placeholder4", tmp , {
 				series: {
@@ -388,6 +483,41 @@ function stacking(data){
     }
 
     update();
+
+
+		function toolTip(f, h, x,y, porcent) {
+	      $('<div id="tooltip">'+porcent+'%</div>').css({
+	        position: 'absolute',
+	        display: 'none',
+	        'font-size': '1em', 
+	        'font-weight': 900,
+	        top: h + 5,
+	        left: f + 15,
+	        padding: '0 4px',
+	        'background-color': "white",
+	        opacity: 0.8
+	      }).appendTo("body").fadeIn(200)
+	    }
+
+	    var b = null;
+
+	    placeholder.bind('plothover', function (i, k, h) {
+	      if (h) {
+	        if (b != h.datapoint) {
+	          b = h.datapoint;
+	          $('#tooltip').remove();
+	          var x = h.datapoint[0],
+	          	y = h.datapoint[1];
+	          	console.log(h);
+	          var porcent = h.datapoint[1] - h.datapoint[2] ;
+	          console.log($(this).position());
+	          toolTip(h.pageX, h.pageY, x,y, porcent);
+	        }
+	      } else {
+	        $("#tooltip").remove();
+	        b = null;
+	      }
+	    });
 }
 
 function multipleBars(data){
@@ -485,6 +615,39 @@ function multipleBars(data){
           //  shadowSize: 1
         }
     });
+
+    var placeholder = $("#placeholder5");
+
+    function toolTip(f, h, x,y) {
+	      $('<div id="tooltip">'+x+'ºC</div>').css({
+	        position: 'absolute',
+	        display: 'none',
+	        'font-size': '1em',
+	        'font-weight': 900, 
+	        top: h + 5,
+	        left: f + 15,
+	        padding: '0 4px',
+	        'background-color': "white",
+	        opacity: 0.8
+	      }).appendTo("body").fadeIn(200)
+	    }
+
+	    var b = null;
+
+	    placeholder.bind('plothover', function (i, k, h) {
+	      if (h) {
+	        if (b != h.datapoint) {
+	          b = h.datapoint;
+	          $('#tooltip').remove();
+	          var x = h.datapoint[0],
+	          	y = h.datapoint[1];
+	          toolTip(h.pageX, h.pageY, x,y)
+	        }
+	      } else {
+	        $("#tooltip").remove();
+	        b = null;
+	      }
+	    });
 }
 
 
