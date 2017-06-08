@@ -243,11 +243,6 @@ $app->get("/refreshuser", function ($request, $response, $arguments) use ($app) 
     $senhaatual = $request->getParam('senhaatual');
     $senhanova = $request->getParam('senhanova');
 
-  /* echo "/".$nome;
-   echo "/".$sobrenome;
-   echo "/".$username;
-   echo "/".$email;
-   echo "/".$nivel;*/
    $trocarsenha = false;
 
    if($senhanova){
@@ -269,7 +264,6 @@ $app->get("/refreshuser", function ($request, $response, $arguments) use ($app) 
    }
 
    if($trocarsenha){
-   // echo "trocar senha";
 
     $senha_hash = password_hash($senhanova, PASSWORD_DEFAULT);
 
@@ -291,7 +285,7 @@ $app->get("/refreshuser", function ($request, $response, $arguments) use ($app) 
         
    }
    else{
-   // echo "nao troca senha";
+    
         try {   
             $result = $db->prepare("UPDATE usuarios SET nome =  ?, sobrenome = ?, username = ?, email = ?, nivelpermissao = ?
                                         WHERE idusuario = ?");

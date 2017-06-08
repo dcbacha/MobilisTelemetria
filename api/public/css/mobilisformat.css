@@ -20,11 +20,7 @@
 
 body    {overflow-y:scroll;}
 
-#scrollSpyId{
-    position: absolute;
-    right: 5%;
-    width: 100px;
-}
+
 
 .demo-container {
 	box-sizing: border-box;

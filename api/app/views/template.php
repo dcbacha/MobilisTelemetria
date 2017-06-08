@@ -19,6 +19,16 @@
 
   }
 
+    .footer{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 1%;
+    opacity: 0.5;
+    color: grey;
+    font-size: 0.8em;
+
+  }
 
 </style>
 
@@ -69,6 +79,10 @@
       <li class="menu"><a id="btndiagnostic">Diagnóstico</a></li>
       <li class="menu"><a id="btncadastro">Cadastro Usuários</a></li>
       <li class="menu"><a id="btncadastroveiculo">Cadastro Veículos</a></li>
+
     </ul>
+    <div class="footer">
+       Mobilis® - V0.0
+    </div>
     <!--<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>-->
   </header>

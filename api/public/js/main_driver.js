@@ -148,11 +148,11 @@ function createObjUsers(user, idmotorista){
 						"<div class='card-content '>"+
 							"<span class='card-title'>"+user+""+
 								"<span class='right'>"+
-								"<a class='btn-flat'>"+
-									"<i class='material-icons valign-wrapper tooltipped' data-html='true' data-position='bottom' data-delay='50' data-tooltip='' id='id1_"+idmotorista+"'>info_outline</i>"+
+								"<a class='btn-flat tooltipped' data-html='true' data-position='bottom' data-delay='50' data-tooltip='' id='id1_"+idmotorista+"'>"+
+									"<i class='material-icons valign-wrapper'>info_outline</i>"+
 								"</a>"+
-								"<a class='btn-flat edit' id='id2_"+idmotorista+"'>"+
-									"<i class='material-icons valign-wrapper'>mode_edit</i>"+
+								"<a class='btn-flat edit tooltipped' id='id2_"+idmotorista+"'  data-position='bottom' data-delay='50' data-tooltip='Clique para editar'>"+
+									"<i class='material-icons valign-wrapper '>mode_edit</i>"+
 								"</a>"+
 								"</span>"+
 							"</span>"+
