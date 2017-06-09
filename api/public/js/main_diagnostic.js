@@ -60,7 +60,8 @@ $(function(){
 
 $.ajax({
 	type: "GET",
-	url: "http://192.168.0.35/rds/api/public/listfleet",
+	//url: "http://192.168.0.35/rds/api/public/listfleet",
+	url: url_req_fleet,
 	dataType: 'json',
 	data: {
 		alt: 'json-in-script'
@@ -116,25 +117,19 @@ function addProblem(){
 					"</div>"+
 
 				    "<div class='input-field col s8'  id='idselect"+total+"'>"+
-				    "<select multiple id='select"+total+"'>"+
-				      "<optgroup label='Problema Elétrico' id='el-"+total+"'>"+
+				    "<select multiple id='problem"+total+"'>"+
 				        "<option value='1'>Option 1</option>"+
 				        "<option value='2'>Option 2</option>"+
-				      "</optgroup>"+
-				      "<optgroup label='Problema Mecânico' id='mec-"+total+"'>"+
 				        "<option value='3'>Option 3</option>"+
 				        "<option value='4'>Option 4</option>"+
-				      "</optgroup>"+
-				       "<optgroup label='Outros' id='other-"+total+"'>"+
 				        "<option value='outros'>Outros</option>"+
-				      "</optgroup>"+
 				    "</select>"+
 				    "<label>Problema</label>"+
 				    "</div>"+
 
 				    "<div class='input-field col s4' id='idother"+total+"' hidden>"+
-				          "<input placeholder='Qual outro tipo de problema?' id='first_name"+total+"' type='text' class='validate'>"+
-				          "<label for='first_name"+total+"'>Outro</label>"+
+				          "<input placeholder='Qual outro tipo de problema?' id='outro"+total+"' type='text' class='validate'>"+
+				          "<label for='outro"+total+"'>Outro</label>"+
 				    "</div>"+
 	  
 	  			"</div>"+
@@ -213,8 +208,24 @@ function solicitar(){
 	console.log("total: ", total);
 	$("#loading").show();
 
-	for(let i = 1; i<total; i++){
-		var carro = $("#dinamicSelect"+total).val();
-		console.log(carro);
-	}
+
+		console.log("prob: ", $("#problem1").val());
+		console.log("carro: ", $("#dinamicSelect1").val());
+
+		if(!$("#dinamicSelect1").val() || !$("#problem1").val()){
+			$("#errodados").stop().slideToggle();
+			setTimeout(function(){
+				$("#errodados").stop().slideToggle(400);
+			}, 2000);
+		}
+		else{
+			if($("#problem1") == "outros"){
+				console.log("sem outro");
+				$("#outro1").val();
+			}
+			var carro = $("#dinamicSelect1").val();
+			console.log(carro);
+		}
+		
+	
 }

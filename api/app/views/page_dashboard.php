@@ -4,6 +4,7 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/commonfunctions.js"></script>
+<script src="js/commonplot.js"></script>
 <script src="../vendor/flot/jquery.flot.js"></script>
 <script src="../vendor/flot/jquery.flot.selection.js"></script>
 <script src="../vendor/flot/jquery.flot.navigate.js""></script>
@@ -95,26 +96,26 @@ div.legendaMedia {
 
   <div class="row">
 
-  <div class="col s12 m2">
-    <div class="card-panel cardteste small">
-        <p class="title">State of Health</p>
-        <p class="subtitle">Média da frota</p>
-        <div class="wrap">
-          <div id="placeholder10" class="placeholder"></div>
+   <div class="col s12 m3">
+     <div class="card-panel cardteste medium">
+        <p class="title">Última atualização</p>
+        <div>
+          <ul id="placeholder-lastupdate" class="collection"></ul>
        </div>
-       <div class="legendaMedia"></div>
-    </div>
-  
-    <div class="card-panel cardteste small">
-        <p class="title">Indice de Eficiência</p>
-        <p class="subtitle">Média da frota</p>
-        <div class="wrap">
-          <div id="placeholder11" class="placeholder"></div>
-       </div>
-       <div class="legendaMedia"></div>
     </div>
   </div>
  
+       <div class="col s12 m6">
+    <div class="card-panel cardteste medium">
+        <p class="title">Densidade de Eventos</p>
+        <p class="subtitle">ultímas 24hrs</p>
+        <div class="wrap">
+          <div id="densidadeevt" class="placeholder"></div>
+       </div>
+       <div id="legendadensidade" style="padding-left: 15%;"></div>
+    </div>
+  </div>
+
   <div class="col s12 m4">
     <div class="card-panel cardteste medium">
         <p class="title">Temperatura Máxima da Bateria</p>
@@ -126,16 +127,7 @@ div.legendaMedia {
     </div>
   </div>
 
-   <div class="col s12 m6">
-    <div class="card-panel cardteste medium">
-        <p class="title">Densidade de Eventos</p>
-        <p class="subtitle">ultímas 24hrs</p>
-        <div class="wrap">
-          <div id="placeholder4" class="placeholder"></div>
-       </div>
-       <div id="legenda4" style="padding-left: 15%;"></div>
-    </div>
-  </div>
+
 
   
   </div>
@@ -153,15 +145,6 @@ div.legendaMedia {
     </div>
   </div>
 
-  <div class="col s12 m3">
-     <div class="card-panel cardteste medium">
-        <p class="title">Autonomia</p>
-        <p class="subtitle">Ranking da frotas</p>
-        <div>
-          <ul id="placeholder7" class="collection"></ul>
-       </div>
-    </div>
-  </div>
 
   
   </div>
@@ -179,29 +162,13 @@ div.legendaMedia {
     </div>
   </div>
 
-    <div class="col s12 m3">
-     <div class="card-panel cardteste medium">
-        <p class="title">Vida da Bateria</p>
-        <p class="subtitle">Ranking da frotas</p>
-        <div>
-          <ul id="placeholder6" class="collection"></ul>
-       </div>
-    </div>
-  </div>
+  
 
   </div>
 
   <div class="row">
 
-  <div class="col s12 m6">
-     <div class="card-panel cardteste medium">
-        <p class="title">Indíce de Eficiência</p>
-        <p class="subtitle">Ranking da frotas</p>
-        <div>
-          <ul id="placeholder8" class="collection"></ul>
-       </div>
-    </div>
-  </div>
+
 
   <div class="col s12 m3">
     <div class="card-panel cardteste medium">

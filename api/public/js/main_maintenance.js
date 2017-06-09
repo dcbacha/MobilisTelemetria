@@ -7,6 +7,7 @@ $("#btnmaintenance").parent().siblings().removeClass("active");
 var mobilisblue = "#2A1856";
 var mobilislightblue = "#4Ec1E0";
 var mobilisred = "#E6354D";
+var mobilisgreen = "#4ee0b6";
 var orange = "#e06d4e";
 var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
 
@@ -15,10 +16,10 @@ var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
 $(function(){
 
 	begin();
-
-	req_logperm();
 	req_evt();
-	
+	req_logperm();
+	req_fleet();
+
 	
 });
 
@@ -26,24 +27,30 @@ function change(text){
 	console.log("faz: ", text);
 }
 
+function processLogPerm(data){
+	dataLogPerm = data;
+	//console.log(dataLogPerm);
+	stacking(dataLogPerm, "placeholder-carga");
+	media(dataLogPerm, "placeholder-soh", "soh", "média");
+	media(dataLogPerm, "placeholder-efi", "efi", "média");
+	ranking(dataLogPerm, "placeholder-autrank", "aut");
+	ranking(dataLogPerm, "placeholder-sohrank", "soh");
+	ranking(dataLogPerm, "placeholder-efirank", "efi");
+}
 
 function processEvt(data){
-	console.log(data);
-
-	var user = [];
-	var size = data.length;
-
-	for(let i = 0 ; i < size ; i++){
-		var nome = data[0].nome;
-		user.push(nome);
-		console.log(user);
-
-		var html = "<li class='collection-item'><div>"+nome+"</div></li>";
-		$("#user-rank").append(html);
-	}
-
-
+	dataEvt = data;
+	//console.log(dataEvt);
+	
+	rankErro(dataEvt);
 }
+
+function processFleet(data){
+	dataFleet = data;
+	update_dropdown(dataFleet);
+}
+
+
 
 function begin(){
 	sessions(token);
@@ -61,19 +68,26 @@ function begin(){
 	);
 
 	$("#dropdown1 li").click(function(){
-
 		var text = $(this).text();
 		$("#btnDropdown1").text(text);
-		change(text);
+		
+		media(dataLogPerm, "placeholder-soh", "soh", text);
+	})
+
+	$("#dropdown2 li").click(function(){
+		var text = $(this).text();
+		$("#btnDropdown2").text(text);
+		//console.log(text);
+		
+		media(dataLogPerm, "placeholder-efi", "efi", text);
 	})
 }
 
-function processLogPerm(data){
-	stacking(data);
-	prog(data, "placeholder10", "soh")
-}
 
-function stacking(data){
+function stacking(data, placeholder){
+		var placeholder = $("#"+placeholder);
+		var containerlegenda = placeholder.parent().next();
+		containerlegenda.empty();
 
 		var d1 = [],
 			d2 = [],
@@ -123,14 +137,13 @@ function stacking(data){
 
 		
 		var max = (Math.max.apply( Math, value ));
-		var legendcontainer = $("#legenda4");
 
 		var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
 					{data: d2, label: "Carga 1", color: mobilisblue}, 
 					{data: d3, label: "Carga 2", color: mobilisred} ];
-		var placeholder = $("#placeholder4");
+		
 
-		var plot = $.plot("#placeholder4", tmp , {
+		var plot = $.plot(placeholder, tmp , {
 				series: {
 					stack: 0,
 					bars: {
@@ -151,7 +164,7 @@ function stacking(data){
 					}
 				},
 				legend: {
-					container: legendcontainer,
+					container: containerlegenda,
 					labelFormatter: function(label, series) {
 					    return label;
 					},
@@ -218,9 +231,9 @@ function stacking(data){
 	          $('#tooltip').remove();
 	          var x = h.datapoint[0],
 	          	y = h.datapoint[1];
-	          	console.log(h);
+	          	//console.log(h);
 	          var porcent = h.datapoint[1] - h.datapoint[2] ;
-	          console.log($(this).position());
+	         // console.log($(this).position());
 	          toolTip(h.pageX, h.pageY, x,y, porcent);
 	        }
 	      } else {
@@ -230,99 +243,62 @@ function stacking(data){
 	    });
 }
 
-function prog(data, placeholder, param){
 
-	var size = data.length;
-	var value = 0;
-	var loop = 0;
-	var updateInterval = 1;
-	var valores = [];
-	valores[1] = { data: 0,	color: "#4Ec1E0" };
-	valores[0] = { data: 100, color: "white" };
-	
-	var placeholder = $("#"+placeholder);
-
-
-	for(i=0; i<size ; i++){
-
-		switch (param){
-			case "soh": var soma = parseInt(data[i].soh); break;
-			case "ief": var soma = parseInt(data[i].indice_eficiencia*100);
-		}
-		value += soma;
-	}
-
-	value = value/size;
-	
-	var plot = $.plot(placeholder, valores, {
-		series: {
-			pie: { 
-				radius: 1,
-				innerRadius: 0.9,
-				show: true,
-				label: {
-					 show: false,
-                radius: .75,
-                formatter: labelFormatter,
-                threshold: 0.1
-				}
-			}
-		},
-		legend: {
-			show: false
-		}
-	});
-	
-	var containerlegenda = placeholder.parent().next();
-
-	var style = {
-		position: "absolute",
-		top: "50%",//"-"+a/2+"px",
-		left: "50%",//l/2+"px",
-		color: "#4Ec1E0",
-		"font-size": "1.8em",
-		"font-weight": 900 }
-
-	containerlegenda.css(style);
-
-
-	function update() {
-		containerlegenda.empty();
-		
-		if(loop < value && (value - loop) > 2){
-	        valores[1] = {data: loop, color: "#4Ec1E0"};
-			valores[0] = {data: 100-loop, color: "white"};
-			
-			loop += 2;
-		}
-		else if (loop < value && (value - loop) > 1){
-			valores[1] = {data: loop, color: "#4Ec1E0"};
-			valores[0] = {data: 100-loop, color: "white"};
-
-			loop+= 1;
-		}
-		else if (loop < value && (value - loop) < 1){
-			valores[1] = {data: loop, color: "#4Ec1E0"};
-			valores[0] = {data: 100-loop, color: "white"};
-
-			loop+=0.1;
-		}
-
-		plot.setData(valores);
-
- 		plot.draw();
- 		containerlegenda.append(valores[1].data.toFixed(1)+"%");
-         if(loop < value){
-         	  setTimeout(update, updateInterval);
-         }
-      
-    }
- 
-    update();
-
-}
 
 
 function labelFormatter(label, series) {
 	return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+}
+
+function rankErro(data){
+	var user = [];
+	var json = [];
+	var size = data.length;
+
+	for(let i = 0 ; i < size ; i++){
+		var nome = data[i].nome;
+		var erro = data[i].errorcode;
+
+		if($.inArray(erro, arr_danger) > -1 || $.inArray(erro, arr_warning) > -1){
+		
+			if($.inArray(nome, user) == -1){
+				user.push(nome);
+				json.push({nome: nome, qnt: 1}); 
+			}
+			else{
+				for(let x = 0 ; x < json.length ; x++ ){
+					if (json[x].nome == nome){
+						json[x].qnt ++;
+					}
+				}
+			}
+		}
+	}
+
+	function keysrt(key,desc) {
+	  return function(a,b){
+	   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+	  }
+	}
+
+	var ranking = json.sort(keysrt('qnt'));
+	
+	for(let i = 0 ; i < ranking.length ; i++){
+		var nome = ranking[i].nome;
+		var qnt = ranking[i].qnt;
+
+		var html = "<li class='collection-item'><strong>"+(i+1)+"º</strong> "+nome+"<span class='badge'>"+qnt+"</span></li>";
+		$("#user-rank").append(html);
+	}
+}
+
+function update_dropdown(data){
+	
+		for(let i = 0 ; i < data.length ; i++){
+			var html = "<li><a href='#!'>Carro "+data[i].idcarro+"</a></li>";
+			$(".drop").append(html);
+		}
+	
+
+	begin();
 }

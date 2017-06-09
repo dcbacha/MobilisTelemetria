@@ -117,8 +117,8 @@ table.plot_values > tbody > tr:nth-child(odd) {
 .smalldrop {
     padding: 0 0.5rem;
     height: 17px;
-  line-height: 17px;
-    }
+    line-height: 17px;
+}
 
 .smallround {
   display: inline-block;

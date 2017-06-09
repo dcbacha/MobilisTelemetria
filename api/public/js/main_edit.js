@@ -148,7 +148,7 @@ function requisicaoEnviar(json){
 
 	$.ajax({
 			type: "GET",
-			url: url_req_refresh_user,
+			url: url_req_update_user,
 			contentType: "application/x-www-form-urlencoded",
 			data: json,
 			headers: { 'Authorization': 'Bearer ' + token },

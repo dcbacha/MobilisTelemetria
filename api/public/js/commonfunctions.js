@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.3/rds/MobilisTelemetria/api/public";
+var url_global = "http://192.168.0.35/rds/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -21,8 +21,9 @@ url_req_login = 			url_global + "/login",
 url_req_cadastro = 			url_global + "/cadastro",
 url_req_cadastro_car = 		url_global + "/cadastroveiculo",
 url_req_log_perm = 			url_global + "/listlogperm",
+url_req_fleet = 			url_global + "/listfleet",
 url_req_getInfo = 			url_global + "/getInfo",
-url_req_refresh_user =		url_global + "/refreshuser";
+url_req_update_user =		url_global + "/updateuser";
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
@@ -84,7 +85,9 @@ $('.button-collapse').sideNav({
 
 
 
-
+function minTwoDigits(n) {
+	return (n < 10 ? '0' : '') + n;
+}
 
 function dateconvert(variable){
 	var parts = variable.split(" ");
@@ -232,4 +235,31 @@ function req_evt(){
 				begin();
 			}
 		});
+}
+
+function req_fleet(){
+	$.ajax({
+	type: "GET",
+	//url: "http://192.168.0.35/rds/api/public/listfleet",
+	url: url_req_fleet,
+	dataType: 'json',
+	data: {
+		alt: 'json-in-script'
+	},
+	headers: {
+		'Authorization': 'Bearer ' + token
+	},
+	error: function(data, status) {
+		console.log("erro ajax");
+		console.log(data);
+		console.log(data.responseText)
+		//redirect("timeout");
+	},
+	success: function(data, status) {
+		console.log("sucesso ajax");
+		//console.log(data);
+		processFleet(data);
+		
+		}
+	});
 }

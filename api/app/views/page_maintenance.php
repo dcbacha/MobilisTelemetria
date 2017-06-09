@@ -4,6 +4,7 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/commonfunctions.js"></script>
+<script src="js/commonplot.js"></script>
 <script src="../vendor/flot/jquery.flot.js"></script>
 <script src="../vendor/flot/jquery.flot.selection.js"></script>
 <script src="../vendor/flot/jquery.flot.navigate.js""></script>
@@ -102,22 +103,23 @@ div.legendaMedia {
 <div class="row">
 
 <div class="col s12 m3">
-     <div class="card-panel cardteste medium">
+    <div class="card-panel cardteste medium">
         <p class="title">Ranking Usuarios</p>
+        <p class="subtitle">De acordo com numero de falhas cometidas</p>
         <div>
           <ul id="user-rank" class="collection"></ul>
        </div>
     </div>
-  </div>
+</div>
 
 <div class="col s12 m6">
     <div class="card-panel cardteste medium">
         <p class="title">Horas de Carga</p>
         <p class="subtitle">Porcentagem do período de uso em cargas diferentes</p>
         <div class="wrap">
-          <div id="placeholder4" class="placeholder"></div>
+          <div id="placeholder-carga" class="placeholder"></div>
        </div>
-       <div id="legenda4" style="padding-left: 15%;"></div>
+       <div id="legendahorascarga" style="padding-left: 15%;"></div>
     </div>
   </div>
 
@@ -130,12 +132,63 @@ div.legendaMedia {
         </div>
         
         <div class="wrap">
-          <div id="placeholder10" class="placeholder"></div>
+          <div id="placeholder-soh" class="placeholder"></div>
+       </div>
+       <div class="legendaMedia"></div>
+    </div>
+  
+
+   
+    <div class="card-panel cardteste small">
+      <div class="row">
+        <p class="title col s8">Indice de Eficiência</p>
+        
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown2" id='btnDropdown2'>Média</a>
+        </div>
+        
+        <div class="wrap">
+          <div id="placeholder-efi" class="placeholder"></div>
        </div>
        <div class="legendaMedia"></div>
     </div>
   </div>
+
+</div>
+
+<div class="row">
+  
+  <div class="col s12 m3">
+     <div class="card-panel cardteste medium">
+        <p class="title">Autonomia</p>
+        <p class="subtitle">Ranking da frotas</p>
+        <div>
+          <ul id="placeholder-autrank" class="collection"></ul>
+       </div>
+    </div>
   </div>
+
+  <div class="col s12 m3">
+     <div class="card-panel cardteste medium">
+        <p class="title">Vida da Bateria</p>
+        <p class="subtitle">Ranking da frotas</p>
+        <div>
+          <ul id="placeholder-sohrank" class="collection"></ul>
+       </div>
+    </div>
+  </div>
+
+  <div class="col s12 m6">
+     <div class="card-panel cardteste medium">
+        <p class="title">Indíce de Eficiência</p>
+        <p class="subtitle">Ranking da frotas</p>
+        <div>
+          <ul id="placeholder-efirank" class="collection"></ul>
+       </div>
+    </div>
+  </div>  
+
+
+</div>
 
 
 </div> <!-- fim container -->
@@ -147,9 +200,12 @@ div.legendaMedia {
 
 
 <!--DropDowns -->
-<ul id="dropdown1" class="dropdown-content subtitle">
-          <li><a href="#!">média</a></li>
-          <li><a href="#!">Carro 1</a></li>
-          <li><a href="#!">Carro 2</a></li>
-          <li><a href="#!">Carro 3</a></li>
-        </ul>
+<ul id="dropdown1" class="dropdown-content subtitle drop">
+  <li><a href="#!">média</a></li>
+
+</ul>
+
+<ul id="dropdown2" class="dropdown-content subtitle drop" >
+  <li><a href="#!">média</a></li>
+
+</ul>

@@ -29,7 +29,7 @@
 
 <div class="row center">
     <h5 class="header col s12 light">Diagnóstico</h5>
-    <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Clique para editar' id="info">
+    <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Informe os problemas que você está tendo com o veículo e retornamos um diagnóstico assim que possivel' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
         </a>
   </div> <!-- end row -->
@@ -56,25 +56,20 @@
 		</div>
 
     <div class="input-field col s8" id='idselect1'>
-    <select multiple id='select1'>
-      <optgroup label="Problema Elétrico" id='el-1'>
+    <select id='problem1'>
+        <option value="" disabled selected></option>
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
-      </optgroup>
-      <optgroup label="Problema Mecânico" id='mec-1'>
         <option value="3">Option 3</option>
         <option value="4">Option 4</option>
-      </optgroup>
-       <optgroup label="Outros" id='other-1'>
         <option value="outros">Outros</option>
-      </optgroup>
     </select>
     <label>Problema</label>
     </div>
 
     <div class="input-field col s4" id='idother1' hidden>
-          <input placeholder="Qual outro tipo de problema?" id="first_name1" type="text" class="validate">
-          <label for="first_name1">Outro</label>
+          <input placeholder="Qual outro tipo de problema?" id="outro1" type="text" class="validate">
+          <label for="outro1">Outro</label>
     </div>
   
   </div>  <!-- end row -->
@@ -114,10 +109,24 @@
     <div class="col s2 right" style="margin-top: 1.5rem">
         <button class="btn waves-effect waves-light mobilisblue" id="btnsolicitar">Solicitar</button>
     </div>
+    <div class="row">
+        <div class="col s12">
+        <div class="card-panel red"  id="errodados" hidden>
+          <span>Preencha os dados corretamente</span>
+        </div>
+        </div>
 
-    <div class="col s2 right" style="margin-top: 1.5rem">
-        <button class="btn waves-effect waves-light mobilisred" id="btnadicionar">Adicionar</button>
+        <div class="col s12">
+        <div class="card-panel red"  id="success" hidden>
+          <span>Solicitação enviada com sucesso</span>
+        </div>
+        </div>
+
     </div>
+
+ <!--   <div class="col s2 right" style="margin-top: 1.5rem">
+        <button class="btn waves-effect waves-light mobilisred" id="btnadicionar">Adicionar</button>
+    </div> -->
 
  <!--       <div class="preloader-wrapper small active"  style="margin-top: 1.5rem">
         <div class="spinner-layer spinner-blue-only"  id="loading" hidden>

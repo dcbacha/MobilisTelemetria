@@ -231,7 +231,7 @@ $app->get("/getInfo", function ($request, $response, $arguments) use ($app) {
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-$app->get("/refreshuser", function ($request, $response, $arguments) use ($app) {
+$app->get("/updateuser", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
     
     $id = $request->getParam('id');

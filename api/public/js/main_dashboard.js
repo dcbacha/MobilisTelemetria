@@ -28,7 +28,8 @@ function begin(){
 }
 
 function processEvt(data){
-	console.log(data);
+	//console.log(data);
+	densityEvt(data);
 }
 
 function processLogPerm(data){
@@ -96,12 +97,18 @@ function processLogPerm(data){
 	//stacking(data);
 	
 	multipleBars(data);
-	ranking(data, "placeholder6", "soh");
-	ranking(data, "placeholder7", "aut");
-	ranking(data, "placeholder8", "efi");
+	
+
+	//ranking(data, "placeholder6", "soh");
+	//ranking(data, "placeholder7", "aut");
+	//ranking(data, "placeholder8", "efi");
+
+	
 	
 	//media2(data, "placeholder10", "soh");
 	//media2(data, "placeholder11", "ief");
+
+	ranking(data, "placeholder-lastupdate", "last")
 
 		
 	
@@ -159,6 +166,8 @@ function plotPie(data, placeholder){
 			
 
 			x = Math.round(x);
+
+			x= minTwoDigits(x);
 			
 
 	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 0.8em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
@@ -642,56 +651,7 @@ function multipleBars(data){
 	      }
 	    });
 }
-
-
-
-function ranking(data, placeholder, param){
-
-	var placeholder = $("#"+placeholder);
-	var size = data.length;
-	var arr = [];
-
-	for (let i = 0 ; i < size ; i++){
-		switch (param){
-			case "soh": 
-				var d = [data[i].soh, data[i].idcarro];
-				arr.push(d);
-				break;
-			case "aut":
-				var d = [data[i].km_kwh, data[i].idcarro];
-				arr.push(d);
-				break;
-			case "efi":
-				var d = [data[i].indice_eficiencia, data[i].idcarro];
-				arr.push(d);
-		}
-	}
-
-	arr.sort();
-	var ranking = arr.reverse();
-
-	for(let i = 0 ; i < 5 ; i++){  // ranking dos 5 melhores
-		var value = ranking[i][0];
-		var id = ranking[i][1];
-
-		switch(param){
-			case "soh":
-				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>"+value+"%</span></div></li>");
-				break;
-			case "aut":
-				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>"+value+"km/kwh</span></div></li>");
-				break;
-			case "efi":
-				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>"+(value*100)+" %</span></div></li>");
-		}
-
-		
-	}
-}
-
+/*
 
 function media(data, placeholder, param){
 
@@ -738,7 +698,7 @@ function media(data, placeholder, param){
 
 	containerlegenda.append(media[1].data+"%");
 }
-
+*/
 
 
 function plotPieMedia(data, placeholder){
@@ -765,7 +725,7 @@ function plotPieMedia(data, placeholder){
 		}
 	});
 }
-
+/*
 function media2(data, placeholder, param){
 
 	var size = data.length;
@@ -856,5 +816,12 @@ function media2(data, placeholder, param){
  
     update();
 
-}
+}*/
 
+function densityEvt(data){
+	//console.log("densidade");
+
+	var time = new Date().getTime();
+	//console.log(time);
+	//console.log(data[0].timestamp_evt.getTime());
+}
