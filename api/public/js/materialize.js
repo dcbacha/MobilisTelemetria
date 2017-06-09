@@ -1804,7 +1804,7 @@ if (jQuery) {
             tooltipEl.velocity({ translateY: tooltipVerticalMovement, translateX: tooltipHorizontalMovement}, { duration: 350, queue: false })
               .velocity({opacity: 1}, {duration: 300, delay: 50, queue: false});
             backdrop.css({ visibility: 'visible' })
-              .velocity({opacity:1},{duration: 55, delay: 0, queue: false})
+              .velocity({opacity:0.8},{duration: 55, delay: 0, queue: false})
               .velocity({scaleX: scaleFactor, scaleY: scaleFactor}, {duration: 300, delay: 0, queue: false, easing: 'easeInOutQuad'});
           };
 

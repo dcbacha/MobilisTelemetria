@@ -93,3 +93,72 @@ body    {overflow-y:scroll;}
 table.plot_values > tbody > tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
+
+
+.dropdown-content li > a, .dropdown-content li > span {
+  font-size: 12px;
+  color: black;
+  display: block;
+  line-height: 22px;
+  padding: 2px 16px;
+}
+
+.dropdown-content li {
+  clear: both;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  min-height: 15px;
+  line-height: 1.5rem;
+  width: 100%;
+  text-align: left;
+  text-transform: none;
+}
+
+.smalldrop {
+    padding: 0 0.5rem;
+    height: 17px;
+  line-height: 17px;
+    }
+
+.smallround {
+  display: inline-block;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  background-color: white;
+  border-radius: 50%;
+  transition: .3s;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.smallround:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.smallround i{
+  color: black;
+}
+
+#info{
+  position: absolute;
+  top: 70px;
+  right: 2%;
+}
+
+
+.backdrop{
+  background-color: #9e9e9e;
+  border-radius: 50px;
+
+}
+.material-tooltip{
+  border-radius: 10px;
+  max-width: 200px;
+  opacity: 0.8;
+}

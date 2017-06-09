@@ -38,7 +38,7 @@ $("#login").click(function(){
 
                    var arr = token.split('.');
                    var url = "?t="+token;
-                   document.location = url_fleet + url;
+                   document.location = url_dashboard + url;
 
                    if (data == "Wrong username or password"){
                      $("#loginerror").stop().slideToggle();

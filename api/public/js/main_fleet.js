@@ -15,30 +15,12 @@ $(function(){
 
 	sessions(token);
 
-		$.ajax({
-			type: "GET",
-			//url: url_req_readdata,
-			url: url_req_readdata_driver,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
-			error: function(data, status) {
-				console.log("erro ajax -> main fleet");
-				//console.log(data);
-				console.log(data.responseText);
-				redirect("timeout");
-			},
-			success: function(data, status) {
-				//console.log(data);
-				processData(data);
-				inicializacao();
-			}
-		});
+	req_evt();
 
 }); //end do document ready
 
 //************************************ Funções ************************************//
-function processData(data){
+function processEvt(data){
 	var num_evt = data.length;
 	
 	var listacarros = [];	
@@ -208,7 +190,7 @@ function getGroup(){
 }
 
 
-function inicializacao(){
+function begin(){
 	$('.collapsible').collapsible();
 
 	$("#tabelaDinamica tr:odd").addClass("odd");

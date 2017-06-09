@@ -73,9 +73,11 @@
      
       <li><div class="divider"></div></li>
 
+      
+      <li class="menu"><a id="btndashboard">Painel de Controle</a></li>
+      <li class="menu"><a id="btnmaintenance">Manutenção</a></li>
       <li class="menu"><a id="btnfleet">Resumo da Frota</a></li>
       <li class="menu"><a id="btndriver">Controle de Usuário</a></li>
-      <li class="menu"><a id="btndashboard">Painel de Controle</a></li>
       <li class="menu"><a id="btndiagnostic">Diagnóstico</a></li>
       <li class="menu"><a id="btncadastro">Cadastro Usuários</a></li>
       <li class="menu"><a id="btncadastroveiculo">Cadastro Veículos</a></li>

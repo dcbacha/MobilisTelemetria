@@ -8,7 +8,7 @@ var total = 1;
 
 $(function(){
 	sessions(token);
-	//$('select').material_select();
+	$('select').material_select();
 	
 
 	$("#btnsolicitar").click(function(){

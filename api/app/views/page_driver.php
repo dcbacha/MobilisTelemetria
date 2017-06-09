@@ -22,6 +22,9 @@
 <div class="container">
   <div class="row center">
           <h5 class="header col s12 light">Usuários</h5>
+          <a class="btn-floating smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Log de Eventos dos usuários' id="info">
+          <i class='material-icons valign-wrapper'>info_outline</i>
+        </a>
   </div>
   <div class="divider"></div>
    
@@ -48,7 +51,7 @@
 
     </div>
     
-    <div class="col hide-on-med-and-down s1" id='scrollSpyId'>
+    <div class="col s1" id='scrollSpyId'>
      <div class="toc-wrapper pinned" >
       <ul class="section table-of-contents" id='tablescrollspy'>
       </ul>

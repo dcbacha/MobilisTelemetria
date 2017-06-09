@@ -8,29 +8,9 @@ $(function(){
 	
 	$("#loadingUsers").addClass("active");
 
-		sessions(token);
+	sessions(token);
 
-		$.ajax({
-			type: "GET",
-			//url: "http://192.168.0.35/rds/api/public/carros/readdata-motor",
-			url: url_req_readdata_driver,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
-			error: function(data, status) {
-				console.log(data);
-				redirect("timeout");
-	
-			},
-			success: function(data, status) {
-				//console.log(data);
-				processData(data);
-				//inicializacao_hover();
-				warningset();
-				inicializacao();
-			}
-		
-		});
+	req_evt();
 
 			
 }); //fim on ready
@@ -41,7 +21,7 @@ console.timeEnd('processData');
 
 //************************************ Funções ************************************//
 
-function processData(data){
+function processEvt(data){
 	var num_evt = data.length;
 			//console.log(num_evt);		
 	var listausers = [];
@@ -262,7 +242,7 @@ function inicializacao_hover(){
 	});	
 }
 
-function inicializacao(){
+function begin(){
 	$("#loadingUsers").hide();
 	$('.collapsible').collapsible();
 	$('.scrollspy').scrollSpy();

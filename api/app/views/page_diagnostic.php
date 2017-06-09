@@ -29,6 +29,9 @@
 
 <div class="row center">
     <h5 class="header col s12 light">Diagnóstico</h5>
+    <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Clique para editar' id="info">
+          <i class='material-icons valign-wrapper'>info_outline</i>
+        </a>
   </div> <!-- end row -->
   <div class="divider"></div>
 

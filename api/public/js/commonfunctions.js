@@ -1,25 +1,28 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.35/rds/api/public";
+var url_global = "http://192.168.0.3/rds/MobilisTelemetria/api/public";
 
 //link views
-var url_fleet = 		url_global + "/fleet";
-var url_drivers = 		url_global + "/drivers";
-var url_home = 			url_global + "/home";
-var url_diagnostic = 	url_global + "/diagnostic";
-var url_cadastro = 		url_global + "/register";
-var url_cadastro_car = 	url_global + "/registervehicle";
-var url_dashboard =		url_global + "/dashboard";
-var url_edit_user = 	url_global + "/edit";
+var url_fleet = 	url_global + "/fleet",
+url_drivers = 		url_global + "/drivers",
+url_home = 			url_global + "/home",
+url_diagnostic = 	url_global + "/diagnostic",
+url_cadastro = 		url_global + "/register",
+url_cadastro_car = 	url_global + "/registervehicle",
+url_dashboard =		url_global + "/dashboard",
+url_edit_user = 	url_global + "/edit",
+url_maintenance = 	url_global + "/maintenance";
+
+ 
 
 // links servidor
-var url_req_readdata = 			url_global + "/carros/readdata";
-var url_req_readdata_driver = 	url_global + "/carros/readdata-motor";
-var url_req_login = 			url_global + "/login";
-var url_req_cadastro = 			url_global + "/cadastro";
-var url_req_cadastro_car = 		url_global + "/cadastroveiculo";
-var url_req_log_perm = 			url_global + "/listlogperm";
-var url_req_getInfo = 			url_global + "/getInfo";
-var url_req_refresh_user =		url_global + "/refreshuser"
+var url_req_readdata = 		url_global + "/carros/readdata",
+url_req_readdata_driver = 	url_global + "/carros/readdata-motor",
+url_req_login = 			url_global + "/login",
+url_req_cadastro = 			url_global + "/cadastro",
+url_req_cadastro_car = 		url_global + "/cadastroveiculo",
+url_req_log_perm = 			url_global + "/listlogperm",
+url_req_getInfo = 			url_global + "/getInfo",
+url_req_refresh_user =		url_global + "/refreshuser";
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
@@ -37,43 +40,42 @@ $("#logout").click(function(){
 
 $("#btnfleet").click(function(){
 	var url = "?t="+token;
-	//document.location = "http://192.168.0.35/rds/api/public/fleet"+url;
 	document.location = url_fleet+url;
 });
 
 $("#btndriver").click(function(){
 	var url = "?t="+token;
-	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_drivers+url;
 });
 
 $("#btndiagnostic").click(function(){
 	var url = "?t="+token;
-	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_diagnostic+url;
 });
 
 $("#btncadastro").click(function(){
 	var url = "?t="+token;
-	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_cadastro+url;
 });
 
 $("#btncadastroveiculo").click(function(){
 	var url = "?t="+token;
-	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_cadastro_car+url;
 });
 
 $("#btndashboard").click(function(){
 	var url = "?t="+token;
-	//document.location = "http://192.168.0.35/rds/api/public/drivers"+url;
 	document.location = url_dashboard+url;
+});
+
+$("#btnmaintenance").click(function(){
+	var url = "?t="+token;
+	document.location = url_maintenance+url;
 });
 
 
 $('.button-collapse').sideNav({
-    menuWidth: 200, // Default is 240
+    menuWidth: 200, // Default is 200
     edge: 'left', // Choose the horizontal origin
     closeOnClick: false // Closes side-nav on <a> clicks, useful for Angular/Meteor
    	}
@@ -185,4 +187,49 @@ function warningset(){
 		$(".warning").addClass("warningcolor");
 		$(".danger").addClass("dangercolor");
 	}
+}
+
+function req_logperm(){
+	$.ajax({
+	type: "GET",
+	//url: url_req_readdata,
+	url: url_req_log_perm,
+	headers: {
+	  'Authorization': 'Bearer ' + token
+	},
+	error: function(data, status) {
+		console.log("erro ajax -> main fleet");
+		//console.log(data);
+		console.log(data.responseText);
+		//redirect("timeout");
+	},
+	success: function(data, status) {
+		//console.log(data);
+		processLogPerm(data);
+		//inicializacao();
+	}
+	});
+
+}
+
+function req_evt(){
+	$.ajax({
+			type: "GET",
+			//url: url_req_readdata,
+			url: url_req_readdata_driver,
+			headers: {
+			  'Authorization': 'Bearer ' + token
+			},
+			error: function(data, status) {
+				console.log("erro ajax -> main fleet");
+				//console.log(data);
+				console.log(data.responseText);
+				redirect("timeout");
+			},
+			success: function(data, status) {
+				//console.log(data);
+				processEvt(data);
+				begin();
+			}
+		});
 }

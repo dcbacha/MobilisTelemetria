@@ -57,6 +57,13 @@ $app->get('/edit', function($request, $response){
 
 });
 
+$app->get('/maintenance', function($request, $response){
+
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_maintenance.php');
+
+});
+
 
 
 

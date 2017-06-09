@@ -87,6 +87,9 @@ div.legendaMedia {
 
   <div class="row center">
         <h5 class="header col s12 light">Painel de Controle</h5>
+        <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Informações diárias sobre a sua frota' id="info">
+          <i class='material-icons valign-wrapper'>info_outline</i>
+        </a>
   </div>
   <div class="divider"></div>
 
@@ -125,8 +128,8 @@ div.legendaMedia {
 
    <div class="col s12 m6">
     <div class="card-panel cardteste medium">
-        <p class="title">Horas de Carga</p>
-        <p class="subtitle">Porcentagem do período de uso em cargas diferentes</p>
+        <p class="title">Densidade de Eventos</p>
+        <p class="subtitle">ultímas 24hrs</p>
         <div class="wrap">
           <div id="placeholder4" class="placeholder"></div>
        </div>

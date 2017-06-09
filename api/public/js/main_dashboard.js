@@ -11,36 +11,27 @@ var orange = "#e06d4e";
 var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
 
 $(function(){
-
-	sessions(token);
-	$(".legendColorBox").children().css({"width" : "14px", "margin-left": "0px"});
-	$(".legendColorBox").css({"max-width":"16px"})
+	req_logperm();
+	req_evt();
+	
 	//$(".legendLabel").children().css({"max-width": "50px"});
 		
 
 }); //end do document ready
 
-$.ajax({
-	type: "GET",
-	//url: url_req_readdata,
-	url: url_req_log_perm,
-	headers: {
-	  'Authorization': 'Bearer ' + token
-	},
-	error: function(data, status) {
-		console.log("erro ajax -> main fleet");
-		//console.log(data);
-		console.log(data.responseText);
-		//redirect("timeout");
-	},
-	success: function(data, status) {
-		//console.log(data);
-		processData(data);
-		//inicializacao();
-	}
-});
 
-function processData(data){
+
+function begin(){
+	sessions(token);
+	$(".legendColorBox").children().css({"width" : "14px", "margin-left": "0px"});
+	$(".legendColorBox").css({"max-width":"16px"})
+}
+
+function processEvt(data){
+	console.log(data);
+}
+
+function processLogPerm(data){
 
 	var size = data.length;
 
@@ -101,14 +92,16 @@ function processData(data){
 
 	plotBars(d2 , "placeholder2");
 	plotBarsHorizontal(rawData, ticks);
-	stacking(data);
+	
+	//stacking(data);
+	
 	multipleBars(data);
 	ranking(data, "placeholder6", "soh");
 	ranking(data, "placeholder7", "aut");
 	ranking(data, "placeholder8", "efi");
 	
-	media2(data, "placeholder10", "soh");
-	media2(data, "placeholder11", "ief");
+	//media2(data, "placeholder10", "soh");
+	//media2(data, "placeholder11", "ief");
 
 		
 	
