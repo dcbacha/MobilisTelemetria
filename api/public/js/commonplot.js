@@ -47,21 +47,31 @@ function ranking(data, placeholder, param){
 				break;
 			case "efi":
 				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>"+(value*100)+" %</span></div></li>");
+			"<span class='secondary-content'>"+(value*100).toFixed(0)+" %</span></div></li>");
 				break;
 			case "last":
-					value = dataAtual - value;
-					var minutos = (value/60000);
-					var horas = (minutos/60);
+				value = dataAtual - value;
+				var horas = ((value/60000)/60);
+				var dias = horas / 24;
+					
+				if (dias > 0){
+					dias = Math.floor(dias);
+					horas = horas - dias*24;
+				}
+					
+				var dec = horas %1;
+				var min = (((dec*60)/100)*100);
 
-					var dec = horas %1;
-					var min = (((dec*60)/100)*100).toFixed(0);
-					min = minTwoDigits(min);
+				min = Math.floor(min);
+				min = minTwoDigits(min);
+				horas = Math.floor(horas);
 
-
+				if(dias> 0){ var msg = dias+"d "+horas+"h "+min+"min";}
+				else if(dias ==0 && horas > 0 ){ var msg = (horas.toFixed(0))+"h "+min+"min";}
+				else { var msg = min+"min";}
 						
 				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>Há "+(horas.toFixed(0))+"h "+min+"min</span></div></li>");
+			"<span class='secondary-content'>"+msg+"</span></div></li>");
 		}
 
 		
@@ -100,7 +110,9 @@ function media(data, placeholder, param, type){
 			if(data[i].idcarro == id){
 				switch (param){
 					case "soh": value = parseInt(data[i].soh); break;
-					case "efi": value = parseInt(data[i].indice_eficiencia*100);
+					case "efi": 
+					console.log(Math.ceil(data[i].indice_eficiencia*100));
+					value = Math.ceil(data[i].indice_eficiencia*100);
 				}
 			}
 		}
@@ -175,14 +187,18 @@ function media(data, placeholder, param, type){
 
 			loop+=0.1;
 		}
+		console.log(loop, value);
 
 		plot.setData(valores);
 
  		plot.draw();
  		containerlegenda.append(valores[1].data.toFixed(1)+"%");
+ 		var plus = 0;
          if(loop - value < 0){
          	  setTimeout(update, updateInterval);
+         	  plus = 1;
          }
+        
       
     }
  

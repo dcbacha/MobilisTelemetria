@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.35/rds/api/public";
+var url_global = "http://192.168.0.102/rds/MobilisTelemetria/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -22,6 +22,7 @@ url_req_cadastro = 			url_global + "/cadastro",
 url_req_cadastro_car = 		url_global + "/cadastroveiculo",
 url_req_log_perm = 			url_global + "/listlogperm",
 url_req_fleet = 			url_global + "/listfleet",
+url_req_group =				url_global + "/listgroup",
 url_req_getInfo = 			url_global + "/getInfo",
 url_req_update_user =		url_global + "/updateuser";
 

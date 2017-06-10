@@ -164,7 +164,8 @@ function setEconomy(){
 function getGroup(){
 	$.ajax({
 			type: "GET",
-			url: "http://192.168.0.35/rds/api/public/listgroup",
+			//url: "http://192.168.0.35/rds/api/public/listgroup",
+			url: url_req_group,
 			headers: {
 			  'Authorization': 'Bearer ' + token
 			},
