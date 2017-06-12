@@ -89,10 +89,28 @@ div.legendaMedia {
 <!--<body class="mobilislightblue"> -->
 <div class="container">
 
-  <div class="row center">
-        <h5 class="header col s12 light">Manutenção</h5>
-        <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Aqui vão as informações semanais da frota, assim como indica cuidados' id="info">
+  <div class="row">
+
+
+    <div class="input-field col s3">
+    <select multiple id="filtro">
+      <option value="" disabled>Choose your option</option>
+      <option value="1" selected>Ranking Usuários</option>
+      <option value="2" selected>Horas de Carga</option>
+      <option value="3" selected>Estado de Saúde</option>
+      <option value="4" selected>Indice de Eficiência</option>
+      <option value="5" selected>Autonomia</option>
+      <option value="6" selected>Horimetro</option>
+      <option value="7" selected>Odometro</option>
+    </select>
+  </div>
+
+        <h5 class="header col s9 light">Manutenção</h5>
+        <a class="btn-floating right smallround  tooltipped" data-position='bottom' data-delay='500' data-tooltip='Aqui vão as informações semanais da frota, assim como indica cuidados' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
+        </a>
+        <a class="btn-floating right smallround" id="reload">
+          <i class='material-icons valign-wrapper'>loop</i>
         </a>
   </div>
   <div class="divider"></div>
@@ -102,7 +120,7 @@ div.legendaMedia {
 
 <div class="row">
 
-<div class="col s12 m3">
+<div class="col s12 m3" id='card-rankuser'>
     <div class="card-panel cardteste medium">
         <p class="title">Ranking Usuarios</p>
         <p class="subtitle">De acordo com numero de falhas cometidas</p>
@@ -112,7 +130,7 @@ div.legendaMedia {
     </div>
 </div>
 
-<div class="col s12 m6">
+<div class="col s12 m6" id='card-horascarga'>
     <div class="card-panel cardteste medium">
         <p class="title">Horas de Carga</p>
         <p class="subtitle">Porcentagem do período de uso em cargas diferentes</p>
@@ -123,13 +141,14 @@ div.legendaMedia {
     </div>
   </div>
 
- <div class="col s3 m3">
+ <div class="col s3 m3" id='card-soh'>
     <div class="card-panel cardteste small">
       <div class="row">
         <p class="title col s8">State of Health</p>
         
-        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>Média</a>
-        </div>
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Média
+        </a>
+      </div>
         
         <div class="wrap">
           <div id="placeholder-soh" class="placeholder"></div>
@@ -139,7 +158,7 @@ div.legendaMedia {
   
 
    
-    <div class="card-panel cardteste small">
+    <div class="card-panel cardteste small" id='card-efi'>
       <div class="row">
         <p class="title col s8">Indice de Eficiência</p>
         
@@ -157,7 +176,7 @@ div.legendaMedia {
 
 <div class="row">
   
-  <div class="col s12 m3">
+  <div class="col s12 m3" id='card-autonomia'>
      <div class="card-panel cardteste medium">
         <p class="title">Autonomia</p>
         <p class="subtitle">Ranking da frotas</p>
@@ -167,7 +186,31 @@ div.legendaMedia {
     </div>
   </div>
 
-  <div class="col s12 m3">
+
+
+  <div class="col s12 m3" id='card-horimetro'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Horímetro</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap">
+          <div id="placeholder" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+  <div class="col s12 m3" id='card-odometro'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Odometro</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap center">
+          <div id="placeholder9" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+<!--  <div class="col s12 m3">
      <div class="card-panel cardteste medium">
         <p class="title">Vida da Bateria</p>
         <p class="subtitle">Ranking da frotas</p>
@@ -186,7 +229,7 @@ div.legendaMedia {
        </div>
     </div>
   </div>  
-
+-->
 
 </div>
 

@@ -29,7 +29,7 @@
 
 <div class="row center">
     <h5 class="header col s12 light">Diagnóstico</h5>
-    <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Informe os problemas que você está tendo com o veículo e retornamos um diagnóstico assim que possivel' id="info">
+    <a class="btn-floating right smallround  tooltipped" data-position='bottom' data-delay='500' data-tooltip='Informe os problemas que você está tendo com o veículo e retornamos um diagnóstico assim que possivel' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
         </a>
   </div> <!-- end row -->
@@ -117,8 +117,14 @@
         </div>
 
         <div class="col s12">
-        <div class="card-panel red"  id="success" hidden>
+        <div class="card-panel green"  id="success" hidden>
           <span>Solicitação enviada com sucesso</span>
+        </div>
+        </div>
+
+         <div class="col s12">
+        <div class="card-panel yellow"  id="erromail" hidden>
+          <span>Algo deu errado, favor entrar em contato com suporte@mobilis.me</span>
         </div>
         </div>
 
@@ -128,7 +134,7 @@
         <button class="btn waves-effect waves-light mobilisred" id="btnadicionar">Adicionar</button>
     </div> -->
 
- <!--       <div class="preloader-wrapper small active"  style="margin-top: 1.5rem">
+    <div class="preloader-wrapper small active"  style="margin-top: 1.5rem">
         <div class="spinner-layer spinner-blue-only"  id="loading" hidden>
           <div class="circle-clipper left">
             <div class="circle"></div>
@@ -138,7 +144,7 @@
             <div class="circle"></div>
           </div>
         </div>
-    </div> -->
+    </div> 
 
 
 </div><!-- end container -->

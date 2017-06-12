@@ -14,8 +14,6 @@ $(function(){
 	$("#btnsolicitar").click(function(){
 		
 		solicitar();
-
-		//plotar();
 	});
 
 	$("#btnadicionar").click(function(){
@@ -23,12 +21,12 @@ $(function(){
 		$("#delete1").show();
 	});
 
-	$("#select1").change(function(){
+	$("#problem1").change(function(){
 		console.log($(this).val());
 
 		var arr = $(this).val();
-		if( $.inArray("outros", arr ) > -1 ){
-			console.log("entrou");
+
+		if( arr == "outros"){
 			var id = $("#idselect1");
 			id.removeClass("s8");
 			id.addClass("s4");
@@ -204,28 +202,74 @@ function iniciate(total){
 }
 
 function solicitar(){
-	console.log("solicitou");
-	console.log("total: ", total);
-	$("#loading").show();
 
-
-		console.log("prob: ", $("#problem1").val());
-		console.log("carro: ", $("#dinamicSelect1").val());
-
-		if(!$("#dinamicSelect1").val() || !$("#problem1").val()){
+		if(!$("#dinamicSelect1").val() || !$("#problem1").val() || !$("#descricao1").val()){
 			$("#errodados").stop().slideToggle();
 			setTimeout(function(){
 				$("#errodados").stop().slideToggle(400);
 			}, 2000);
 		}
 		else{
-			if($("#problem1") == "outros"){
-				console.log("sem outro");
-				$("#outro1").val();
+
+			$("#loading").show();
+			if($("#problem1").val() == "outros"){
+				var outro = $("#outro1").val();
+			}
+			else{
+				var outro = "";
 			}
 			var carro = $("#dinamicSelect1").val();
-			console.log(carro);
+			var problema = $("#problem1").val();
+			var descricao = $("#descricao1").val();
+
+			var json = {
+				carro: carro,
+				problema: problema,
+				outro: outro,
+				descricao: descricao
+			}	
+
+			$.ajax({
+				type: "PUT",
+				url: url_req_diagnostic_mail,
+				dataType: 'json',
+				data: json,
+				headers: {
+					'Authorization': 'Bearer ' + token
+				},
+				error: function(data, status) {
+					console.log("erro ajax diagnostico mail");
+					console.log(data);
+					console.log(data.responseText)
+
+					if(data.responseText == "Email enviado com sucesso"){
+						$("#success").stop().slideToggle();
+						setTimeout(function(){
+							$("#success").stop().slideToggle(400);
+						}, 5000);
+					}
+					else{
+						$("#erromail").stop().slideToggle();
+					}
+
+					$("#loading").hide();
+				},
+				success: function(data, status) {
+					console.log("sucesso ajax diagnostico mail");
+					console.log(data);
+					if(data.responseText == "Email enviado com sucesso"){
+						$("#success").stop().slideToggle();
+						setTimeout(function(){
+							$("#success").stop().slideToggle(400);
+						}, 5000);
+					}
+					else{
+						$("#erromail").stop().slideToggle();
+					}
+					
+					$("#loading").hide();
+				}
+			});
+
 		}
-		
-	
 }

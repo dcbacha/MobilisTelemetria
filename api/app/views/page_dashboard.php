@@ -13,6 +13,7 @@
 <script src="../vendor/flot/jquery.flot.categories.js""></script>
 <script src="../vendor/flot/jquery.flot.resize.js""></script>
 <script src="../vendor/flot/jquery.flot.orderBars.js""></script>
+<script src="../vendor/flot/jquery.flot.time.js"></script>
 
 <script src="js/main_dashboard.js"></script>
 
@@ -85,18 +86,77 @@ div.legendaMedia {
 
 <!--<body class="mobilislightblue"> -->
 <div class="container">
-
-  <div class="row center">
-        <h5 class="header col s12 light">Painel de Controle</h5>
-        <a class="btn-floating right smallround  tooltipped" data-position='left' data-delay='500' data-tooltip='Informações diárias sobre a sua frota' id="info">
-          <i class='material-icons valign-wrapper'>info_outline</i>
-        </a>
-  </div>
-  <div class="divider"></div>
+  
 
   <div class="row">
 
-   <div class="col s12 m3">
+    <div class="input-field col s3">
+    <select multiple id="filtro">
+      <option value="" disabled>Choose your option</option>
+      <option value="1" selected>Última atualização</option>
+      <option value="2" selected>Densidade de Eventos</option>
+      <option value="3" selected>Horímetro</option>
+      <option value="4" selected>Odometro</option>
+      <option value="5" selected>Temp Máxima 1</option>
+      <option value="6" selected>Temp Máxima 2</option>
+      <option value="7" selected>Temp Máxima 3</option>
+    </select>
+  </div>
+    
+        <h5 class="header col s9 light">Painel de Controle</h5>
+
+        <a class="btn-floating right smallround  tooltipped" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota' id="info">
+          <i class='material-icons valign-wrapper'>info_outline</i>
+        </a>
+        <a class="btn-floating right smallround" id="reload">
+          <i class='material-icons valign-wrapper'>loop</i>
+        </a>
+  </div>
+
+
+<div class="divider"></div>
+
+<div class="row">
+    
+    <div class="col s12 m12" id='card-alerta'>
+     <div class="card-panel cardteste">
+        <p class="title">Parabéns! Não foram registradas falhas na sua frota</p>
+    </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    
+    <div class="col s12 m12" id='card-falha'>
+     <div class="card-panel cardteste">
+        <p class="title">Falhas</p>
+        <div>
+          <ul id="placeholder-falha" class="collection"></ul>
+       </div>
+    </div>
+    </div>
+
+</div>
+
+<div class="row">
+    
+    <div class="col s12 m12" id='card-alerta'>
+     <div class="card-panel cardteste">
+        <p class="title">Alertas</p>
+        <div>
+          <ul id="placeholder-alerta" class="collection"></ul>
+       </div>
+    </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+   <div class="col s12 m3" id='card-lastupdate'>
      <div class="card-panel cardteste medium">
         <p class="title">Última atualização</p>
         <div>
@@ -105,18 +165,65 @@ div.legendaMedia {
     </div>
   </div>
  
-       <div class="col s12 m6">
+  <div class="col s12 m9" id='card-densidadeeventos'>
     <div class="card-panel cardteste medium">
-        <p class="title">Densidade de Eventos</p>
-        <p class="subtitle">ultímas 24hrs</p>
+      <div class="row">
+        <p class="title  col s8">Densidade de Eventos</p>
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
+        </a>
+        </div>
+    
+       
         <div class="wrap">
           <div id="densidadeevt" class="placeholder"></div>
        </div>
        <div id="legendadensidade" style="padding-left: 15%;"></div>
+  </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col s12 m6" id='card-temporestante'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Tempo Restante de Bateria</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap">
+          <div id="placeholder-temporestante" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
   </div>
 
-  <div class="col s12 m4">
+  <div class="col s12 m3" id='card-horimetro'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Horímetro</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap">
+          <div id="placeholder" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+  <div class="col s12 m3" id='card-odometro'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Odometro</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap center">
+          <div id="placeholder9" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+   
+</div>
+
+<div class="row">
+
+   <div class="col s12 m3" id='card-temp1'>
     <div class="card-panel cardteste medium">
         <p class="title">Temperatura Máxima da Bateria</p>
         <p class="subtitle">Máxima temperatura registrada na Bateria do veículo<p>
@@ -127,14 +234,7 @@ div.legendaMedia {
     </div>
   </div>
 
-
-
-  
-  </div>
-
-  <div class="row">
-
-   <div class="col s12 m9">
+   <div class="col s12 m9" id='card-temp2'>
     <div class="card-panel cardteste medium">
         <p class="title">Temperaturas Máximas</p>
         <p  class="subtitle">Máximas temperaturas já registradas pelo veículo</p>
@@ -147,11 +247,11 @@ div.legendaMedia {
 
 
   
-  </div>
+</div>
 
-  <div class="row"> 
+<div class="row"> 
     
-    <div class="col s12 m9">
+    <div class="col s12 m9" id='card-temp3'>
      <div class="card-panel cardteste medium">
         <p class="title">Temperaturas Máximas na Bateria</p>
         <p  class="subtitle">Máximas temperaturas já registradas na Bateria do veículo</p>
@@ -160,7 +260,7 @@ div.legendaMedia {
        </div>
        <div id="legenda3" style="padding-left: 5%;"></div>
     </div>
-  </div>
+</div>
 
   
 
@@ -168,29 +268,6 @@ div.legendaMedia {
 
   <div class="row">
 
-
-
-  <div class="col s12 m3">
-    <div class="card-panel cardteste medium">
-        <p class="title">Horímetro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
-        <div class="wrap">
-          <div id="placeholder" class="placeholder"></div>
-       </div>
-       <div class="legendaPie" style="padding-left: 5%;"></div>
-    </div>
-  </div>
-
-  <div class="col s12 m3">
-    <div class="card-panel cardteste medium">
-        <p class="title">Odometro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
-        <div class="wrap center">
-          <div id="placeholder9" class="placeholder"></div>
-       </div>
-       <div class="legendaPie" style="padding-left: 5%;"></div>
-    </div>
-  </div>
 
   </div>
 
@@ -206,67 +283,17 @@ div.legendaMedia {
 
 </div> <!-- fim container -->
 
- <!-- <div class="pie-container col s6">
-    Horimetro
-    <div id="placeholder" class="pie-card"></div>
-  </div> 
-
-   <div class="pie-container col s6">
-    Temperatura Máxima Bateria
-    <div id="placeholder2" class="pie-card"></div>
-  </div>
-  </div>-->
-
- <!-- <div class="row">
-  <div class="pie-container col s6">
-    Temperatura Máxima Bateria
-    <div id="placeholder3" class="pie-card"></div>
-  </div> -->
-
-<!--  <div class="pie-container col s6">
-    <div id="containerlegenda"></div>
-      <div id="placeholder4" class="pie-card"></div>
-    </div>
- -->
- <!-- </div>
-
-  <div class="row"> -->
- <!--  <div class="pie-container col s6">
-    <div id="containerlegenda2"></div>
-      <div id="placeholder5" class="pie-card"></div>
-    </div>
-  </div> -->
-
-<!--<div class="row">
-   <div class="pie-container col s4">
-      Vida da Bateria
-      <div class="pie-card">
-        <ul  id="placeholder6" class="collection">
-        </ul>
-      </div>
-    </div> -->
-
-<!--    <div class="pie-container col s4">
-      Autonomia
-      <div class="pie-card">
-        <ul  id="placeholder7" class="collection">
-        </ul>
-      </div>
-    </div> -->
-
-<!--    <div class="pie-container col s4">
-      Indice Eficiência
-      <div class="pie-card">
-        <ul  id="placeholder8" class="collection">
-        </ul>
-      </div>
-    </div>
-  
-  </div>
-</div> -->
-
-
-
 
 </body>
 </html>
+
+
+<!--Menus Dropdowns-->
+
+<ul id="dropdown1" class="dropdown-content subtitle">
+  <li><a href="#!">Últimas 24 Horas</a></li>
+  <li><a href="#!">Última Semana</a></li>
+  <li><a href="#!">Último Mês</a></li>
+  <li><a href="#!">Último Ano</a></li>
+
+</ul>

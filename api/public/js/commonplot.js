@@ -187,7 +187,7 @@ function media(data, placeholder, param, type){
 
 			loop+=0.1;
 		}
-		console.log(loop, value);
+		//console.log(loop, value);
 
 		plot.setData(valores);
 
@@ -204,4 +204,102 @@ function media(data, placeholder, param, type){
  
     update();
 
+}
+
+
+function plotPie(data, placeholder){
+
+	var placeholder = $("#"+placeholder);
+	var size = data.length;
+	var total = 0;
+	var parcial = [];
+	var label = [];
+
+	for(let i=0 ; i < size ; i++){
+		total += parseInt(data[i].data);
+		parcial[i] = parseInt(data[i].data);
+		label[i] = data[i].label;
+
+	}	
+	
+
+	placeholder.unbind();
+
+	$.plot(placeholder, data, {
+		series: {
+			pie: { 
+				radius: 1,
+				innerRadius: 0.5,
+				show: true,
+				label: {
+					 show: true,
+                radius: .75,
+                formatter: labelFormatter,
+                threshold: 0.1
+				}
+			}
+		},
+		legend: {
+			show: false
+		},
+		grid: {
+            hoverable: true,
+            borderWidth: 0
+        }
+	});
+
+		function toolTip(f, h, x,y, leg, index) {
+			var legenda = leg.parent().next();
+
+			var place = leg;
+			//console.log(legenda);
+			var pos = place.position();
+			var height = place.height();
+			var width = place.width();
+			
+
+			x = Math.round(x);
+
+			x= minTwoDigits(x);
+			
+
+	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 0.8em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
+	        position: 'relative',
+	        width: '50px',
+	        color: mobilislightblue,
+	        top: - (pos.top + height/2 - 15),
+	        left: - (pos.left - width/2 + 11.5),
+	        'background-color': "transparent",
+	        opacity: 0.8
+	      }).appendTo(legenda).fadeIn(200)
+	    }
+
+	    var b = null;
+
+	    placeholder.bind('plothover', function (i, k, h) {
+	      if (h) {
+	        if (b != h.datapoint) {
+	          b = h.datapoint;
+	          $('#tooltip').remove();
+	          var x = h.datapoint[0],
+	          	y = h.datapoint[1];
+	         
+	 
+	          //console.log(h.datapoint[0]);
+	          //console.log("tooltip");
+	      
+	          var leg = $(this);
+	          //console.log($(this).parent().next());
+	          var index = h.seriesIndex;
+	          toolTip(h.pageX, h.pageY, x,y, leg, index);
+	        }
+	      } else {
+	        //$("#tooltip").remove();
+	        b = null;
+	      }
+	    });
+}
+
+function labelFormatter(label, series) {
+	return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
 }

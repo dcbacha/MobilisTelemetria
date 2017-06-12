@@ -487,3 +487,40 @@ $app->put("/rpi", function ($request, $response, $arguments) use ($app) {
 });
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+$app->get("/carros/readdata-teste", function ($request, $response, $arguments) {
+      $start = microtime(true);
+      //Configura o banco de dados
+    $db = getDB();
+    //Coleta id do carro
+    $idgrupo = $this->get('jwt')->idg;
+    $ans = array();
+
+    try{
+        $result = $db->prepare("SELECT usuarios.nome, logeventos.idmotorista, logeventos.`car-id` as idcarro, logeventos.`error-code` as errorcode, logeventos.`timestamp-rcv` as timestamp_rcv,logeventos.`timestamp-evt` as timestamp_evt,logeventos.data
+                                FROM usuarios 
+                                inner join `logeventos-teste` as logeventos on logeventos.idmotorista=usuarios.idusuario where usuarios.idgrupo = ?");
+        $result->bindParam(1, $idgrupo);
+        $result -> execute();  
+            }
+        catch(Exception $db) {
+            return $response->withStatus(401)->write($db);
+        } 
+            
+        $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+        $num_rows = count($rows);
+
+        if($num_rows > 0){
+
+             $time_elapsed_secs = microtime(true) - $start;
+            $ans["time"] = $time_elapsed_secs;
+
+            return $response->withStatus(201)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($rows, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    } // end if ususarios                                        
+    else {
+      return $response->withStatus(401)->write($db);
+    } 
+                                                    
+});

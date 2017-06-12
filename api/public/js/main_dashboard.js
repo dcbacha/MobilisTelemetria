@@ -11,11 +11,38 @@ var orange = "#e06d4e";
 var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
 
 $(function(){
+
 	req_logperm();
 	req_evt();
+	req_evt_teste();
 	
-	//$(".legendLabel").children().css({"max-width": "50px"});
+
+	$("#reload").click(function(){
+		$(".collection").empty();
+		$(".drop").empty();
+		req_logperm();
+		req_evt();
+		req_evt_teste();
+
+	});
+
+	$("#dropdown1 li").click(function () {
 		
+		var intervalo = $(this).text();
+		$("#btnDropdown1").text(intervalo);
+		switch (intervalo){
+			case "Últimas 24 Horas": densityEvt(dataEvt, "densidadeevt", "dia"); break;
+			case "Última Semana": densityEvt(dataEvt, "densidadeevt", "semana"); break
+			case "Último Mês": densityEvt(dataEvt, "densidadeevt", "mes"); break;
+			case "Último Ano": densityEvt(dataEvt, "densidadeevt", "ano");
+		}
+
+	});
+
+	$("#filtro").change(function(){
+		var options = $(this);
+		filtrar(options);
+	});
 
 }); //end do document ready
 
@@ -23,13 +50,41 @@ $(function(){
 
 function begin(){
 	sessions(token);
+
+	$('select').material_select();
+
 	$(".legendColorBox").children().css({"width" : "14px", "margin-left": "0px"});
 	$(".legendColorBox").css({"max-width":"16px"})
+
+	$('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: true, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 5, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false
+    	}
+	);
+
+	
+
+	
 }
 
 function processEvt(data){
 	//console.log(data);
-	densityEvt(data);
+	//dataEvt = data;
+	//densityEvt(data, "densidadeevt", "dia");
+	avisos(data);
+}
+
+
+function processEvtTeste(data){
+	//console.log(data);
+	dataEvt = data;
+	densityEvt(data, "densidadeevt", "dia");
 }
 
 function processLogPerm(data){
@@ -43,7 +98,6 @@ function processLogPerm(data){
 	var rawData =[];
 	var ticks = [];
 
-	var b = 224;
 
 
 	for (let i = 0; i < size; i++) {
@@ -92,7 +146,8 @@ function processLogPerm(data){
 	plotPie(d3, "placeholder9")
 
 	plotBars(d2 , "placeholder2");
-	plotBarsHorizontal(rawData, ticks);
+	plotBarsHorizontal(data, "placeholder3", "temp");
+	plotBarsHorizontal(data, "placeholder-temporestante", "restante");
 	
 	//stacking(data);
 	
@@ -114,102 +169,6 @@ function processLogPerm(data){
 	
 }
 
-function plotPie(data, placeholder){
-
-	var placeholder = $("#"+placeholder);
-	var size = data.length;
-	var total = 0;
-	var parcial = [];
-	var label = [];
-
-	for(let i=0 ; i < size ; i++){
-		total += parseInt(data[i].data);
-		parcial[i] = parseInt(data[i].data);
-		label[i] = data[i].label;
-
-	}	
-	
-
-	placeholder.unbind();
-
-	$.plot(placeholder, data, {
-		series: {
-			pie: { 
-				radius: 1,
-				innerRadius: 0.5,
-				show: true,
-				label: {
-					 show: true,
-                radius: .75,
-                formatter: labelFormatter,
-                threshold: 0.1
-				}
-			}
-		},
-		legend: {
-			show: false
-		},
-		grid: {
-            hoverable: true,
-            borderWidth: 0
-        }
-	});
-
-		function toolTip(f, h, x,y, leg, index) {
-			var legenda = leg.parent().next();
-
-			var place = leg;
-			//console.log(legenda);
-			var pos = place.position();
-			var height = place.height();
-			var width = place.width();
-			
-
-			x = Math.round(x);
-
-			x= minTwoDigits(x);
-			
-
-	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 0.8em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
-	        position: 'relative',
-	        width: '50px',
-	        color: mobilislightblue,
-	        top: - (pos.top + height/2 - 15),
-	        left: - (pos.left - width/2 + 11.5),
-	        'background-color': "transparent",
-	        opacity: 0.8
-	      }).appendTo(legenda).fadeIn(200)
-	    }
-
-	    var b = null;
-
-	    placeholder.bind('plothover', function (i, k, h) {
-	      if (h) {
-	        if (b != h.datapoint) {
-	          b = h.datapoint;
-	          $('#tooltip').remove();
-	          var x = h.datapoint[0],
-	          	y = h.datapoint[1];
-	         
-	 
-	          //console.log(h.datapoint[0]);
-	          //console.log("tooltip");
-	      
-	          var leg = $(this);
-	          //console.log($(this).parent().next());
-	          var index = h.seriesIndex;
-	          toolTip(h.pageX, h.pageY, x,y, leg, index);
-	        }
-	      } else {
-	        //$("#tooltip").remove();
-	        b = null;
-	      }
-	    });
-}
-
-function labelFormatter(label, series) {
-	return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
-}
 
 function plotBars(d2, placeholder){
 	var placeholder = $("#"+placeholder);
@@ -317,7 +276,26 @@ function plotBars(d2, placeholder){
 
 
 
-function plotBarsHorizontal(rawData, ticks){
+function plotBarsHorizontal(data, placeholder, type){
+
+	var size = data.length;
+	var rawData =[];
+	var ticks = [];
+
+	for (let i = 0; i < size; i++) {
+
+		var idcarro = data[i].idcarro;
+		var	temp_bateria = data[i].temp_max_bateria;
+		var soh = data[i].soh;
+		
+		switch (type){
+			case "temp": rawData.push([parseInt(temp_bateria), i]); break;
+			case "restante": rawData.push([parseInt(soh), i]);
+		}
+		
+		ticks.push([i, "Carro "+ idcarro ]);
+
+	}
 	
  	var dataSet = [{data: rawData, color: "#E6354D" }]; 
 
@@ -361,7 +339,7 @@ function plotBarsHorizontal(rawData, ticks){
             }
         };
 
-          $.plot($("#placeholder3"), dataSet, options);
+    $.plot($("#"+placeholder), dataSet, options);
 
 }
 
@@ -651,54 +629,6 @@ function multipleBars(data){
 	      }
 	    });
 }
-/*
-
-function media(data, placeholder, param){
-
-	var size = data.length;
-	var media = [];
-	var value = 0;
-
-	for(i=0; i<size ; i++){
-
-		switch (param){
-			case "soh": var soma = parseInt(data[i].soh); break;
-			case "ief": var soma = parseInt(data[i].indice_eficiencia*100);
-		}
-		value += soma;
-	}
-
-	value = value/size;
-
-	media[1] = {
-			data: value,
-			color: "#4Ec1E0"
-		};
-
-	media[0] = {
-			data: 100-value,
-			color: "white"
-	}
-
-	plotPieMedia(media, placeholder);
-
-	var containerlegenda = $("#"+placeholder).next();
-	var a = $("#"+placeholder).height();
-	var l = $("#"+placeholder).width();
-
-	var style = {
-		position: "relative",
-		top: "-"+a/2+"px",
-		left: l/2+"px",
-		color: "#4Ec1E0",
-		"font-size": "2em"
-	}
-
-	containerlegenda.css(style);
-
-	containerlegenda.append(media[1].data+"%");
-}
-*/
 
 
 function plotPieMedia(data, placeholder){
@@ -725,103 +655,157 @@ function plotPieMedia(data, placeholder){
 		}
 	});
 }
-/*
-function media2(data, placeholder, param){
+
+
+function densityEvt(data, placeholder, type){
+
+	var placeholder = $("#"+placeholder);
+	//console.log(data);
 
 	var size = data.length;
-	var value = 0;
-	var loop = 0;
-	var updateInterval = 1;
-	var valores = [];
-	valores[1] = { data: 0,	color: "#4Ec1E0" };
-	valores[0] = { data: 100, color: "white" };
-	
-	var placeholder = $("#"+placeholder);
 
+	var now = new Date().getTime();
+	//console.log(new Date());
+	var d = [];
 
-	for(i=0; i<size ; i++){
+	for (let i=0 ; i<size ; i++){
+		var time =  new Date(data[i].timestamp_evt).getTime();
+		//console.log(time);
 
-		switch (param){
-			case "soh": var soma = parseInt(data[i].soh); break;
-			case "ief": var soma = parseInt(data[i].indice_eficiencia*100);
-		}
-		value += soma;
+		var evt = [time, 1];
+
+		d.push(evt);
 	}
 
-	value = value/size;
-	
-	var plot = $.plot(placeholder, valores, {
-		series: {
-			pie: { 
-				radius: 1,
-				innerRadius: 0.9,
-				show: true,
-				label: {
-					 show: false,
-                radius: .75,
-                formatter: labelFormatter,
-                threshold: 0.1
-				}
-			}
+	//console.log(d);
+
+	/* create and return new array padding missing days*/
+
+/*  var startDay = now,
+    newData = [[new Date(data[0].timestamp_evt).getTime(), 1]];
+
+  for (i = 1; i < size; i++) {
+  	var data1 = new Date(data[i-1].timestamp_evt).getTime();
+  	var data2 = new Date(data[i].timestamp_evt).getTime();
+  	console.log(data1, data2);
+
+    var diff = dateDiff(data1, data2);
+
+    var startDate = data1;
+
+    if (diff > 1) {
+      for (j = 0; j < diff - 1; j++) {
+        var fillDate = new Date(startDate+ (j + 1)).getTime();
+        //console.log(fillDate);
+          newData.push([fillDate, 0]);
+      }
+    }
+    var dataTime = new Date(data[i].timestamp_evt).getTime();
+    newData.push([dataTime, 1]);
+    
+  }
+ 
+   console.log(newData);*/
+
+
+
+/* helper function to find date differences*/
+function dateDiff(d1, d2) {
+  return Math.floor((d2 - d1) / (1000 * 60 * 60));
+}
+
+	switch (type){
+		case "dia": var intervalo = (1000 * 60 * 60 * 24); break;
+		case "semana": var intervalo = (1000 * 60 * 60 * 24 * 7); break;
+		case "mes": var intervalo = (1000 * 60 * 60 * 24 * 30); break;
+		case "ano": var intervalo = (1000 * 60 * 60 * 24 * 30 * 12);
+	}
+
+
+	 $.plot(placeholder, [d], {
+		bars: { 
+			show: true,
+			align: "center", 
+			barWidth: 1, 
+			fill: 0.9 
+		},
+		xaxis: {
+			mode: "time",
+			min: (now - intervalo),
+			max: now,
+			timezone: "browser"
+		},
+		yaxis: {
+			ticks: 1,
+			min: 0,
+			max: 1
+		},
+		grid: { 
+			borderWidth: 0,
+			hoverable: true
 		},
 		legend: {
 			show: false
 		}
-	});
-	
-	var containerlegenda = placeholder.parent().next();
-
-	var style = {
-		position: "absolute",
-		top: "62%",//"-"+a/2+"px",
-		left: "50%",//l/2+"px",
-		color: "#4Ec1E0",
-		"font-size": "1.8em",
-		"font-weight": 900 }
-
-	containerlegenda.css(style);
-
-
-	function update() {
-		containerlegenda.empty();
 		
-		if(loop < value && (value - loop) > 2){
-	        valores[1] = {data: loop, color: "#4Ec1E0"};
-			valores[0] = {data: 100-loop, color: "white"};
+	});
+
+
+
+}
+
+function filtrar(options){
+
+	for(let i=0; i < 8 ; i++){
+		
+		if(options[0].options[i].selected == false){
+			var value = options[0].options[i].value;
 			
-			loop += 2;
+			switch (value){
+				case '1': $("#card-lastupdate").css({'visibility': 'hidden'}); break;
+				case '2': $("#card-densidadeeventos").css({'visibility': 'hidden'}); break;
+				case '3': $("#card-horimetro").css({'visibility': 'hidden'}); break;
+				case '4': $("#card-odometro").css({'visibility': 'hidden'}); break;
+				case '5': $("#card-temp1").css({'visibility': 'hidden'}); break;
+				case '6': $("#card-temp2").css({'visibility': 'hidden'}); break;
+				case '7': $("#card-temp3").css({'visibility': 'hidden'}); break;
+			}
 		}
-		else if (loop < value && (value - loop) > 1){
-			valores[1] = {data: loop, color: "#4Ec1E0"};
-			valores[0] = {data: 100-loop, color: "white"};
+		if(options[0].options[i].selected == true){
+			var value = options[0].options[i].value;
 
-			loop+= 1;
+			switch (value){
+				case '1': $("#card-lastupdate").css({'visibility': 'visible'}); break;
+				case '2': $("#card-densidadeeventos").css({'visibility': 'visible'}); break;
+				case '3': $("#card-horimetro").css({'visibility': 'visible'}); break;
+				case '4': $("#card-odometro").css({'visibility': 'visible'}); break;
+				case '5': $("#card-temp1").css({'visibility': 'visible'}); break;
+				case '6': $("#card-temp2").css({'visibility': 'visible'}); break;
+				case '7': $("#card-temp3").css({'visibility': 'visible'}); break;
+			}
 		}
-		else if (loop < value && (value - loop) < 1){
-			valores[1] = {data: loop, color: "#4Ec1E0"};
-			valores[0] = {data: 100-loop, color: "white"};
+	}
 
-			loop+=0.1;
+}
+
+
+function avisos(data){
+	var size = data.length;
+	var num_erro =0;
+	var num_aviso =0;
+
+	for(let i=0 ; i<size ; i++){
+		var erro = data[i].errorcode;
+
+		if( $.inArray(erro, arr_danger) > -1){
+			console.log("tem erro");
+			num_erro ++;
 		}
+		else if( $.inArray(erro, arr_warning) > -1){
+			console.log("tem falha");
+			num_aviso ++;
+		}
+	}
 
-		plot.setData(valores);
-
- 		plot.draw();
- 		containerlegenda.append(valores[1].data.toFixed(1)+"%");
-         if(loop < value){
-         	  setTimeout(update, updateInterval);
-         }
-      
-    }
- 
-    update();
-
-}*/
-
-function densityEvt(data){
-	//console.log("densidade");
-
-	var time = new Date().getTime();
-	//console.log(time);
-	//console.log(data[0].timestamp_evt.getTime());
+	// fazer logica de quando nao tem erro e de quando tem;
 }

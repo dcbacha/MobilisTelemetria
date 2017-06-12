@@ -304,3 +304,98 @@ $app->get("/updateuser", function ($request, $response, $arguments) use ($app) {
    }
 
 });
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+$app->put("/diagnosticmail", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $idgrupo = $this->get('jwt')->idg;
+    $email = $this->get('jwt')->eml;
+    $nome = $this->get('jwt')->nme;
+
+    $carro = $request->getParam('carro');
+    $problema = $request->getParam('problema');
+    $outro = $request->getParam('outro');
+    $descricao = $request->getParam('descricao');
+
+   /* echo $carro."\n";
+    echo $problema."\n";
+    echo $outro."\n";
+    echo $descricao;*/
+
+    $mail = mail_diagnostico($carro, $problema, $outro, $descricao, $nome, $email, $idgrupo);
+    
+    if($mail == "Message sent!"){
+        return $response->withStatus(201)->write("Email enviado com sucesso");
+    }
+    else{
+        return $response->withStatus(401)->write("Algo deu errado");
+    }
+
+    
+
+});
+
+function mail_diagnostico($carro, $problema, $outro, $descricao, $nome, $email, $idgrupo){
+    require '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
+
+     $html = "<body><p>Um Diagnóstico do carro {$carro} do grupo {$idgrupo} foi solicitado<br/></p><br/>
+                <table border='1' cellspacing='0' width='80%' style='border-collapse:collapse;'  align='center'>
+                <thead>
+                    <tr bgcolor='#CCC' >
+                        <th align='center'>Carro</th>
+                        <th align='center'>Problema</th>
+                        <th align='center'>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>";
+
+
+    $html .= "<tr>
+                <td align='center'>{$carro}</td>";
+
+    if ($outro == ""){
+        $html .= "<td align='center'>{$problema}</td>";
+    }
+    else{
+        $html .= "<td align='center'>{$outro}</td>";
+    }
+                    
+    $html .= "<td align='center'>{$descricao}</td>
+                </tr>";
+    $html .=  "</tbody></table>";
+    $html .= "<p>Responsável pelo pedido: {$nome}</p>
+              <p>Email: {$email}</p><br>";
+    $html .= "<p><br/>Iniciar diagnóstico <a href='#'>aqui</a></p><body>";
+
+    $mail = new PHPMailer();
+
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+    $mail->Username = "engenharia05mobilis@gmail.com";
+    $mail->Password = "b&mvind0";
+
+    // para funcionar no GoDaddy
+    /*$mail->Host = 'relay-hosting.secureserver.net';
+    $mail->Port = 25;
+    $mail->SMTPAuth = false;
+    $mail->SMTPSecure = false;*/
+
+    $mail->setFrom("engenharia05mobilis@gmail.com", "Mobilis"); //quem está enviando
+    $mail->addAddress("engenharia05mobilis@gmail.com"); //quem vai receber
+    $mail->Subject = "[Diagnostico] Carro {$carro}"; //título do email
+    $mail->msgHTML($html); //corpo da mensagem em html
+   
+   // $mail->SMTPDebug = 2;
+
+    if (!$mail->send()) {
+        return "Mailer Error: " . $mail->ErrorInfo;
+    } else {
+        return "Message sent!";
+    }
+}

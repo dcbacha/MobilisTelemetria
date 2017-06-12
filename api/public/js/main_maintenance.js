@@ -20,6 +20,20 @@ $(function(){
 	req_logperm();
 	req_fleet();
 
+	$("#reload").click(function(){
+		$(".collection").empty();
+		$(".drop").empty();
+		req_evt();
+		req_logperm();
+		req_fleet();
+
+	});
+
+	$("#filtro").change(function(){
+		var options = $(this);
+		filtrar(options);
+	});
+
 	
 });
 
@@ -36,6 +50,39 @@ function processLogPerm(data){
 	ranking(dataLogPerm, "placeholder-autrank", "aut");
 	ranking(dataLogPerm, "placeholder-sohrank", "soh");
 	ranking(dataLogPerm, "placeholder-efirank", "efi");
+
+
+	var d1 = [];
+	var d3 = [];
+	var size = data.length;
+
+	for (let i = 0; i < size; i++) {
+
+		var	horimetro = data[i].horimetro;
+		var odometro = data[i].odometro;
+		var idcarro = data[i].idcarro;
+	
+		if(i > 2){
+			var rest = i % 3;
+			var azul = colors[rest];
+		}
+		else{
+			var azul = colors[i];
+		}
+		
+		d1[i] = {
+			label: "Carro " + (idcarro),
+			data: horimetro,
+			color: azul }
+
+		d3[i] = {
+			label: "Carro " + (idcarro),
+			data: odometro,
+			color: azul }
+	}
+
+	plotPie(d1, "placeholder");
+	plotPie(d3, "placeholder9")
 }
 
 function processEvt(data){
@@ -54,6 +101,7 @@ function processFleet(data){
 
 function begin(){
 	sessions(token);
+	$('select').material_select();
 
 	$('.dropdown-button').dropdown({
       inDuration: 300,
@@ -281,6 +329,8 @@ function rankErro(data){
 	  }
 	}
 
+	console.log("json: ", json);
+
 	var ranking = json.sort(keysrt('qnt'));
 	
 	for(let i = 0 ; i < ranking.length ; i++){
@@ -301,4 +351,39 @@ function update_dropdown(data){
 	
 
 	begin();
+}
+
+
+function filtrar(options){
+
+	for(let i=0; i < 8 ; i++){
+		
+		if(options[0].options[i].selected == false){
+			var value = options[0].options[i].value;
+			
+			switch (value){
+				case '1': $("#card-rankuser").css({'visibility': 'hidden'}); break;
+				case '2': $("#card-horascarga").css({'visibility': 'hidden'}); break;
+				case '3': $("#card-soh").css({'visibility': 'hidden'}); break;
+				case '4': $("#card-efi").css({'visibility': 'hidden'}); break;
+				case '5': $("#card-autonomia").css({'visibility': 'hidden'}); break;
+				case '6': $("#card-horimetro").css({'visibility': 'hidden'}); break;
+				case '7': $("#card-odometro").css({'visibility': 'hidden'}); break;
+			}
+		}
+		if(options[0].options[i].selected == true){
+			var value = options[0].options[i].value;
+
+			switch (value){
+				case '1': $("#card-rankuser").css({'visibility': 'visible'}); break;
+				case '2': $("#card-horascarga").css({'visibility': 'visible'}); break;
+				case '3': $("#card-soh").css({'visibility': 'visible'}); break;
+				case '4': $("#card-efi").css({'visibility': 'visible'}); break;
+				case '5': $("#card-autonomia").css({'visibility': 'visible'}); break;
+				case '6': $("#card-horimetro").css({'visibility': 'visible'}); break;
+				case '7': $("#card-odometro").css({'visibility': 'visible'}); break;
+			}
+		}
+	}
+
 }
