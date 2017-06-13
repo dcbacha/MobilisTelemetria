@@ -6,18 +6,22 @@ var url_fleet = 	url_global + "/fleet",
 url_drivers = 		url_global + "/drivers",
 url_home = 			url_global + "/home",
 url_diagnostic = 	url_global + "/diagnostic",
-url_cadastro = 		url_global + "/register",
-url_cadastro_car = 	url_global + "/registervehicle",
+url_cadastro = 		url_global + "/reg",
+url_cadastro_car = 	url_global + "/regvehicle",
+url_cadastro_mot = 	url_global + "/regdriver",
 url_dashboard =		url_global + "/dashboard",
 url_edit_user = 	url_global + "/edit",
-url_maintenance = 	url_global + "/maintenance";
-
- 
+url_maintenance = 	url_global + "/maintenance",
+url_faq	=			url_global + "/faq",
+url_contato = 		url_global + "/contato",
+url_config = 		url_global + "/config",
+url_trouble = 		url_global + "/trouble";
 
 // links servidor
 var url_req_readdata = 		url_global + "/carros/readdata",
 url_req_readdata_driver = 	url_global + "/carros/readdata-motor",
 url_req_login = 			url_global + "/login",
+url_req_new_password = 		url_global + "/newpassword",
 url_req_cadastro = 			url_global + "/cadastro",
 url_req_cadastro_car = 		url_global + "/cadastroveiculo",
 url_req_log_perm = 			url_global + "/listlogperm",
@@ -36,48 +40,39 @@ var num_warnings = 0;
 var horimetro_total =0;
 var odometro_total =0;
 
-
 //******************* Botões do Tamplate *************************//
-$("#logout").click(function(){
-	document.location = url_home;
-});
+$("#logout").click(function(){ document.location = url_home; });
 
-$("#btnfleet").click(function(){
+$("#btnfleet").click(function(){ direct(url_fleet); });
+
+$("#btndriver").click(function(){ direct(url_drivers); });
+
+$("#btndiagnostic").click(function(){ direct(url_diagnostic); });
+
+$("#btncadastro").click(function(){ direct(url_cadastro); });
+
+$("#btncadastroveiculo").click(function(){ direct(url_cadastro_car); });
+
+$("#btncadastromotorista").click(function(){ direct(url_cadastro_mot); });
+
+$("#btndashboard").click(function(){ direct(url_dashboard); });
+
+$("#btnmaintenance").click(function(){ direct(url_maintenance); });
+
+$("#btnfaq").click(function(){ direct(url_faq); });
+
+$("#btncontato").click(function(){ direct(url_contato); });
+
+$("#btnconfig").click(function(){ direct(url_config); });
+
+$("#btntrouble").click(function(){ direct(url_trouble); });
+
+function direct(new_window){
 	var url = "?t="+token;
-	document.location = url_fleet+url;
-});
+	document.location = new_window+url;
+}
 
-$("#btndriver").click(function(){
-	var url = "?t="+token;
-	document.location = url_drivers+url;
-});
-
-$("#btndiagnostic").click(function(){
-	var url = "?t="+token;
-	document.location = url_diagnostic+url;
-});
-
-$("#btncadastro").click(function(){
-	var url = "?t="+token;
-	document.location = url_cadastro+url;
-});
-
-$("#btncadastroveiculo").click(function(){
-	var url = "?t="+token;
-	document.location = url_cadastro_car+url;
-});
-
-$("#btndashboard").click(function(){
-	var url = "?t="+token;
-	document.location = url_dashboard+url;
-});
-
-$("#btnmaintenance").click(function(){
-	var url = "?t="+token;
-	document.location = url_maintenance+url;
-});
-
-
+//******************* Configurações Menu Lateral *************************//
 $('.button-collapse').sideNav({
     menuWidth: 200, // Default is 200
     edge: 'left', // Choose the horizontal origin

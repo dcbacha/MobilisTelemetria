@@ -7,6 +7,10 @@ $("#btncadastro").parent().siblings().removeClass("active");
 
 $(function(){
 
+$("#btncadastro").parent().parent().parent().css({'display': 'block'});
+//$("#btncadastro").parent().parent().parent().parent().addClass("active");
+
+
 	$('select').material_select();
 
 	$("#btnsubmit").click(function(){

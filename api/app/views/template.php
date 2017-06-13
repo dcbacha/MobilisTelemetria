@@ -19,6 +19,11 @@
 
   }
 
+  .menu a.link{
+    padding-left: 16px;
+  }
+
+
     .footer{
     position: fixed;
     bottom: 0;
@@ -30,6 +35,13 @@
 
   }
 
+.collapsible-body >ul >li>a{
+  font-size: .8em;
+}
+
+.dropdown .active{
+  background-color: grey
+}
 </style>
 
 
@@ -74,13 +86,39 @@
       <li><div class="divider"></div></li>
 
       
-      <li class="menu"><a id="btndashboard">Painel de Controle</a></li>
-      <li class="menu"><a id="btnmaintenance">Manutenção</a></li>
-      <li class="menu"><a id="btnfleet">Resumo da Frota</a></li>
-      <li class="menu"><a id="btndriver">Controle de Usuário</a></li>
-      <li class="menu"><a id="btndiagnostic">Diagnóstico</a></li>
-      <li class="menu"><a id="btncadastro">Cadastro Usuários</a></li>
-      <li class="menu"><a id="btncadastroveiculo">Cadastro Veículos</a></li>
+      <li class="menu"><a href="#!" id="btndashboard" class="link">Painel de Controle</a></li>
+      <li class="menu"><a href="#!" id="btnmaintenance" class="link">Oficina</a></li>
+      <li class="menu"><a href="#!" id="btnfleet" class="link">Log da Frota</a></li>
+      <li class="menu"><a href="#!" id="btndriver" class="link">Log do Usuário</a></li>
+      <li class="no-padding menu">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Configurações<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="dropdown"><a href="#!" id="btncadastro">Cadastro usuários WEB</a></li>
+                <li class="dropdown"><a href="#!" id='btncadastromotorista'>Cadastro operadores</a></li>
+                <li class="dropdown"><a href="#!" id="btncadastroveiculo">Cadastro veículos</a></li>
+                <li class="dropdown"><a href="#!" id='btnconfig'>Configurar alertas</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a class="collapsible-header">Suporte<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="dropdown"><a href="#!" id='btntrouble'>Troubleshooting</a></li>
+                <li class="dropdown"><a href="#!" id="btndiagnostic">Diagnóstico</a></li>
+                <li class="dropdown"><a href="#!" id='btnfaq'>FAQ</a></li>
+                <li class="dropdown"><a href="#!" id='btncontato'>Contato</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    
+    <!--  <li class="menu"><a >Cadastro Usuários</a></li>
+      <li class="menu"><a >Cadastro Veículos</a></li> -->
 
     </ul>
     <div class="footer">

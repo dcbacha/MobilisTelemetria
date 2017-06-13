@@ -3,10 +3,6 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/commonfunctions.js"></script>
-  <script src="../vendor/flot/jquery.flot.js"></script>
-  <script src="../vendor/flot/jquery.flot.selection.js"></script>
-  <script src="../vendor/flot/jquery.flot.navigate.js""></script>
-  <script src="../vendor/flot/jquery.flot.resize.js""></script>
   <script src="js/main_diagnostic.js"></script>
   <style type="text/css">
   	

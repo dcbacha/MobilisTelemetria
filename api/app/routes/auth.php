@@ -108,4 +108,113 @@ $app->post("/car/auth", function ($request, $response, $arguments)
     }
 });
 
-?>
+/////////////////////////////////////
+
+$app->get("/newpassword", function ($request, $response, $arguments) use ($app){ 
+    $db = getDB(); 
+  
+    // esses funcionam se rolar um post direto do formulario, sem json e etc
+    $email = $request->getParam('email'); 
+    $name = $request->getParam('name');
+       
+    try {   
+        $result = $db->prepare("SELECT idusuario, nome, email, idgrupo, password FROM `usuarios` WHERE `email` = ? and `nome` = ?  LIMIT 1");
+        $result->bindParam(1, $email);
+        $result->bindParam(2, $name);
+        $result -> execute();  
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write($db);
+    }                                   
+    
+    $rows = $result->fetchObject();
+    $num_rows = count($rows);
+     
+    if($rows){
+
+        $id = $rows->idusuario;
+
+        $senhanova = generateRandomString();
+
+         $senha_hash = password_hash($senhanova, PASSWORD_DEFAULT);
+
+         try {   
+            $result = $db->prepare("UPDATE usuarios SET password = ?                                     WHERE idusuario = ?");
+            $result->bindParam(1, $senha_hash);
+            $result->bindParam(2, $id);
+           
+            $result -> execute();
+
+            //return $response->withStatus(201)->write("Usuario alterado com sucesso"); 
+        }
+        catch(Exception $db) { return $response->withStatus(401)->write("Unauthorized");}
+
+
+        $data["status"] = "sucesso";
+       // $data['id'] = $id;
+       // $data['senha'] = $senhanova;
+
+        $mail = sendMailPassword($email, $senhanova);
+        if($mail == "Message sent!"){
+           return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        }                                     
+       else{
+          return $response->withStatus(401)->write("Algo deu errado");
+       }
+     
+    }
+    else {
+      return $response->withStatus(401)->write("Usuario nao existe");
+    }
+});
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+function sendMailPassword($email, $password){
+   require '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
+    $html = "<body>";
+     
+    $html .= "<p>Nova senha: {$password}</p>
+              <p>Email: {$email}</p><br>";
+
+    $mail = new PHPMailer();
+
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+    $mail->Username = "engenharia05mobilis@gmail.com";
+    $mail->Password = "b&mvind0";
+
+    // para funcionar no GoDaddy
+    /*$mail->Host = 'relay-hosting.secureserver.net';
+    $mail->Port = 25;
+    $mail->SMTPAuth = false;
+    $mail->SMTPSecure = false;*/
+
+    $mail->setFrom("engenharia05mobilis@gmail.com", "Mobilis"); //quem está enviando
+    /// tem que mudar aqui para o email do usuario
+    $mail->addAddress("engenharia05mobilis@gmail.com"); //quem vai receber
+    $mail->Subject = "[Nova Senha]"; //título do email
+    $mail->msgHTML($html); //corpo da mensagem em html
+   
+   // $mail->SMTPDebug = 2;
+
+    if (!$mail->send()) {
+        return "Mailer Error: " . $mail->ErrorInfo;
+    } else {
+        return "Message sent!";
+    }
+}

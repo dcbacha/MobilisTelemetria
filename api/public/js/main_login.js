@@ -64,3 +64,68 @@ $("#login").click(function(){
 
 return false;
 });
+
+
+$("#esqueci").click(function(){
+
+  $("#principal").css({'display': 'none'});
+  $("#secundario").show();
+});
+
+$("#voltar").click(function(){
+
+  $("#secundario").css({'display': 'none'});
+  $("#principal").show();
+});
+
+$("#generate").click(function(){
+  $("#loading").slideToggle();
+  console.log("generate");
+  console.log($("#name2").val());
+
+  var email = $("#email2").val();
+  var name = $("#name2").val();
+
+  var data = {
+      email: email,
+      name: name
+    };
+
+    console.log(data);
+
+    $.ajax({
+                type: "GET",
+                contentType: "application/x-www-form-urlencoded",
+                url: url_req_new_password,
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                   console.log(data);
+                   $("#loading").slideToggle();
+
+                     $("#success2").stop().slideToggle();
+
+                     
+
+
+                },
+                error: function(data, status, message) {
+                  $("#loading").slideToggle();
+                    console.log(data);
+                    console.log(data.responseText);
+
+                    if(data.responseText == "Usuario nao existe"){
+                      console.log("deuruim");
+                      $("#erroruser").stop().slideToggle();
+
+                     setTimeout(function(){
+                        $("#erroruser").stop().slideUp(250);
+                      }, 2500);
+                    
+                    }
+                    console.log(status);
+               
+                }
+    });
+
+});
