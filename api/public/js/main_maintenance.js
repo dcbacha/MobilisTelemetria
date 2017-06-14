@@ -167,8 +167,8 @@ function stacking(data, placeholder){
 			var int_carga1 =  (carga1/total).toFixed(2);
 			var int_carga2 =  (carga2/total).toFixed(2);
 
-			porc_carga0[i] = Math.round(int_carga0*100);
-			porc_carga1[i] = Math.round(int_carga1*100);
+			porc_carga0[i] = Math.floor(int_carga0*100);
+			porc_carga1[i] = Math.floor(int_carga1*100);
 			porc_carga2[i] = Math.round(int_carga2*100);
 
 			d1[i] = [i, 33];
@@ -349,6 +349,8 @@ function rankErro(data){
 		var html = "<li class='collection-item'><strong>"+(i+1)+"º</strong> "+nome+"<span class='badge'>"+qnt+"</span></li>";
 		$("#user-rank").append(html);
 	}
+
+	$('#user-rank').slideDown();
 }
 
 function update_dropdown(data){

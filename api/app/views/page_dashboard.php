@@ -31,8 +31,12 @@
     font-size: .85em;
   }
   .medium{
-    height: 315px;
+    height: 200px;
   }
+  .big{
+    height:422.5px;
+  }
+  
 
   .wrap{
     height: 80%;
@@ -94,6 +98,12 @@ div.legendaMedia {
   border: 1px solid  #e06d4e;
 }
 
+.flot-x-axis .flot-tick-label {
+   font-size: 0.8em;
+
+}
+
+
 
 </style>
 
@@ -133,16 +143,12 @@ div.legendaMedia {
 
 <div class="row">
     
-    <div class="col s12 m12" id='card-congrats' hidden>
+    <div class="col s12 m12 card-big" id='card-congrats' hidden>
      <div class="card-panel cardteste style-congrats">
         <p class="title">Parabéns! Não foram registradas falhas na sua frota</p>
     </div>
     </div>
 
-</div>
-
-
-<div class="row">
     
     <div class="col s12 m12" id='card-falha' hidden>
      <div class="card-panel cardteste style-falha">
@@ -155,9 +161,7 @@ div.legendaMedia {
     </div>
     </div>
 
-</div>
 
-<div class="row">
     
     <div class="col s12 m12" id='card-alerta' hidden>
      <div class="card-panel cardteste style-alerta">
@@ -168,16 +172,12 @@ div.legendaMedia {
     </div>
     </div>
 
-</div>
-
-
-<div class="row">
 
    <div class="col s12 m3" id='card-lastupdate'>
-     <div class="card-panel cardteste medium">
+     <div class="card-panel cardteste big">
         <p class="title">Última atualização</p>
         <div>
-          <ul id="placeholder-lastupdate" class="collection"></ul>
+          <ul id="placeholder-lastupdate" class="collection" hidden></ul>
        </div>
     </div>
   </div>
@@ -185,7 +185,6 @@ div.legendaMedia {
   <div class="col s12 m3" id='card-temporestante'>
     <div class="card-panel cardteste medium">
         <p class="title">Estado de Carga da Bateria</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap">
           <div id="placeholder-estadocarga" class="placeholder"></div>
        </div>
@@ -196,7 +195,6 @@ div.legendaMedia {
     <div class="col s12 m3" id='card-horimetro-barra'>
     <div class="card-panel cardteste medium">
         <p class="title">Horímetro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap">
           <div id="placeholder-horimetro-barra" class="placeholder"></div>
        </div>
@@ -207,7 +205,6 @@ div.legendaMedia {
   <div class="col s12 m3" id='card-odometro-barra'>
     <div class="card-panel cardteste medium">
         <p class="title">Odometro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap center">
           <div id="placeholder-odometro-barra" class="placeholder"></div>
        </div>
@@ -244,7 +241,33 @@ div.legendaMedia {
     </div>
   </div>
 
-  <div class="col s12 m3" id='card-odometro'>
+   <div class="col s12 m6" id='card-temp2'>
+    <div class="card-panel cardteste big">
+        <p class="title">Temperaturas Máximas</p>
+        <p  class="subtitle">Máximas temperaturas já registradas</p>
+        <div class="wrap">
+          <div id="placeholder5" class="placeholder"></div>
+       </div>
+       <div id="legenda5" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+
+
+   
+
+   <div class="col s12 m3" id='card-temp1'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Temperatura Máxima da Bateria</p>
+        <p class="subtitle">Máxima temperatura registrada<p>
+        <div class="wrap">
+          <div id="placeholder2" class="placeholder"></div>
+       </div>
+       <div id="legenda2" style="padding-left: 15%;"></div>
+    </div>
+  </div>
+
+    <div class="col s12 m3" id='card-odometro'>
     <div class="card-panel cardteste medium">
         <p class="title">Odometro</p>
         <p  class="subtitle">Porcentagens por veículo</p>
@@ -255,32 +278,10 @@ div.legendaMedia {
     </div>
   </div>
 
-   
-
-   <div class="col s12 m3" id='card-temp1'>
-    <div class="card-panel cardteste medium">
-        <p class="title">Temperatura Máxima da Bateria</p>
-        <p class="subtitle">Máxima temperatura registrada na Bateria do veículo<p>
-        <div class="wrap">
-          <div id="placeholder2" class="placeholder"></div>
-       </div>
-       <div id="legenda2" style="padding-left: 15%;"></div>
-    </div>
-  </div>
-
-   <div class="col s12 m9" id='card-temp2'>
-    <div class="card-panel cardteste medium">
-        <p class="title">Temperaturas Máximas</p>
-        <p  class="subtitle">Máximas temperaturas já registradas pelo veículo</p>
-        <div class="wrap">
-          <div id="placeholder5" class="placeholder"></div>
-       </div>
-       <div id="legenda5" style="padding-left: 5%;"></div>
-    </div>
-  </div>
+  
 
     
-    <div class="col s12 m9" id='card-temp3'>
+    <div class="col s12 m6" id='card-temp3'>
      <div class="card-panel cardteste medium">
         <p class="title">Temperaturas Máximas na Bateria</p>
         <p  class="subtitle">Máximas temperaturas já registradas na Bateria do veículo</p>

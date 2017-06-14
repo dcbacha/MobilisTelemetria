@@ -50,6 +50,50 @@
 }
 
 
+/* configuracoes mexidas
+nav{
+  background-color: #2A1856 !important;
+}
+.side-nav{
+  background-color: lightgray !important; 
+
+}
+
+.side-nav li>a {
+  color: black;
+}
+
+.w{
+  color:black;
+}
+i.w{
+  color:white;
+}
+.dropdown{
+  color:black;
+}
+
+body{
+  background-color: white;
+}*/
+
+.cardteste{
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+/* configuracoes de verdade */
+
+nav{
+  background-color: #2A1856 !important;
+}
+.side-nav{
+  background-color: #f5f5f5;
+}
+body{
+  background-color: white;
+}
+
 </style>
 
 
@@ -60,7 +104,7 @@
 
   <header>
   <div class="navbar-fixed">
-  <nav class="mobilisblue" role="navigation">
+  <nav role="navigation">
     <div class="nav-wrapper">
       <a id="logo-container" href="#" class="brand-logo" style="margin-left: 15px;">
         <img src="img/logo_mobilis_colored.png" class="logo">
@@ -74,18 +118,18 @@
   </nav>
   </div>
  
-   <ul id="nav-mobile" class="side-nav fixed grey lighten-4">
+   <ul id="nav-mobile" class="side-nav fixed">
       
       <li style="height: 36px">
         <a href="#!" class="subheader" style="height: 100% ; padding-left: 10%">
-          <i class="material-icons valign-wrapper"  style="height: 100%; margin-right: 5%">perm_identity</i>
-          <div class="valign-wrapper" style="height: 100%" id="usuario"></div>
+          <i class="material-icons valign-wrapper w"  style="height: 100%; margin-right: 5%">perm_identity</i>
+          <div class="valign-wrapper w" style="height: 100%" id="usuario"></div>
         </a>
       </li>
       <li style="height: 36px">
         <a href="#!" class="subheader" style="height: 100%; padding-left: 10%">
-          <i class="material-icons valign-wrapper" style="height: 100%; margin-right: 5%">email</i>
-          <div class="valign-wrapper" style="height: 100%" id="email"></div>
+          <i class="material-icons valign-wrapper w" style="height: 100%; margin-right: 5%">email</i>
+          <div class="valign-wrapper w" style="height: 100%" id="email"></div>
         </a>
       </li>
       
@@ -104,10 +148,10 @@
             <a class="collapsible-header">Configurações<i class="material-icons right">arrow_drop_down</i></a>
             <div class="collapsible-body">
               <ul>
-                <li class="dropdown"><a href="#!" id="btncadastro">Cadastro usuários WEB</a></li>
-                <li class="dropdown"><a href="#!" id='btncadastromotorista'>Cadastro operadores</a></li>
-                <li class="dropdown"><a href="#!" id="btncadastroveiculo">Cadastro veículos</a></li>
-                <li class="dropdown"><a href="#!" id='btnconfig'>Configurar alertas</a></li>
+                <li class="dropdown"><a href="#!" id="btncadastro" style="color:black">Cadastro usuários WEB</a></li>
+                <li class="dropdown"><a href="#!" id='btncadastromotorista' style="color:black">Cadastro operadores</a></li>
+                <li class="dropdown"><a href="#!" id="btncadastroveiculo" style="color:black">Cadastro veículos</a></li>
+                <li class="dropdown"><a href="#!" id='btnconfig' style="color:black">Configurar alertas</a></li>
               </ul>
             </div>
           </li>
@@ -115,10 +159,10 @@
             <a class="collapsible-header">Suporte<i class="material-icons right">arrow_drop_down</i></a>
             <div class="collapsible-body">
               <ul>
-                <li class="dropdown"><a href="#!" id='btntrouble'>Troubleshooting</a></li>
-                <li class="dropdown"><a href="#!" id="btndiagnostic">Diagnóstico</a></li>
-                <li class="dropdown"><a href="#!" id='btnfaq'>FAQ</a></li>
-                <li class="dropdown"><a href="#!" id='btncontato'>Contato</a></li>
+                <li class="dropdown"><a href="#!" id='btntrouble' style="color:black">Troubleshooting</a></li>
+                <li class="dropdown"><a href="#!" id="btndiagnostic" style="color:black">Diagnóstico</a></li>
+                <li class="dropdown"><a href="#!" id='btnfaq' style="color:black">FAQ</a></li>
+                <li class="dropdown"><a href="#!" id='btncontato' style="color:black">Contato</a></li>
               </ul>
             </div>
           </li>

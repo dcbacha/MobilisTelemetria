@@ -76,6 +76,7 @@ function ranking(data, placeholder, param){
 
 		
 	}
+	placeholder.slideDown();
 }
 
 function media(data, placeholder, param, type){
@@ -263,12 +264,14 @@ function plotPie(data, placeholder){
 			x= minTwoDigits(x);
 			
 
-	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 0.8em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
+	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 1em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
 	        position: 'relative',
 	        width: '50px',
-	        color: mobilislightblue,
-	        top: - (pos.top + height/2 - 15),
-	        left: - (pos.left - width/2 + 11.5),
+	       "font-size": "0.8em",
+			"font-weight": 500,
+	        color: colors[1],
+	        top: - (pos.top + height/2 ),
+	        left: - (pos.left - width/2 +8),
 	        'background-color': "transparent",
 	        opacity: 0.8
 	      }).appendTo(legenda).fadeIn(200)
@@ -283,13 +286,8 @@ function plotPie(data, placeholder){
 	          $('#tooltip').remove();
 	          var x = h.datapoint[0],
 	          	y = h.datapoint[1];
-	         
-	 
-	          //console.log(h.datapoint[0]);
-	          //console.log("tooltip");
 	      
 	          var leg = $(this);
-	          //console.log($(this).parent().next());
 	          var index = h.seriesIndex;
 	          toolTip(h.pageX, h.pageY, x,y, leg, index);
 	        }

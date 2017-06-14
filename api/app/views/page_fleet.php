@@ -49,7 +49,7 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody style="background-color: white">
           
         </tbody>
       </table>

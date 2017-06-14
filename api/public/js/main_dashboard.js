@@ -184,7 +184,9 @@ function processLogPerm(data){
 	
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function plotBars(d2, placeholder){
 	var placeholder = $("#"+placeholder);
 	placeholder.unbind();
@@ -198,7 +200,7 @@ function plotBars(d2, placeholder){
 
 	for (let x = 0 ; x < size ; x++){
 		value[x] = d2[x].data[0][1];
-		tmp[x] = { label: d2[x].label, data:[ [x, 0]], color: "#4Ec1E0"};
+		tmp[x] = { label: d2[x].label, data:[ [x, 0]], color: colors[1] };
 
 		ticks.push([x, d2[x].label]);
 	}
@@ -210,7 +212,8 @@ function plotBars(d2, placeholder){
 			show: true,
 			align: "center", 
 			barWidth: 0.5, 
-			fill: 0.9 
+			fill: 0.8,
+			lineWidth:0
 		},
 		xaxis: {
 			ticks: ticks,
@@ -240,7 +243,7 @@ function plotBars(d2, placeholder){
 	        for(let i = 0; i < size; i++){
 	        	
 	        	if(loop < d2[i].data[0][1]){
-	        		tmp[i] = { label: d2[i].label, data:[ [i, loop]], color: "#4Ec1E0"};
+	        		tmp[i] = { label: d2[i].label, data:[ [i, loop]], color: colors[1]};
 	        	}
 	        }
 			
@@ -260,13 +263,16 @@ function plotBars(d2, placeholder){
 	      $('<div id="tooltip">'+y+'ºC</div>').css({
 	        position: 'absolute',
 	        display: 'none',
-	        'font-size': '1em',
+	        'font-size': '0.8em',
 	        'font-weight': 900, 
-	        top: h + 5,
-	        left: f + 15,
+	        top: h - 20,
+	        left: f,
 	        padding: '0 4px',
 	        'background-color': "white",
-	        opacity: 0.8
+	        opacity: 0.9,
+	        'border-radius':'25px',
+	        border: '2px solid '+mobilisblue,
+	        color: mobilisblue
 	      }).appendTo("body").fadeIn(200)
 	    }
 
@@ -289,7 +295,9 @@ function plotBars(d2, placeholder){
 }
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -366,12 +374,12 @@ function plotBarsHorizontal(data, placeholder, type){
 
 function plotBarsHorizontal2(data, placeholder, type){
 
-
-
 	var size = data.length;
 	var rawData =[];
 	var ticks = [];
 	var json = [];
+	var value =[];
+	var zero = [];
 
 	for (let i = 0; i < size; i++) {
 
@@ -384,29 +392,32 @@ function plotBarsHorizontal2(data, placeholder, type){
 		switch (type){
 			case "temp": 
 				json.push({carro: idcarro, value: parseInt(temp_bateria)});
-				var legenda = 'ºC';
+				value[i] = parseInt(temp_bateria);
+				var legenda = 'ºC'; var tick = 'ºC';
 				var reverse = true;
 				break;
 			case "soc": 
 				json.push({carro: idcarro, value: parseInt(soh)});
-				var legenda = '%';
+				value[i] = parseInt(soh);
+				var legenda = '%'; var tick = '%';
 				var reverse = true;
 				break;
 			case "hor":
 				json.push({carro: idcarro, value: parseInt(horimetro)});
-				var legenda = 'km';
+				value[i] = parseInt(horimetro);
+				var legenda = ''; var tick = 'h';
 				var reverse = false;
 				break;
 			case "odo":
 				json.push({carro: idcarro, value: parseInt(odometro)});
-				var legenda = '';
+				value[i] = parseInt(odometro);
+				var legenda = ''; var tick = 'km';
 				var reverse = false;
 				
 		}
-		
-		//ticks.push([i, "Carro "+ idcarro ]);
 
 	}
+	max = Math.max.apply( Math, value );
 
 	function keysrt(key,desc) {
 	  return function(a,b){
@@ -414,91 +425,117 @@ function plotBarsHorizontal2(data, placeholder, type){
 	  }
 	}
 
-	console.log("json: ", json);
-
-	if(reverse){
-		var ranking = json.sort(keysrt('value')).reverse();
-	}
-	else{
-		var ranking = json.sort(keysrt('value'));
-	}
+	if(reverse){ var ranking = json.sort(keysrt('value')).reverse(); }
+	else{ var ranking = json.sort(keysrt('value')); }
 	
-
-	console.log('rank: ', ranking.length);
-
-
 	for(let i=0 ; i<ranking.length ; i++){
-		console.log("entrou");
 		rawData.push([ranking[i].value, i]);
+		zero.push([0,i]);
 		ticks.push([i, "Carro "+ ranking[i].carro ]);
 	}
-	
-	console.log('raw: ', rawData)
 
- 	var dataSet = [{data: rawData, color: mobilislightblue }]; 
+ 	var dataSet = [{data: rawData, color: colors[1] }]; 
 
-        var options = {
-            series: {
-                bars: {
-                    show: true
-                }
-            },
+    var options = {
+        series: {
             bars: {
-                align: "center",
-                barWidth: 0.33,
-                horizontal: true,
-                fillColor: { colors: [{ opacity: 0.5 }, { opacity: 1}] },
-                lineWidth: 0.5
-            },
-            xaxis: {
-                tickFormatter: function (n) {
-					return (n).toFixed(0) + legenda;
-				}
-            },
-            yaxis: {
-                ticks: ticks,
-                tickLength: 0
-            },
-            grid: {
-                hoverable: true,
-                borderWidth: 0,
+                show: true
             }
-        };
+        },
+        bars: {
+            align: "center",
+            barWidth: 0.4,
+            horizontal: true,
+            lineWidth: 0,
+            fill: 0.8
+        },
+        xaxis: {
+            tickFormatter: function (n) {
+				return (n).toFixed(0) + legenda;
+			},
+            min:0,
+            max: max
+        },
+        yaxis: {
+            ticks: ticks,
+            tickLength: 0,
+        },
 
-    $.plot($("#"+placeholder), dataSet, options);
+        grid: {
+            hoverable: true,
+            borderWidth: 0,
+        }
+    };
 
+    var plot = $.plot($("#"+placeholder), dataSet, options);
     var placeholder = $("#"+placeholder);
 
-        function toolTip(f, h, x,y) {
-	      $('<div id="tooltip">'+x+legenda+'</div>').css({
-	        position: 'absolute',
-	        display: 'none',
-	        'font-size': '1em',
-	        'font-weight': 900, 
-	        top: h - 10,
-	        left: f + 15,
-	        padding: '0 4px',
-	        'background-color': "white",
-	        opacity: 0.8
-	      }).appendTo("body").fadeIn(200)
-	    }
+    var updateInterval = 30;
+	var loop = 0;
+	var increment = 5;
 
-	    var b = null;
-
-	    placeholder.bind('plothover', function (i, k, h) {
-	      if (h) {
-	        if (b != h.datapoint) {
-	          b = h.datapoint;
-	          $('#tooltip').remove();
-	          var x = h.datapoint[0],
-	          	y = h.datapoint[1];
-	          toolTip(h.pageX, h.pageY, x,y)
+	function update() {
+		var tmp = [];
+		if(loop < max){
+	        
+	        for(let i = 0; i < rawData.length; i++){
+	        	
+	        	if(loop < rawData[i][0]){
+	        		tmp.push([loop, rawData[i][1] ]);
+	        	}else{
+	        		tmp.push([rawData[i][0], rawData[i][1] ]);
+	        	}
 	        }
-	      } else {
+
+			if(max < 300){ increment= 5 ;}
+			else if(max > 300){ increment= 20 ;  }
+			if(max - loop < 50){ increment= 2 ;}
+			else if(max - loop < 10){increment= 1 ;}
+			
+			loop += increment;
+			
+	        var dataSet = [{data: tmp, color: colors[1] }]; 
+			
+			plot.setData(dataSet);
+	 		plot.draw();
+	        setTimeout(update, updateInterval);
+		}
+    }
+    update();
+
+    function toolTip(f, h, x,y) {
+      $('<div id="tooltip">'+x+tick+'</div>').css({
+        position: 'absolute',
+        display: 'none',
+        'font-size': '0.8em',
+        'font-weight': 900, 
+        top: h -25,
+        left: f -1,
+        padding: '0 4px',
+        'background-color': "white",
+        opacity: 0.9,
+        'border-radius':'25px',
+        border: '2px solid '+mobilisblue,
+	    color: mobilisblue
+      }).appendTo("body").fadeIn(200)
+    }
+
+	var b = null;
+
+	placeholder.bind('plothover', function (i, k, h) {
+	    if (h) {
+	    if (b != h.datapoint) {
+	        b = h.datapoint;
+	        $('#tooltip').remove();
+	        var x = h.datapoint[0],
+	        	y = h.datapoint[1];
+	        toolTip(h.pageX, h.pageY, x,y)
+	    }
+	    } else {
 	        $("#tooltip").remove();
 	        b = null;
-	      }
-	    });
+	    }
+	});
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -661,7 +698,9 @@ function stacking(data){
 	      }
 	    });
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function multipleBars(data){
 
 	var d1 = [],
@@ -692,10 +731,9 @@ function multipleBars(data){
             bars: {
                 show: true,
                 barWidth: barwidth,
-                fill: true,
-                lineWidth: 1,
+                fill: 0.8,
+                lineWidth: 0,
                 order: 3,
-                fillColor:  { colors: [{ opacity: 0.5 }, { opacity: 1}] },//  "#AA4643",
                 horizontal: true
             },
             color: mobilisblue//"#AA4643"
@@ -706,10 +744,9 @@ function multipleBars(data){
             bars: {
                 show: true,
                 barWidth: barwidth,
-                fill: true,
-                lineWidth: 1,
+                fill: 0.8,
+                lineWidth: 0,
                 order: 2,
-                fillColor:  { colors: [{ opacity: 0.5 }, { opacity: 1}] },// "#89A54E",
                 horizontal: true
             },
             color: mobilisred//orange// "#89A54E"
@@ -720,10 +757,9 @@ function multipleBars(data){
             bars: {
                 show: true,
                 barWidth: barwidth,
-                fill: true,
-                lineWidth: 1,
+                fill: 0.8,
+                lineWidth: 0,
                 order: 1,
-                fillColor: { colors: [{ opacity: 0.5 }, { opacity: 1}] },//	  "#4572A7",
                 horizontal: true
             },
             color: mobilislightblue//"#4572A7"
@@ -764,13 +800,16 @@ function multipleBars(data){
 	      $('<div id="tooltip">'+x+'ºC</div>').css({
 	        position: 'absolute',
 	        display: 'none',
-	        'font-size': '1em',
+	        'font-size': '0.9em',
 	        'font-weight': 900, 
-	        top: h + 5,
-	        left: f + 15,
+	        top: h - 30,
+	        left: f,
 	        padding: '0 4px',
 	        'background-color': "white",
-	        opacity: 0.8
+	        opacity: 0.8,
+	        'border-radius':'25px',
+	        border: '2px solid '+mobilisblue,
+	        color: mobilisblue
 	      }).appendTo("body").fadeIn(200)
 	    }
 
@@ -791,7 +830,9 @@ function multipleBars(data){
 	      }
 	    });
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function plotPieMedia(data, placeholder){
 
@@ -818,7 +859,9 @@ function plotPieMedia(data, placeholder){
 	});
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function densityEvt(data, placeholder, type){
 
 	var placeholder = $("#"+placeholder);
@@ -839,43 +882,6 @@ function densityEvt(data, placeholder, type){
 		d.push(evt);
 	}
 
-	//console.log(d);
-
-	/* create and return new array padding missing days*/
-
-/*  var startDay = now,
-    newData = [[new Date(data[0].timestamp_evt).getTime(), 1]];
-
-  for (i = 1; i < size; i++) {
-  	var data1 = new Date(data[i-1].timestamp_evt).getTime();
-  	var data2 = new Date(data[i].timestamp_evt).getTime();
-  	console.log(data1, data2);
-
-    var diff = dateDiff(data1, data2);
-
-    var startDate = data1;
-
-    if (diff > 1) {
-      for (j = 0; j < diff - 1; j++) {
-        var fillDate = new Date(startDate+ (j + 1)).getTime();
-        //console.log(fillDate);
-          newData.push([fillDate, 0]);
-      }
-    }
-    var dataTime = new Date(data[i].timestamp_evt).getTime();
-    newData.push([dataTime, 1]);
-    
-  }
- 
-   console.log(newData);*/
-
-
-
-/* helper function to find date differences*/
-function dateDiff(d1, d2) {
-  return Math.floor((d2 - d1) / (1000 * 60 * 60));
-}
-
 	switch (type){
 		case "dia": var intervalo = (1000 * 60 * 60 * 24); break;
 		case "semana": var intervalo = (1000 * 60 * 60 * 24 * 7); break;
@@ -884,12 +890,12 @@ function dateDiff(d1, d2) {
 	}
 
 
-	 $.plot(placeholder, [d], {
+	 $.plot(placeholder, [{data:d, color: colors[1]}], {
 		bars: { 
 			show: true,
 			align: "center", 
 			barWidth: 1, 
-			fill: 0.9 
+			fill: 0.9,
 		},
 		xaxis: {
 			mode: "time",
@@ -915,7 +921,9 @@ function dateDiff(d1, d2) {
 
 
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function filtrar(options){
 
 	for(let i=0; i < 8 ; i++){
@@ -954,7 +962,9 @@ function filtrar(options){
 
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function avisos(data, type){
 	var size = data.length;
 	var num_erro =0;
@@ -1002,13 +1012,22 @@ function avisos(data, type){
 	}
 
 	if(num_erro > 0){
-		$("#card-falha").show();
+		setTimeout(function(){
+			$("#card-falha").slideDown();
+		}, 1000);
+		
 	}
 	if(num_aviso > 0){
-		$("#card-alerta").show();
+		setTimeout(function(){
+			$("#card-alerta").slideDown();
+		}, 1000);
+		
 	}
 	if(num_erro == 0 && num_aviso ==0){
-		$("#card-congrats").show();
+		setTimeout(function(){
+			$("#card-congrats").slideDown();
+		}, 1000);
+		
 	}
 
 	// fazer logica de quando nao tem erro e de quando tem;

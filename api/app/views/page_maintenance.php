@@ -30,7 +30,10 @@
     font-size: .85em;
   }
   .medium{
-    height: 315px;
+    height: 200px;
+  }
+  .big{
+    height:422.5px;
   }
 
   .wrap{
@@ -121,17 +124,19 @@ div.legendaMedia {
 <div class="row">
 
 <div class="col s12 m3" id='card-rankuser'>
-    <div class="card-panel cardteste medium">
+    <div class="card-panel cardteste big">
         <p class="title">Ranking Usuarios</p>
         <p class="subtitle">De acordo com numero de falhas cometidas</p>
         <div>
-          <ul id="user-rank" class="collection"></ul>
+          <ul id="user-rank" class="collection" hidden></ul>
        </div>
     </div>
 </div>
 
+
+
 <div class="col s12 m6" id='card-horascarga'>
-    <div class="card-panel cardteste medium">
+    <div class="card-panel cardteste big">
         <p class="title">Horas de Carga</p>
         <p class="subtitle">Porcentagem do período de uso em cargas diferentes</p>
         <div class="wrap">
@@ -141,8 +146,20 @@ div.legendaMedia {
     </div>
   </div>
 
- <div class="col s3 m3" >
-    <div class="card-panel cardteste small" id='card-soh'>
+
+  <div class="col s12 m3" id='card-autonomia'>
+     <div class="card-panel cardteste big">
+        <p class="title">Autonomia</p>
+        <p class="subtitle">Ranking da frotas</p>
+        <div>
+          <ul id="placeholder-autrank" class="collection" hidden></ul>
+       </div>
+    </div>
+  </div>
+
+
+<div class="col s3 m3" id='card-soh' >
+    <div class="card-panel cardteste medium">
       <div class="row">
         <p class="title col s8">State of Health</p>
         
@@ -155,10 +172,11 @@ div.legendaMedia {
        </div>
        <div class="legendaMedia"></div>
     </div>
-  
+  </div>
 
-   
-    <div class="card-panel cardteste small" id='card-efi'>
+ 
+   <div class="col s3 m3" id='card-efi' >
+    <div class="card-panel cardteste medium">
       <div class="row">
         <p class="title col s8">Indice de Eficiência</p>
         
@@ -172,26 +190,15 @@ div.legendaMedia {
     </div>
   </div>
 
-</div>
 
-<div class="row">
-  
-  <div class="col s12 m3" id='card-autonomia'>
-     <div class="card-panel cardteste medium">
-        <p class="title">Autonomia</p>
-        <p class="subtitle">Ranking da frotas</p>
-        <div>
-          <ul id="placeholder-autrank" class="collection"></ul>
-       </div>
-    </div>
-  </div>
+
+ 
 
 
 
   <div class="col s12 m3" id='card-horimetro'>
     <div class="card-panel cardteste medium">
         <p class="title">Horímetro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap">
           <div id="placeholder" class="placeholder"></div>
        </div>
@@ -202,7 +209,6 @@ div.legendaMedia {
   <div class="col s12 m3" id='card-odometro'>
     <div class="card-panel cardteste medium">
         <p class="title">Odometro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap center">
           <div id="placeholder9" class="placeholder"></div>
        </div>

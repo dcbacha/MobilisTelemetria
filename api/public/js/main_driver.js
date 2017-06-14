@@ -124,7 +124,7 @@ function createObjUsers(user, idmotorista){
 
 	var obj = {	user: user,
 		  		data: "<div id='"+idmotorista+"' class='section scrollspy' style='padding:0px'>"+
-		  				"<div class='card drivercard'>"+
+		  				"<div class='card drivercard cardteste'>"+
 						"<div class='card-content '>"+
 							"<span class='card-title'>"+user+""+
 								"<span class='right'>"+
