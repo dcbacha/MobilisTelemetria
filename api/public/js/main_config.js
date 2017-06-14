@@ -10,6 +10,6 @@ $(function(){
 
 	sessions(token);
 	$('select').material_select();
-	$("#btnconfig").parent().parent().parent().css({'display': 'block'});
-
+	//$("#btnconfig").parent().parent().parent().css({'display': 'block'});
+	styleDropdown(1);
 });

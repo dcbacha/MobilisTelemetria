@@ -14,7 +14,7 @@ $(function(){
 
 	req_logperm();
 	req_evt();
-	req_evt_teste();
+	//req_evt_teste();
 	
 
 	$("#reload").click(function(){
@@ -75,16 +75,16 @@ function begin(){
 
 function processEvt(data){
 	//console.log(data);
-	//dataEvt = data;
-	//densityEvt(data, "densidadeevt", "dia");
+	dataEvt = data;
+	densityEvt(data, "densidadeevt", "dia");
 	avisos(data);
 }
 
 
 function processEvtTeste(data){
 	//console.log(data);
-	dataEvt = data;
-	densityEvt(data, "densidadeevt", "dia");
+	//dataEvt = data;
+	//densityEvt(data, "densidadeevt", "dia");
 }
 
 function processLogPerm(data){
@@ -762,26 +762,26 @@ function filtrar(options){
 			var value = options[0].options[i].value;
 			
 			switch (value){
-				case '1': $("#card-lastupdate").css({'visibility': 'hidden'}); break;
-				case '2': $("#card-densidadeeventos").css({'visibility': 'hidden'}); break;
-				case '3': $("#card-horimetro").css({'visibility': 'hidden'}); break;
-				case '4': $("#card-odometro").css({'visibility': 'hidden'}); break;
-				case '5': $("#card-temp1").css({'visibility': 'hidden'}); break;
-				case '6': $("#card-temp2").css({'visibility': 'hidden'}); break;
-				case '7': $("#card-temp3").css({'visibility': 'hidden'}); break;
+				case '1': $("#card-lastupdate").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '2': $("#card-densidadeeventos").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '3': $("#card-horimetro").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '4': $("#card-odometro").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '5': $("#card-temp1").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '6': $("#card-temp2").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '7': $("#card-temp3").css({'display': 'none'},{'visibility': 'hidden'}); break;
 			}
 		}
 		if(options[0].options[i].selected == true){
 			var value = options[0].options[i].value;
 
 			switch (value){
-				case '1': $("#card-lastupdate").css({'visibility': 'visible'}); break;
-				case '2': $("#card-densidadeeventos").css({'visibility': 'visible'}); break;
-				case '3': $("#card-horimetro").css({'visibility': 'visible'}); break;
-				case '4': $("#card-odometro").css({'visibility': 'visible'}); break;
-				case '5': $("#card-temp1").css({'visibility': 'visible'}); break;
-				case '6': $("#card-temp2").css({'visibility': 'visible'}); break;
-				case '7': $("#card-temp3").css({'visibility': 'visible'}); break;
+				case '1': $("#card-lastupdate").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '2': $("#card-densidadeeventos").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '3': $("#card-horimetro").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '4': $("#card-odometro").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '5': $("#card-temp1").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '6': $("#card-temp2").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '7': $("#card-temp3").css({'display': 'block'},{'visibility': 'visible'}); break;
 			}
 		}
 	}
@@ -794,17 +794,35 @@ function avisos(data){
 	var num_erro =0;
 	var num_aviso =0;
 
+	console.log("entrou");
+
+	
+	
+	
+	
+
 	for(let i=0 ; i<size ; i++){
 		var erro = data[i].errorcode;
 
 		if( $.inArray(erro, arr_danger) > -1){
 			console.log("tem erro");
+			
 			num_erro ++;
 		}
 		else if( $.inArray(erro, arr_warning) > -1){
 			console.log("tem falha");
 			num_aviso ++;
 		}
+	}
+
+	if(num_erro > 0){
+		$("#card-falha").show();
+	}
+	if(num_aviso > 0){
+		$("#card-alerta").show();
+	}
+	if(num_erro == 0 && num_aviso ==0){
+		$("#card-congrats").show();
 	}
 
 	// fazer logica de quando nao tem erro e de quando tem;

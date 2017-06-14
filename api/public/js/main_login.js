@@ -68,14 +68,15 @@ return false;
 
 $("#esqueci").click(function(){
 
-  $("#principal").css({'display': 'none'});
-  $("#secundario").show();
+  $("#principal").slideToggle(500);
+  $("#secundario").slideToggle(500);
 });
 
 $("#voltar").click(function(){
 
-  $("#secundario").css({'display': 'none'});
-  $("#principal").show();
+  $("#principal").slideToggle(500);
+  $("#secundario").slideToggle(500);
+
 });
 
 $("#generate").click(function(){

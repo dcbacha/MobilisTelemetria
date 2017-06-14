@@ -6,7 +6,8 @@ $("#btncadastroveiculo").addClass("active");
 $("#btncadastroveiculo").parent().siblings().removeClass("active");
 
 $(function(){
-	$("#btncadastroveiculo").parent().parent().parent().css({'display': 'block'});
+	//$("#btncadastroveiculo").parent().parent().parent().css({'display': 'block'});
+	styleDropdown(1);
 	$('select').material_select();
 
 	$("#btnsubmit").click(function(){

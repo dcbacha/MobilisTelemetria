@@ -141,8 +141,8 @@ div.legendaMedia {
     </div>
   </div>
 
- <div class="col s3 m3" id='card-soh'>
-    <div class="card-panel cardteste small">
+ <div class="col s3 m3" >
+    <div class="card-panel cardteste small" id='card-soh'>
       <div class="row">
         <p class="title col s8">State of Health</p>
         

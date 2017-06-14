@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.35/rds/api/public";
+var url_global = "http://192.168.0.3/rds/MobilisTelemetria/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -280,4 +280,18 @@ function req_evt_teste(){
 				begin();
 			}
 		});
+}
+
+///////nav bar dropdown style///////
+function styleDropdown(n){
+
+	switch (n){
+		case 1: var elem = $("#btncadastro").parent().parent().parent(); break;
+		case 2:	var elem = $("#btnfaq").parent().parent().parent();
+	}
+
+	elem.css({'display': 'block'});
+	elem.prev().css({ 'background-color': 'rgba(0, 0, 0, 0.05)'});
+	elem.prev().css({'border-right': '2px solid #ee6e73'});
+	
 }

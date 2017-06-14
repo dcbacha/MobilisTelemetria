@@ -10,7 +10,8 @@ $(function(){
 
 	sessions(token);
 	$('select').material_select();
-	$("#btnfaq").parent().parent().parent().css({'display': 'block'});
+	//$("#btnfaq").parent().parent().parent().css({'display': 'block'});
+	styleDropdown(2);
 
 	$("#contato").click(function(){
 		var url = "?t="+token;

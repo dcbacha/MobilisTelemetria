@@ -5,6 +5,16 @@
   <script src="js/commonfunctions.js"></script>
   <script src="js/main_register_driver.js"></script>
 
+<style type="text/css">
+  
+  .input-field input{
+    margin-bottom: 5px;
+  }  
+
+  .row{
+    margin-bottom: 5px;
+  }
+</style>
 
 <div class="container">
 	
@@ -17,59 +27,83 @@
     
     <form class="col s12">
 
-      	<div class="row">
-        <div class="input-field col s12">
+    <div class="row">
+        <div class="input-field col s12 m6">
           <input id="first_name" type="text" class="validate">
           <label for="first_name">Nome</label>
         </div>
-       	</div>
-
-       	<div class="row">
-        <div class="input-field col s12">
+      
+        <div class="input-field col s12 m6">
           <input id="last_name" type="text" class="validate">
           <label for="last_name">Sobrenome</label>
         </div>
-      	</div>
-	
-		<div class="row">
-       	<div class="input-field col s12">
-          <input id="user_name" type="text" class="validate">
-          <label for="user_name">Chave de Acesso</label>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="first_name" type="text" class="validate">
+          <label for="first_name">Matricula</label>
         </div>
+      
+        <div class="input-field col s12 m3">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Idade</label>
         </div>
-    
-      	<div class="row">
-        <div class="input-field col s12">
-          <input id="cad_email" type="email" class="validate">
-          <label for="cad_email">Email</label>
+
+        <div class="input-field col s12 m3">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Sexo</label>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12 m3">
+          <input id="first_name" type="text" class="validate">
+          <label for="first_name">CNH</label>
         </div>
-     
-       	<div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
-          <label for="password">CNH</label>
+      
+        <div class="input-field col s12 m6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Email</label>
         </div>
+
+        <div class="input-field col s12 m3">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Telefone</label>
         </div>
+    </div>
+
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="first_name" type="text" class="validate">
+          <label for="first_name">Departamento</label>
+        </div>
+      
+        <div class="input-field col s12 m6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Responsável</label>
+        </div>
+
+    </div>
       	
 		<div class="row">
         <div class="input-field col s6">
 	    <select id="grupo">
 	      	<option value="" disabled selected>Selecione</option>
-	  	    <option value="1">Grupo 1</option>
-          <option value="2">Grupo 2</option>
+	  	    <option value="1">Matutino</option>
+          <option value="2">Vespertino</option>
 	    </select>
-	    <label>Departamento</label>
+	    <label>Turno de Trabalho</label>
 	  	</div>
 
 	  	<div class="input-field col s6">
 	    <select id="nivel">
 	      <option value="" disabled selected>Selecione</option>
-	      <option value="0">Nível 0</option>
-        <option value="1">Nível 1</option>
-	      <option value="2">Nível 2</option>
+	      <option value="0">Sim</option>
+        <option value="1">Não</option>
 	    </select>
-	    <label>Nível de Acesso</label>
+	    <label>Permissão Hora Extra</label>
 	  	</div>
 	  </div>
 

@@ -9,8 +9,8 @@ var total = 1;
 $(function(){
 	sessions(token);
 	$('select').material_select();
-	$("#btndiagnostic").parent().parent().parent().css({'display': 'block'});
-	
+	//$("#btndiagnostic").parent().parent().parent().css({'display': 'block'});
+	styleDropdown(2);
 	
 
 	$("#btnsolicitar").click(function(){

@@ -9,7 +9,10 @@ $("#btncadastromotorista").parent().siblings().removeClass("active");
 $(function(){
 
 	sessions(token);
+
+	styleDropdown(1);
+
 	$('select').material_select();
-	$("#btncadastromotorista").parent().parent().parent().css({'display': 'block'});
+	//$("#btncadastromotorista").parent().parent().parent().css({'display': 'block'});
 	
 });

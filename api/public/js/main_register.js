@@ -5,11 +5,15 @@ $("#btncadastro").parent().addClass("active");
 $("#btncadastro").addClass("active");
 $("#btncadastro").parent().siblings().removeClass("active");
 
+
 $(function(){
 
-$("#btncadastro").parent().parent().parent().css({'display': 'block'});
+//console.log($("#btncadastro").parent().parent().parent())
+//$("#btncadastro").parent().parent().parent().css({'display': 'block'});
+//$("#btncadastro").parent().parent().parent().prev().css({ 'background-color': 'rgba(0, 0, 0, 0.05)'});
 //$("#btncadastro").parent().parent().parent().parent().addClass("active");
 
+styleDropdown(1);
 
 	$('select').material_select();
 

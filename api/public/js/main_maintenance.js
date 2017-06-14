@@ -171,9 +171,9 @@ function stacking(data, placeholder){
 			porc_carga1[i] = Math.round(int_carga1*100);
 			porc_carga2[i] = Math.round(int_carga2*100);
 
-			d1[i] = [i, 0];
-			d2[i] = [i, 0];
-			d3[i] = [i, 0];
+			d1[i] = [i, 33];
+			d2[i] = [i, 33];
+			d3[i] = [i, 33];
 
 			value.push(porc_carga0[i].toFixed(2));
 			value.push(porc_carga1[i].toFixed(2));
@@ -236,9 +236,17 @@ function stacking(data, placeholder){
 	     	  		
 	        for(let i = 0; i < size; i++){
 	        	
-	        	if(loop <= porc_carga0[i]){ d1[i] = 0; d1[i] = [i, loop];}
-	        	if(loop <= porc_carga1[i]){ d2[i] = 0; d2[i] = [i, loop];}
-				if(loop <= porc_carga2[i]){ d3[i] = 0; d3[i] = [i, loop];}	
+	        	if(porc_carga0[i] < 33 && d1[i][1] != porc_carga0[i]){d1[i] = 0; d1[i] = [i, (33-loop)];}
+	        	else if (porc_carga0[i] > 33 && d1[i][1] != porc_carga0[i]){d1[i]=0;d1[i] = [i, 33+loop];}
+
+				if(porc_carga1[i] < 33 && d2[i][1] != porc_carga1[i]){d2[i] = 0; d2[i] = [i, (33-loop)];}
+	        	else if (porc_carga1[i] > 33 && d2[i][1] != porc_carga1[i]){d2[i]=0;d2[i] = [i, 33+loop];}
+
+	        	if(porc_carga2[i] < 33 && d3[i][1] != porc_carga2[i]){d3[i] = 0; d3[i] = [i, (100-loop)];}
+	        	else if (porc_carga2[i] > 33 && d3[i][1] != porc_carga2[i]){d3[i]=0;d3[i] = [i, 66+loop];}
+
+	        	//if(loop <= porc_carga1[i]){ d2[i] = 0; d2[i] = [i, loop];}
+				//if(loop <= porc_carga2[i]){ d3[i] = 0; d3[i] = [i, loop];}	
 	        }
 
 			var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
@@ -362,26 +370,26 @@ function filtrar(options){
 			var value = options[0].options[i].value;
 			
 			switch (value){
-				case '1': $("#card-rankuser").css({'visibility': 'hidden'}); break;
-				case '2': $("#card-horascarga").css({'visibility': 'hidden'}); break;
-				case '3': $("#card-soh").css({'visibility': 'hidden'}); break;
-				case '4': $("#card-efi").css({'visibility': 'hidden'}); break;
-				case '5': $("#card-autonomia").css({'visibility': 'hidden'}); break;
-				case '6': $("#card-horimetro").css({'visibility': 'hidden'}); break;
-				case '7': $("#card-odometro").css({'visibility': 'hidden'}); break;
+				case '1': $("#card-rankuser").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '2': $("#card-horascarga").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '3': $("#card-soh").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '4': $("#card-efi").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '5': $("#card-autonomia").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '6': $("#card-horimetro").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '7': $("#card-odometro").css({'display': 'none'},{'visibility': 'hidden'}); break;
 			}
 		}
 		if(options[0].options[i].selected == true){
 			var value = options[0].options[i].value;
 
 			switch (value){
-				case '1': $("#card-rankuser").css({'visibility': 'visible'}); break;
-				case '2': $("#card-horascarga").css({'visibility': 'visible'}); break;
-				case '3': $("#card-soh").css({'visibility': 'visible'}); break;
-				case '4': $("#card-efi").css({'visibility': 'visible'}); break;
-				case '5': $("#card-autonomia").css({'visibility': 'visible'}); break;
-				case '6': $("#card-horimetro").css({'visibility': 'visible'}); break;
-				case '7': $("#card-odometro").css({'visibility': 'visible'}); break;
+				case '1': $("#card-rankuser").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '2': $("#card-horascarga").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '3': $("#card-soh").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '4': $("#card-efi").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '5': $("#card-autonomia").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '6': $("#card-horimetro").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '7': $("#card-odometro").css({'display': 'block'},{'visibility': 'visible'}); break;
 			}
 		}
 	}

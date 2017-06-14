@@ -5,6 +5,16 @@
   <script src="js/commonfunctions.js"></script>
   <script src="js/main_register.js"></script>
 
+<style type="text/css">
+  
+  .input-field input{
+    margin-bottom: 5px;
+  }  
+
+  .row{
+    margin-bottom: 5px;
+  }
+</style>
 
 <div class="container">
 	
@@ -18,35 +28,31 @@
     <form class="col s12">
 
       	<div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col m6">
           <input id="first_name" type="text" class="validate">
           <label for="first_name">Nome</label>
         </div>
-       	</div>
-
-       	<div class="row">
-        <div class="input-field col s12">
+      
+        <div class="input-field col m6">
           <input id="last_name" type="text" class="validate">
           <label for="last_name">Sobrenome</label>
         </div>
       	</div>
-	
-		<div class="row">
-       	<div class="input-field col s12">
-          <input id="user_name" type="text" class="validate">
-          <label for="user_name">Nome de usuário</label>
-        </div>
-        </div>
-    
-      	<div class="row">
+
+        <div class="row">
         <div class="input-field col s12">
           <input id="cad_email" type="email" class="validate">
           <label for="cad_email">Email</label>
         </div>
         </div>
-     
-       	<div class="row">
-        <div class="input-field col s12">
+	
+		<div class="row">
+       	<div class="input-field col m6">
+          <input id="user_name" type="text" class="validate">
+          <label for="user_name">Nome de usuário</label>
+        </div>
+
+        <div class="input-field col m6">
           <input id="password" type="password" class="validate">
           <label for="password">Senha</label>
         </div>

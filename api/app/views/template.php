@@ -42,6 +42,14 @@
 .dropdown .active{
   background-color: grey
 }
+
+
+.side-nav .collapsible-body > ul:not(.collapsible) > li.active,
+.side-nav.fixed .collapsible-body > ul:not(.collapsible) > li.active {
+  background-color: grey;
+}
+
+
 </style>
 
 

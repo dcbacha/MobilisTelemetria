@@ -82,6 +82,19 @@ div.legendaMedia {
   margin: 0px;
 }
 
+.style-congrats{
+  border: 1px solid #4ee06d;
+}
+
+.style-alerta{
+  border: 1px solid #c1e04e;
+}
+
+.style-falha{
+  border: 1px solid  #e06d4e;
+}
+
+
 </style>
 
 <!--<body class="mobilislightblue"> -->
@@ -118,8 +131,8 @@ div.legendaMedia {
 
 <div class="row">
     
-    <div class="col s12 m12" id='card-alerta'>
-     <div class="card-panel cardteste">
+    <div class="col s12 m12" id='card-congrats' hidden>
+     <div class="card-panel cardteste style-congrats">
         <p class="title">Parabéns! Não foram registradas falhas na sua frota</p>
     </div>
     </div>
@@ -129,8 +142,8 @@ div.legendaMedia {
 
 <div class="row">
     
-    <div class="col s12 m12" id='card-falha'>
-     <div class="card-panel cardteste">
+    <div class="col s12 m12" id='card-falha' hidden>
+     <div class="card-panel cardteste style-falha">
         <p class="title">Falhas</p>
         <div>
           <ul id="placeholder-falha" class="collection"></ul>
@@ -142,8 +155,8 @@ div.legendaMedia {
 
 <div class="row">
     
-    <div class="col s12 m12" id='card-alerta'>
-     <div class="card-panel cardteste">
+    <div class="col s12 m12" id='card-alerta' hidden>
+     <div class="card-panel cardteste style-alerta">
         <p class="title">Alertas</p>
         <div>
           <ul id="placeholder-alerta" class="collection"></ul>
