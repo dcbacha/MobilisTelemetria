@@ -106,6 +106,8 @@ div.legendaMedia {
     <div class="input-field col s3">
     <select multiple id="filtro">
       <option value="" disabled>Choose your option</option>
+      <option value="8" selected>Falhas</option>
+      <option value="9" selected>Alertas</option> 
       <option value="1" selected>Última atualização</option>
       <option value="2" selected>Densidade de Eventos</option>
       <option value="3" selected>Horímetro</option>
@@ -145,6 +147,8 @@ div.legendaMedia {
     <div class="col s12 m12" id='card-falha' hidden>
      <div class="card-panel cardteste style-falha">
         <p class="title">Falhas</p>
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown2" id='btnDropdown2'>  Últimas 24 Horas
+        </a>
         <div>
           <ul id="placeholder-falha" class="collection"></ul>
        </div>
@@ -177,36 +181,56 @@ div.legendaMedia {
        </div>
     </div>
   </div>
+
+  <div class="col s12 m3" id='card-temporestante'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Estado de Carga da Bateria</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap">
+          <div id="placeholder-estadocarga" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+    <div class="col s12 m3" id='card-horimetro-barra'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Horímetro</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap">
+          <div id="placeholder-horimetro-barra" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
+
+  <div class="col s12 m3" id='card-odometro-barra'>
+    <div class="card-panel cardteste medium">
+        <p class="title">Odometro</p>
+        <p  class="subtitle">Porcentagens por veículo</p>
+        <div class="wrap center">
+          <div id="placeholder-odometro-barra" class="placeholder"></div>
+       </div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
+    </div>
+  </div>
  
-  <div class="col s12 m9" id='card-densidadeeventos'>
+ 
+
+
+
+   <div class="col s12 m6" id='card-densidadeeventos'>
     <div class="card-panel cardteste medium">
       <div class="row">
         <p class="title  col s8">Densidade de Eventos</p>
         <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
         </a>
         </div>
-    
-       
         <div class="wrap">
           <div id="densidadeevt" class="placeholder"></div>
        </div>
        <div id="legendadensidade" style="padding-left: 15%;"></div>
   </div>
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="col s12 m6" id='card-temporestante'>
-    <div class="card-panel cardteste medium">
-        <p class="title">Tempo Restante de Bateria</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
-        <div class="wrap">
-          <div id="placeholder-temporestante" class="placeholder"></div>
-       </div>
-       <div class="legendaPie" style="padding-left: 5%;"></div>
-    </div>
   </div>
 
   <div class="col s12 m3" id='card-horimetro'>
@@ -232,9 +256,6 @@ div.legendaMedia {
   </div>
 
    
-</div>
-
-<div class="row">
 
    <div class="col s12 m3" id='card-temp1'>
     <div class="card-panel cardteste medium">
@@ -258,11 +279,6 @@ div.legendaMedia {
     </div>
   </div>
 
-
-  
-</div>
-
-<div class="row"> 
     
     <div class="col s12 m9" id='card-temp3'>
      <div class="card-panel cardteste medium">
@@ -273,11 +289,11 @@ div.legendaMedia {
        </div>
        <div id="legenda3" style="padding-left: 5%;"></div>
     </div>
-</div>
+  </div>
 
   
 
-  </div>
+  </div> <!-- fim row cards -->
 
   <div class="row">
 
@@ -304,6 +320,14 @@ div.legendaMedia {
 <!--Menus Dropdowns-->
 
 <ul id="dropdown1" class="dropdown-content subtitle">
+  <li><a href="#!">Últimas 24 Horas</a></li>
+  <li><a href="#!">Última Semana</a></li>
+  <li><a href="#!">Último Mês</a></li>
+  <li><a href="#!">Último Ano</a></li>
+
+</ul>
+
+<ul id="dropdown2" class="dropdown-content subtitle">
   <li><a href="#!">Últimas 24 Horas</a></li>
   <li><a href="#!">Última Semana</a></li>
   <li><a href="#!">Último Mês</a></li>

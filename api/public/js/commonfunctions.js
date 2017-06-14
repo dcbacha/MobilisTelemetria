@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.3/rds/MobilisTelemetria/api/public";
+var url_global = "http://192.168.0.35/rds/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -34,7 +34,7 @@ url_req_readdata_teste_evt =url_global + "/carros/readdata-teste";
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
-var arr_warning = ["erro1"]; //["AI01", "AI02", "AI03", "AI04", "AI05", "AI06", "AI07", "AI08"];
+var arr_warning = ["AI01", "AI02", "AI03", "AI04", "AI05", "AI06", "AI07", "AI08"];
 var num_warnings = 0;
 
 var horimetro_total =0;

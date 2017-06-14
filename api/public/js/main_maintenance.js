@@ -236,17 +236,18 @@ function stacking(data, placeholder){
 	     	  		
 	        for(let i = 0; i < size; i++){
 	        	
-	        	if(porc_carga0[i] < 33 && d1[i][1] != porc_carga0[i]){d1[i] = 0; d1[i] = [i, (33-loop)];}
+	        	/*if(porc_carga0[i] < 33 && d1[i][1] != porc_carga0[i]){d1[i] = 0; d1[i] = [i, (33-loop)];}
 	        	else if (porc_carga0[i] > 33 && d1[i][1] != porc_carga0[i]){d1[i]=0;d1[i] = [i, 33+loop];}
 
 				if(porc_carga1[i] < 33 && d2[i][1] != porc_carga1[i]){d2[i] = 0; d2[i] = [i, (33-loop)];}
 	        	else if (porc_carga1[i] > 33 && d2[i][1] != porc_carga1[i]){d2[i]=0;d2[i] = [i, 33+loop];}
 
 	        	if(porc_carga2[i] < 33 && d3[i][1] != porc_carga2[i]){d3[i] = 0; d3[i] = [i, (100-loop)];}
-	        	else if (porc_carga2[i] > 33 && d3[i][1] != porc_carga2[i]){d3[i]=0;d3[i] = [i, 66+loop];}
+	        	else if (porc_carga2[i] > 33 && d3[i][1] != porc_carga2[i]){d3[i]=0;d3[i] = [i, 66+loop];}*/
 
-	        	//if(loop <= porc_carga1[i]){ d2[i] = 0; d2[i] = [i, loop];}
-				//if(loop <= porc_carga2[i]){ d3[i] = 0; d3[i] = [i, loop];}	
+	        	if(loop <= porc_carga0[i]){ d1[i] = 0; d1[i] = [i, loop];}
+	        	if(loop <= porc_carga1[i]){ d2[i] = 0; d2[i] = [i, loop];}
+				if(loop <= porc_carga2[i]){ d3[i] = 0; d3[i] = [i, loop];}	
 	        }
 
 			var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},

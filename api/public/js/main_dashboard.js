@@ -22,12 +22,11 @@ $(function(){
 		$(".drop").empty();
 		req_logperm();
 		req_evt();
-		req_evt_teste();
+		//req_evt_teste();
 
 	});
 
-	$("#dropdown1 li").click(function () {
-		
+	$("#dropdown1 li").click(function () {	
 		var intervalo = $(this).text();
 		$("#btnDropdown1").text(intervalo);
 		switch (intervalo){
@@ -37,6 +36,17 @@ $(function(){
 			case "Último Ano": densityEvt(dataEvt, "densidadeevt", "ano");
 		}
 
+	});
+
+	$("#dropdown2 li").click(function () {	
+		var intervalo = $(this).text();
+		$("#btnDropdown2").text(intervalo);
+		switch (intervalo){
+			case "Últimas 24 Horas": avisos(dataEvt,"dia"); break;
+			case "Última Semana": avisos(dataEvt,"semana"); break
+			case "Último Mês": avisos(dataEvt,"mes"); break;
+			case "Último Ano": avisos(dataEvt, "ano");
+		}
 	});
 
 	$("#filtro").change(function(){
@@ -77,7 +87,9 @@ function processEvt(data){
 	//console.log(data);
 	dataEvt = data;
 	densityEvt(data, "densidadeevt", "dia");
-	avisos(data);
+	avisos(data, "dia");
+
+	
 }
 
 
@@ -146,14 +158,17 @@ function processLogPerm(data){
 	plotPie(d3, "placeholder9")
 
 	plotBars(d2 , "placeholder2");
-	plotBarsHorizontal(data, "placeholder3", "temp");
-	plotBarsHorizontal(data, "placeholder-temporestante", "restante");
+	
+	plotBarsHorizontal2(data, "placeholder3", "temp");
+	plotBarsHorizontal2(data, "placeholder-estadocarga", "soc");
+	plotBarsHorizontal2(data, "placeholder-horimetro-barra", "hor");
+	plotBarsHorizontal2(data, "placeholder-odometro-barra", "odo");
 	
 	//stacking(data);
 	
 	multipleBars(data);
 	
-
+	//console.log(data);
 	//ranking(data, "placeholder6", "soh");
 	//ranking(data, "placeholder7", "aut");
 	//ranking(data, "placeholder8", "efi");
@@ -276,6 +291,8 @@ function plotBars(d2, placeholder){
 
 
 
+
+
 function plotBarsHorizontal(data, placeholder, type){
 
 	var size = data.length;
@@ -342,6 +359,151 @@ function plotBarsHorizontal(data, placeholder, type){
     $.plot($("#"+placeholder), dataSet, options);
 
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function plotBarsHorizontal2(data, placeholder, type){
+
+
+
+	var size = data.length;
+	var rawData =[];
+	var ticks = [];
+	var json = [];
+
+	for (let i = 0; i < size; i++) {
+
+		var idcarro = data[i].idcarro;
+		var	temp_bateria = data[i].temp_max_bateria;
+		var odometro = data[i].odometro;
+		var horimetro = data[i].horimetro;
+		var soh = data[i].soh;
+		
+		switch (type){
+			case "temp": 
+				json.push({carro: idcarro, value: parseInt(temp_bateria)});
+				var legenda = 'ºC';
+				var reverse = true;
+				break;
+			case "soc": 
+				json.push({carro: idcarro, value: parseInt(soh)});
+				var legenda = '%';
+				var reverse = true;
+				break;
+			case "hor":
+				json.push({carro: idcarro, value: parseInt(horimetro)});
+				var legenda = 'km';
+				var reverse = false;
+				break;
+			case "odo":
+				json.push({carro: idcarro, value: parseInt(odometro)});
+				var legenda = '';
+				var reverse = false;
+				
+		}
+		
+		//ticks.push([i, "Carro "+ idcarro ]);
+
+	}
+
+	function keysrt(key,desc) {
+	  return function(a,b){
+	   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+	  }
+	}
+
+	console.log("json: ", json);
+
+	if(reverse){
+		var ranking = json.sort(keysrt('value')).reverse();
+	}
+	else{
+		var ranking = json.sort(keysrt('value'));
+	}
+	
+
+	console.log('rank: ', ranking.length);
+
+
+	for(let i=0 ; i<ranking.length ; i++){
+		console.log("entrou");
+		rawData.push([ranking[i].value, i]);
+		ticks.push([i, "Carro "+ ranking[i].carro ]);
+	}
+	
+	console.log('raw: ', rawData)
+
+ 	var dataSet = [{data: rawData, color: mobilislightblue }]; 
+
+        var options = {
+            series: {
+                bars: {
+                    show: true
+                }
+            },
+            bars: {
+                align: "center",
+                barWidth: 0.33,
+                horizontal: true,
+                fillColor: { colors: [{ opacity: 0.5 }, { opacity: 1}] },
+                lineWidth: 0.5
+            },
+            xaxis: {
+                tickFormatter: function (n) {
+					return (n).toFixed(0) + legenda;
+				}
+            },
+            yaxis: {
+                ticks: ticks,
+                tickLength: 0
+            },
+            grid: {
+                hoverable: true,
+                borderWidth: 0,
+            }
+        };
+
+    $.plot($("#"+placeholder), dataSet, options);
+
+    var placeholder = $("#"+placeholder);
+
+        function toolTip(f, h, x,y) {
+	      $('<div id="tooltip">'+x+legenda+'</div>').css({
+	        position: 'absolute',
+	        display: 'none',
+	        'font-size': '1em',
+	        'font-weight': 900, 
+	        top: h - 10,
+	        left: f + 15,
+	        padding: '0 4px',
+	        'background-color': "white",
+	        opacity: 0.8
+	      }).appendTo("body").fadeIn(200)
+	    }
+
+	    var b = null;
+
+	    placeholder.bind('plothover', function (i, k, h) {
+	      if (h) {
+	        if (b != h.datapoint) {
+	          b = h.datapoint;
+	          $('#tooltip').remove();
+	          var x = h.datapoint[0],
+	          	y = h.datapoint[1];
+	          toolTip(h.pageX, h.pageY, x,y)
+	        }
+	      } else {
+	        $("#tooltip").remove();
+	        b = null;
+	      }
+	    });
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function stacking(data){
 
@@ -769,6 +931,8 @@ function filtrar(options){
 				case '5': $("#card-temp1").css({'display': 'none'},{'visibility': 'hidden'}); break;
 				case '6': $("#card-temp2").css({'display': 'none'},{'visibility': 'hidden'}); break;
 				case '7': $("#card-temp3").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '8': $("#card-falha").css({'display': 'none'},{'visibility': 'hidden'}); break;
+				case '9': $("#card-alerta").css({'display': 'none'},{'visibility': 'hidden'}); break;
 			}
 		}
 		if(options[0].options[i].selected == true){
@@ -782,6 +946,8 @@ function filtrar(options){
 				case '5': $("#card-temp1").css({'display': 'block'},{'visibility': 'visible'}); break;
 				case '6': $("#card-temp2").css({'display': 'block'},{'visibility': 'visible'}); break;
 				case '7': $("#card-temp3").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '8': $("#card-falha").css({'display': 'block'},{'visibility': 'visible'}); break;
+				case '9': $("#card-alerta").css({'display': 'block'},{'visibility': 'visible'}); break;
 			}
 		}
 	}
@@ -789,28 +955,48 @@ function filtrar(options){
 }
 
 
-function avisos(data){
+function avisos(data, type){
 	var size = data.length;
 	var num_erro =0;
 	var num_aviso =0;
 
-	console.log("entrou");
+	$("#placeholder-falha").empty();
+	$("#placeholder-alerta").empty();
 
-	
-	
-	
-	
+	var now = new Date().getTime();
+	//console.log(now);
+
+	switch (type){
+		case "dia": var intervalo = 24; break;
+		case "semana": var intervalo = 24*7; break;
+		case "mes": var intervalo = 24*30; break;
+		case "ano": var intervalo = 24*30*12;
+	}
+
+	data.reverse(); //para colocar na ordem do mais recente para o mais velho
 
 	for(let i=0 ; i<size ; i++){
 		var erro = data[i].errorcode;
+		var carro = data[i].idcarro;
+		var timeevt = data[i].timestamp_evt;
+		var nome = data[i].nome;
+		var dados = data[i].data;
 
-		if( $.inArray(erro, arr_danger) > -1){
-			console.log("tem erro");
-			
+		var time = new Date(timeevt).getTime();
+
+		var diff = Math.floor((now - time)/(1000 * 60 * 60)); //para diferença de horas
+		
+
+		if( $.inArray(erro, arr_danger) > -1 && diff < intervalo){
+			var html ="<li class='collection-item'><div><strong>"+erro+"</strong> Carro "+carro+" time: "+ timeevt+""+
+							"<span class='secondary-content'>"+dados+"</span></div></li>";
+			$("#placeholder-falha").append(html);
 			num_erro ++;
 		}
-		else if( $.inArray(erro, arr_warning) > -1){
-			console.log("tem falha");
+		else if( $.inArray(erro, arr_warning) > -1 && diff < intervalo){
+			var html ="<li class='collection-item'><div><strong>"+erro+"</strong> Carro "+carro+" time: "+ timeevt+""+
+							"<span class='secondary-content'>"+dados+"</span></div></li>";
+			$("#placeholder-alerta").append(html);
 			num_aviso ++;
 		}
 	}
