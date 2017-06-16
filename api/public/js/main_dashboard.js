@@ -15,6 +15,11 @@ $(function(){
 	req_logperm();
 	req_evt();
 	//req_evt_teste();
+
+	setTimeout(function(){
+		var $toastContent = $('<span> Dados referentes às últimas atualizações de cada veículo</span>');
+  		Materialize.toast($toastContent, 5000, 'rounded');
+	}, 3000);
 	
 
 	$("#reload").click(function(){
@@ -42,16 +47,31 @@ $(function(){
 		var intervalo = $(this).text();
 		$("#btnDropdown2").text(intervalo);
 		switch (intervalo){
-			case "Últimas 24 Horas": avisos(dataEvt,"dia"); break;
-			case "Última Semana": avisos(dataEvt,"semana"); break
-			case "Último Mês": avisos(dataEvt,"mes"); break;
-			case "Último Ano": avisos(dataEvt, "ano");
+			case "Últimas 24 Horas": avisos(dataEvt,"dia", 1); break;
+			case "Última Semana": avisos(dataEvt,"semana", 1); break
+			case "Último Mês": avisos(dataEvt,"mes", 1); break;
+			case "Último Ano": avisos(dataEvt, "ano", 1);
+		}
+	});
+
+	$("#dropdown3 li").click(function () {	
+		var intervalo = $(this).text();
+		$("#btnDropdown3").text(intervalo);
+		switch (intervalo){
+			case "Últimas 24 Horas": useEvt(dataEvt, "placeholder-uso","dia"); break;
+			case "Última Semana": useEvt(dataEvt, "placeholder-uso","semana"); break
+			case "Último Mês": useEvt(dataEvt, "placeholder-uso","mes"); break;
+			case "Último Ano": useEvt(dataEvt, "placeholder-uso", "ano");
 		}
 	});
 
 	$("#filtro").change(function(){
 		var options = $(this);
 		filtrar(options);
+	});
+
+	$(".fechar").click(function(){
+		$(this).parent().parent().hide();
 	});
 
 }); //end do document ready
@@ -87,7 +107,10 @@ function processEvt(data){
 	//console.log(data);
 	dataEvt = data;
 	densityEvt(data, "densidadeevt", "dia");
-	avisos(data, "dia");
+	useEvt(data, "placeholder-uso", "dia");
+
+	typeEvt(data, "placeholder-type", "dia");
+	avisos(data, "dia", 2000);
 
 	
 }
@@ -154,8 +177,8 @@ function processLogPerm(data){
 
 
 
-	plotPie(d1, "placeholder");
-	plotPie(d3, "placeholder9")
+	plotPie(d1, "placeholder-hor", 'hor');
+	plotPie(d3, "placeholder-odo", 'odo');
 
 	plotBars(d2 , "placeholder2");
 	
@@ -547,10 +570,6 @@ function stacking(data){
 		var d1 = [],
 			d2 = [],
 			d3 = [];
-		var v1 = [],
-			v2 = [],
-			v3 = [];
-		var teste = [];
 		var ticks = [];
 		var value = [];
 
@@ -883,10 +902,46 @@ function densityEvt(data, placeholder, type){
 	}
 
 	switch (type){
-		case "dia": var intervalo = (1000 * 60 * 60 * 24); break;
-		case "semana": var intervalo = (1000 * 60 * 60 * 24 * 7); break;
-		case "mes": var intervalo = (1000 * 60 * 60 * 24 * 30); break;
-		case "ano": var intervalo = (1000 * 60 * 60 * 24 * 30 * 12);
+		case "dia": 
+			var intervalo = (1000 * 60 * 60 * 24);
+			var xformat = {
+				mode: "time",
+				min: (now - intervalo),
+				max: now,
+				timezone: "browser"
+			};
+			break;
+		case "semana": 
+			var intervalo = (1000 * 60 * 60 * 24 * 7);
+			var xformat = {
+				mode: "time",
+				min: (now - intervalo),
+				max: now,
+				timezone: "browser",
+				timeformat: "%a",
+				minTickSize: [1, "day"]
+			};
+			break;
+		case "mes": 
+			var intervalo = (1000 * 60 * 60 * 24 * 30);
+			var xformat = {
+				mode: "time",
+				min: (now - intervalo),
+				max: now,
+				timezone: "browser",
+				timeformat: "%d",
+				ticks: 30
+			};
+			break;
+		case "ano": 
+			var intervalo = (1000 * 60 * 60 * 24 * 30 * 12);
+			var xformat = {
+				mode: "time",
+				min: (now - intervalo),
+				max: now,
+				timezone: "browser",
+				ticks: 12
+			};
 	}
 
 
@@ -897,12 +952,7 @@ function densityEvt(data, placeholder, type){
 			barWidth: 1, 
 			fill: 0.9,
 		},
-		xaxis: {
-			mode: "time",
-			min: (now - intervalo),
-			max: now,
-			timezone: "browser"
-		},
+		xaxis: xformat,
 		yaxis: {
 			ticks: 1,
 			min: 0,
@@ -939,8 +989,6 @@ function filtrar(options){
 				case '5': $("#card-temp1").css({'display': 'none'},{'visibility': 'hidden'}); break;
 				case '6': $("#card-temp2").css({'display': 'none'},{'visibility': 'hidden'}); break;
 				case '7': $("#card-temp3").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '8': $("#card-falha").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '9': $("#card-alerta").css({'display': 'none'},{'visibility': 'hidden'}); break;
 			}
 		}
 		if(options[0].options[i].selected == true){
@@ -954,8 +1002,6 @@ function filtrar(options){
 				case '5': $("#card-temp1").css({'display': 'block'},{'visibility': 'visible'}); break;
 				case '6': $("#card-temp2").css({'display': 'block'},{'visibility': 'visible'}); break;
 				case '7': $("#card-temp3").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '8': $("#card-falha").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '9': $("#card-alerta").css({'display': 'block'},{'visibility': 'visible'}); break;
 			}
 		}
 	}
@@ -965,7 +1011,7 @@ function filtrar(options){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function avisos(data, type){
+function avisos(data, type, waittime){
 	var size = data.length;
 	var num_erro =0;
 	var num_aviso =0;
@@ -1014,21 +1060,333 @@ function avisos(data, type){
 	if(num_erro > 0){
 		setTimeout(function(){
 			$("#card-falha").slideDown();
-		}, 1000);
+		}, waittime);
 		
 	}
 	if(num_aviso > 0){
 		setTimeout(function(){
 			$("#card-alerta").slideDown();
-		}, 1000);
+		}, waittime);
 		
 	}
 	if(num_erro == 0 && num_aviso ==0){
 		setTimeout(function(){
 			$("#card-congrats").slideDown();
-		}, 1000);
+		}, waittime);
 		
 	}
 
 	// fazer logica de quando nao tem erro e de quando tem;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function useEvt(data, placeholder, type){
+
+	var placeholder = $("#"+placeholder);
+	var size = data.length;
+
+	var now = new Date().getTime();
+	var d = [];
+	var e = [];
+	var json =[];
+
+	for (let i=0 ; i<size ; i++){
+		var time =  new Date(data[i].timestamp_evt).getTime();
+		var carro = data[i].idcarro;
+		var error = data[i].errorcode;
+		var evt_json = {time: time, idcarro: carro, erro: error};
+		var evt = [time, 1];
+
+		json.push(evt_json);
+		d.push(evt);
+	}
+
+	function keysrt(key,desc) {
+	  return function(a,b){
+	   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+	  }
+	}
+
+	var ranking = json.sort(keysrt('time')).reverse();
+	var max=0;
+	var h =[];
+	for(let i =0; i<ranking.length; i++){
+		if(ranking[i].erro == "EI002"){  ///////////////////////////////////////////////////CONFIGURAR PARA EVENTO DE LIGAR O CARRO///////
+			var hora = ranking[i].time;
+			var hora = new Date(hora).getHours();
+			
+			if($.inArray(hora, h) == -1){max++;}
+			
+			h.push(hora)
+			var u = {data: [[hora, 1]], color: colors[1], label: 'Carro '+ranking[i].idcarro };
+			e.push(u);
+			
+		}
+	}
+
+	switch (type){
+		case "dia": 
+			var now = new Date(now).getHours();
+			var xformat = {
+				min: (now - 24),
+				max: now,
+				tickFormatter: function (n) {
+					if(n>0){ return (n); }
+					else if(n ==0){ return 0;}
+					else{ return (24+n); }
+				},
+				ticks: 24,
+				tickLength:0
+			};
+			break;
+		case "semana": 
+			var xformat = {
+				min: (now - (24)),
+				max: now
+			};
+			break;
+		case "mes": 
+			var xformat = {
+				mode: "time",
+				min: (now - intervalo),
+				max: now,
+				timezone: "browser",
+				timeformat: "%d"
+			};
+			break;
+		case "ano": 
+			var intervalo = (1000 * 60 * 60 * 24 * 30 * 12);
+			var xformat = {
+				mode: "time",
+				min: (now - intervalo),
+				max: now,
+				timezone: "browser"
+			};
+	}
+
+
+	 $.plot(placeholder, e, {
+		bars: { 
+			show: true,
+			align: "center", 
+			barWidth: 0.9, 
+			fill: 0.9,
+			lineWidth: 0
+		},
+		xaxis: xformat,
+		yaxis: {
+			ticks: max,
+			min: 0,
+			max: max
+		},
+		grid: { 
+			borderWidth: 0,
+			hoverable: true
+		},
+		legend: {
+			show: false
+		},
+		series:{
+			stack: 0
+		}
+		
+	});
+
+
+	function toolTip(f, h, label) {
+	    $('<div id="tooltip">'+label+'</div>').css({
+	        position: 'absolute',
+	        display: 'none',
+	        'font-size': '0.9em',
+	        'font-weight': 900, 
+	        top: h,
+	        left: f + 10,
+	        padding: '0 4px',
+	        'background-color': "white",
+	        opacity: 0.8,
+	        'border-radius':'25px',
+	        border: '2px solid '+mobilisblue,
+	        color: mobilisblue
+	    }).appendTo("body").fadeIn(200)
+	}
+
+	var b = null;
+
+	placeholder.bind('plothover', function (i, k, h) {
+	    if (h) {
+	        if (b != h.datapoint) {
+			    b = h.datapoint;
+	        	$('#tooltip').remove();
+	        	var label = h.series.label;
+	        	toolTip(h.pageX, h.pageY,label);
+	        }
+	    } else {
+	        $("#tooltip").remove();
+	        b = null;
+	   	}
+	});
+
+
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function typeEvt(data, placeholder, type){
+
+	var placeholder = $("#"+placeholder);
+	var size = data.length;
+
+	var now = new Date().getTime();
+	var d = [];
+	var e = [];
+	var json =[];
+
+	for (let i=0 ; i<size ; i++){
+		var time =  new Date(data[i].timestamp_evt).getTime();
+		var carro = data[i].idcarro;
+		var error = data[i].errorcode;
+		var evt_json = {time: time, idcarro: carro, erro: error};
+		var evt = [time, 1];
+
+		json.push(evt_json);
+		d.push(evt);
+	}
+
+	function keysrt(key,desc) {
+	  return function(a,b){
+	   return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+	  }
+	}
+
+	var ranking = json.sort(keysrt('time')).reverse();
+	var max1=0;
+	var max2=0;
+	var max3=0;
+	var maxglobal=0;
+	var h =[];
+	for(let i =0; i<ranking.length; i++){
+
+		if( (now - (1000 * 60 * 60 * 24)) < ranking[i].time && ranking[i].time< now){
+				
+			var hora = ranking[i].time;
+			var hora = new Date(hora).getHours();
+
+			if($.inArray(ranking[i].erro, arr_danger) > -1){
+				
+				if($.inArray(hora, h) == -1){max1++;}
+				
+				h.push(hora)
+				var u = {data: [[hora, 1]], color: '#e74c3c', label: 'Carro '+ranking[i].idcarro };
+				e.push(u);
+				
+			}
+			else if($.inArray(ranking[i].erro, arr_warning) > -1){ 
+				
+				if($.inArray(hora, h) == -1){max2++;}
+				
+				h.push(hora)
+				var u = {data: [[hora, 1]], color: '#f1c40f', label: 'Carro '+ranking[i].idcarro };
+				e.push(u);
+				
+			}
+			else{
+				
+				if($.inArray(hora, h) == -1){max3++;}
+				
+				h.push(hora)
+				var u = {data: [[hora, 1]], color: colors[1], label: 'Carro '+ranking[i].idcarro };
+				e.push(u);
+			}
+		}
+	}
+
+	var value = [max1, max2, max3];
+	maxglobal = Math.max.apply( Math, value );
+
+	console.log(maxglobal);
+
+	switch (type){
+		case "dia": 
+			var now = new Date(now).getHours();
+			var xformat = {
+				min: (now - 24),
+				max: now,
+				tickFormatter: function (n) {
+					if(n>0){ return (n); }
+					else if(n ==0){ return 0;}
+					else{ return (24+n); }
+				},
+				ticks: 24,
+				tickLength:0
+			};
+			break;
+	}
+
+
+	 $.plot(placeholder, e, {
+		bars: { 
+			show: true,
+			align: "center", 
+			barWidth: 0.9, 
+			fill: 0.9,
+			lineWidth: 0
+		},
+		xaxis: xformat,
+		yaxis: {
+			min: 0
+		},
+		grid: { 
+			borderWidth: 0,
+			hoverable: true
+		},
+		legend: {
+			show: false
+		},
+		series:{
+			stack: 0
+		}
+		
+	});
+
+
+	function toolTip(f, h, label) {
+	    $('<div id="tooltip">'+label+'</div>').css({
+	        position: 'absolute',
+	        display: 'none',
+	        'font-size': '0.9em',
+	        'font-weight': 900, 
+	        top: h,
+	        left: f + 10,
+	        padding: '0 4px',
+	        'background-color': "white",
+	        opacity: 0.8,
+	        'border-radius':'25px',
+	        border: '2px solid '+mobilisblue,
+	        color: mobilisblue
+	    }).appendTo("body").fadeIn(200)
+	}
+
+	var b = null;
+
+	placeholder.bind('plothover', function (i, k, h) {
+	    if (h) {
+	        if (b != h.datapoint) {
+			    b = h.datapoint;
+	        	$('#tooltip').remove();
+	        	var label = h.series.label;
+	        	toolTip(h.pageX, h.pageY,label);
+	        }
+	    } else {
+	        $("#tooltip").remove();
+	        b = null;
+	   	}
+	});
+
+
+
 }

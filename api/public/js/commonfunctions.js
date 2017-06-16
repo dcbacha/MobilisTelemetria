@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.3/rds/MobilisTelemetria/api/public";
+var url_global = "http://192.168.0.35/rds/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -84,7 +84,7 @@ $('.button-collapse').sideNav({
 
 
 function minTwoDigits(n) {
-	return (n < 10 ? '0' : '') + n;
+	return (n < 100 ? '0' : '') + n;
 }
 
 function dateconvert(variable){

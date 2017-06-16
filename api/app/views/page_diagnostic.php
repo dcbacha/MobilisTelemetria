@@ -25,7 +25,7 @@
 
 <div class="row center">
     <h5 class="header col s12 light">Diagnóstico</h5>
-    <a class="btn-floating right smallround  tooltipped" data-position='bottom' data-delay='500' data-tooltip='Informe os problemas que você está tendo com o veículo e retornamos um diagnóstico assim que possivel' id="info">
+    <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Informe os problemas que você está tendo com o veículo e retornamos um diagnóstico assim que possivel' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
         </a>
   </div> <!-- end row -->

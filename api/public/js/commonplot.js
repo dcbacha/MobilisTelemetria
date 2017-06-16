@@ -208,7 +208,7 @@ function media(data, placeholder, param, type){
 }
 
 
-function plotPie(data, placeholder){
+function plotPie(data, placeholder, type){
 
 	var placeholder = $("#"+placeholder);
 	var size = data.length;
@@ -221,7 +221,8 @@ function plotPie(data, placeholder){
 		parcial[i] = parseInt(data[i].data);
 		label[i] = data[i].label;
 
-	}	
+	}
+
 	
 
 	placeholder.unbind();
@@ -253,28 +254,57 @@ function plotPie(data, placeholder){
 			var legenda = leg.parent().next();
 
 			var place = leg;
-			//console.log(legenda);
 			var pos = place.position();
 			var height = place.height();
 			var width = place.width();
 			
+			var absoluto = parseInt(y[0][1]);
 
 			x = Math.round(x);
 
-			x= minTwoDigits(x);
+			absoluto= minTwoDigits(absoluto);
+
+			switch(type){
+				case 'odo': var unidade = ' km'; break;
+				case 'hor': var unidade = ' hrs';
+			}
 			
 
-	      $('<div id="tooltip"><p style="font-size: 2em; font-weight: 900;margin: 0px">'+x+'%</p><p style="font-size: 1em; margin: 0px; padding-left: 8px; top: "10"">'+label[index]+'</p></div>').css({
+	 /*     $('<div id="tooltip"><p style="font-size: 1.5em; font-weight: 900;margin: 0px">'+absoluto+'<span style="font-weight: 500; padding-left:5px; margin-bottom:25px;">'+unidade+'</span></p></div>').css({
 	        position: 'relative',
 	        width: '50px',
 	       "font-size": "0.8em",
 			"font-weight": 500,
 	        color: colors[1],
-	        top: - (pos.top + height/2 ),
-	        left: - (pos.left - width/2 +8),
+	        top: top,
+	        left: left,
 	        'background-color': "transparent",
 	        opacity: 0.8
-	      }).appendTo(legenda).fadeIn(200)
+	      }).appendTo(legenda).fadeIn(200)*/
+
+	      	$('<div id="tooltip"><p style="font-size: 1.5em; font-weight: 900;margin: 0px">'+absoluto+'<span id="tooltip2">'+unidade+'</span></p></div>'
+	      		).appendTo(legenda).fadeIn(200);
+
+	      	 $("#tooltip2").css({
+	      		position: 'relative',
+		       "font-size": "0.8em",
+				"font-weight": 500,
+		        top: -15,
+		        left: 7.5
+		    });
+
+	      	$("#tooltip").css({
+	      		position: 'relative',
+		        width: '50px',
+		        color: colors[1],
+		        top: - (pos.top + height/2 -5),
+		        left:  - (pos.left - width/2 +2),
+		        'background-color': "transparent",
+		        opacity: 0.8
+		    }).fadeIn(200);
+
+		 
+	      
 	    }
 
 	    var b = null;
@@ -299,5 +329,5 @@ function plotPie(data, placeholder){
 }
 
 function labelFormatter(label, series) {
-	return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+	return "<div style='font-size:0.7em; text-align:center; padding:2px; color:white;'>" + label + "</div>";
 }

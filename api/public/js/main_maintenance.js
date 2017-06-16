@@ -81,8 +81,8 @@ function processLogPerm(data){
 			color: azul }
 	}
 
-	plotPie(d1, "placeholder");
-	plotPie(d3, "placeholder9")
+	plotPie(d1, "placeholder", 'hor');
+	plotPie(d3, "placeholder9", 'odo')
 }
 
 function processEvt(data){
@@ -189,6 +189,7 @@ function stacking(data, placeholder){
 		var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
 					{data: d2, label: "Carga 1", color: mobilisblue}, 
 					{data: d3, label: "Carga 2", color: mobilisred} ];
+		console.log('tmp: ', tmp);
 		
 
 		var plot = $.plot(placeholder, tmp , {
@@ -300,12 +301,6 @@ function stacking(data, placeholder){
 	    });
 }
 
-
-
-
-function labelFormatter(label, series) {
-	return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
-}
 
 function rankErro(data){
 	var user = [];

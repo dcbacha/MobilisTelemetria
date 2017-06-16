@@ -91,16 +91,20 @@ div.legendaMedia {
 }
 
 .style-alerta{
-  border: 1px solid #c1e04e;
+  border: 1px solid #f1c40f;
 }
 
 .style-falha{
-  border: 1px solid  #e06d4e;
+  border: 1px solid  #e74c3c;
 }
 
 .flot-x-axis .flot-tick-label {
    font-size: 0.8em;
 
+}
+
+.fechar{
+   padding: 0 0.5rem;
 }
 
 
@@ -116,8 +120,6 @@ div.legendaMedia {
     <div class="input-field col s3">
     <select multiple id="filtro">
       <option value="" disabled>Choose your option</option>
-      <option value="8" selected>Falhas</option>
-      <option value="9" selected>Alertas</option> 
       <option value="1" selected>Última atualização</option>
       <option value="2" selected>Densidade de Eventos</option>
       <option value="3" selected>Horímetro</option>
@@ -130,7 +132,7 @@ div.legendaMedia {
     
         <h5 class="header col s9 light">Painel de Controle</h5>
 
-        <a class="btn-floating right smallround  tooltipped" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota' id="info">
+        <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota. Os dados são referêntes às últimas atualizações de cada veículo. Verifique a conexão de cada carro para manter seu painel de controle atualizado' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
         </a>
         <a class="btn-floating right smallround" id="reload">
@@ -141,20 +143,27 @@ div.legendaMedia {
 
 <div class="divider"></div>
 
+<div class="row" style="padding: 0">
+    <div class="col s6 m2">
+        Falhas e Avisos
+    </div>
+    <div class="col s6 m2" style="padding: 0">
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown2" id='btnDropdown2'>  Últimas 24 Horas
+        </a>
+    </div>
+</div>
 <div class="row">
-    
     <div class="col s12 m12 card-big" id='card-congrats' hidden>
      <div class="card-panel cardteste style-congrats">
-        <p class="title">Parabéns! Não foram registradas falhas na sua frota</p>
+        <p class="title">Parabéns! Não foram registradas falhas na sua frota <a class='btn-flat right fechar'>x</a></p>
+       
     </div>
     </div>
 
     
     <div class="col s12 m12" id='card-falha' hidden>
      <div class="card-panel cardteste style-falha">
-        <p class="title">Falhas</p>
-        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown2" id='btnDropdown2'>  Últimas 24 Horas
-        </a>
+        <p class="title">Falhas<a class='btn-flat right fechar'>x</a></p>
         <div>
           <ul id="placeholder-falha" class="collection"></ul>
        </div>
@@ -165,7 +174,8 @@ div.legendaMedia {
     
     <div class="col s12 m12" id='card-alerta' hidden>
      <div class="card-panel cardteste style-alerta">
-        <p class="title">Alertas</p>
+        <p class="title">Alertas<a class='btn-flat right fechar'>x</a></p>
+        
         <div>
           <ul id="placeholder-alerta" class="collection"></ul>
        </div>
@@ -216,26 +226,25 @@ div.legendaMedia {
 
 
 
-   <div class="col s12 m6" id='card-densidadeeventos'>
+   <div class="col s12 m6" id='card-ligar'>
     <div class="card-panel cardteste medium">
       <div class="row">
-        <p class="title  col s8">Densidade de Eventos</p>
-        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
-        </a>
+        <p class="title  col s8">Número de carros ligados nas últimas 24hrs</p>
+     <!--   <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown3" id='btnDropdown3'>  Últimas 24 Horas
+        </a> -->
         </div>
         <div class="wrap">
-          <div id="densidadeevt" class="placeholder"></div>
+          <div id="placeholder-uso" class="placeholder"></div>
        </div>
-       <div id="legendadensidade" style="padding-left: 15%;"></div>
+       <div id="legendauso" style="padding-left: 15%;"></div>
   </div>
   </div>
 
   <div class="col s12 m3" id='card-horimetro'>
     <div class="card-panel cardteste medium">
         <p class="title">Horímetro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap">
-          <div id="placeholder" class="placeholder"></div>
+          <div id="placeholder-hor" class="placeholder"></div>
        </div>
        <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
@@ -270,9 +279,8 @@ div.legendaMedia {
     <div class="col s12 m3" id='card-odometro'>
     <div class="card-panel cardteste medium">
         <p class="title">Odometro</p>
-        <p  class="subtitle">Porcentagens por veículo</p>
         <div class="wrap center">
-          <div id="placeholder9" class="placeholder"></div>
+          <div id="placeholder-odo" class="placeholder"></div>
        </div>
        <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
@@ -290,6 +298,34 @@ div.legendaMedia {
        </div>
        <div id="legenda3" style="padding-left: 5%;"></div>
     </div>
+  </div>
+
+    <div class="col s12 m6" id='card-densidadeeventos'>
+    <div class="card-panel cardteste medium">
+      <div class="row">
+        <p class="title  col s8">Densidade de Eventos</p>
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
+        </a>
+        </div>
+        <div class="wrap">
+          <div id="densidadeevt" class="placeholder"></div>
+       </div>
+       <div id="legendadensidade" style="padding-left: 15%;"></div>
+  </div>
+  </div>
+
+     <div class="col s12 m6" id='card-type'>
+    <div class="card-panel cardteste medium">
+      <div class="row">
+        <p class="title  col s8">Eventos por Tipos</p>
+     <!--   <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown3" id='btnDropdown3'>  Últimas 24 Horas
+        </a> -->
+        </div>
+        <div class="wrap">
+          <div id="placeholder-type" class="placeholder"></div>
+       </div>
+       <div id="legendauso" style="padding-left: 15%;"></div>
+  </div>
   </div>
 
   
@@ -329,6 +365,14 @@ div.legendaMedia {
 </ul>
 
 <ul id="dropdown2" class="dropdown-content subtitle">
+  <li><a href="#!">Últimas 24 Horas</a></li>
+  <li><a href="#!">Última Semana</a></li>
+  <li><a href="#!">Último Mês</a></li>
+  <li><a href="#!">Último Ano</a></li>
+
+</ul>
+
+<ul id="dropdown3" class="dropdown-content subtitle">
   <li><a href="#!">Últimas 24 Horas</a></li>
   <li><a href="#!">Última Semana</a></li>
   <li><a href="#!">Último Mês</a></li>

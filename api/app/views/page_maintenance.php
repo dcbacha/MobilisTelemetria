@@ -109,8 +109,8 @@ div.legendaMedia {
   </div>
 
         <h5 class="header col s9 light">Manutenção</h5>
-        <a class="btn-floating right smallround  tooltipped" data-position='bottom' data-delay='500' data-tooltip='Aqui vão as informações semanais da frota, assim como indica cuidados' id="info">
-          <i class='material-icons valign-wrapper'>info_outline</i>
+        <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Aqui vão as informações semanais da frota, assim como indica cuidados' id="info">
+          <i class='material-icons valign-wrapper '>info_outline</i>
         </a>
         <a class="btn-floating right smallround" id="reload">
           <i class='material-icons valign-wrapper'>loop</i>
@@ -158,7 +158,7 @@ div.legendaMedia {
   </div>
 
 
-<div class="col s3 m3" id='card-soh' >
+<div class="col s12 m3" id='card-soh' >
     <div class="card-panel cardteste medium">
       <div class="row">
         <p class="title col s8">State of Health</p>
@@ -175,7 +175,7 @@ div.legendaMedia {
   </div>
 
  
-   <div class="col s3 m3" id='card-efi' >
+   <div class="col s12 m3" id='card-efi' >
     <div class="card-panel cardteste medium">
       <div class="row">
         <p class="title col s8">Indice de Eficiência</p>
