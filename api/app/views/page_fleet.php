@@ -6,7 +6,16 @@
   <script src="js/commonfunctions.js"></script>
   <script src="js/main_fleet.js"></script>
 
- 
+ <style type="text/css">
+   
+    .collapsible-body{
+      border-top: 0;
+    }
+    .collapsible-header.active{
+      border-bottom: 0;
+    }
+    
+ </style>
 
   <!--*******************************************************  DINÂMICA  **********************************************************************-->
 

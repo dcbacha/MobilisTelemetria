@@ -79,12 +79,14 @@ function ranking(data, placeholder, param){
 	placeholder.slideDown();
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function media(data, placeholder, param, type){
 
 	var placeholder = $("#"+placeholder);
 	var containerlegenda = placeholder.parent().next();
 	containerlegenda.empty();
-
 	var size = data.length;
 	var value = 0;
 	var soma = 0;
@@ -120,23 +122,24 @@ function media(data, placeholder, param, type){
 	}
 
 	if(value > 80){
-		stylelegenda(mobilisgreen)
+		stylelegenda("#26a69a");
 	}
 	else if(value > 60){
-		stylelegenda(mobilislightblue)
+		stylelegenda(colors[1]);
 	}
 	else{
-		stylelegenda(mobilisred)
+		stylelegenda("#E6354D");
 	}
 
 	function stylelegenda(cor){
 		var style = {
-			position: "absolute",
-			top: "50%",
-			left: "50%",
+			position: "relative",
+			top: "-42%",
+			left: "52%",
+			height: '50px',
 			color: cor,
 			"font-size": "1.8em",
-			"font-weight": 900 };
+			"font-weight": 900};
 
 		containerlegenda.css(style);
 	}
@@ -145,7 +148,7 @@ function media(data, placeholder, param, type){
 		series: {
 			pie: { 
 				radius: 1,
-				innerRadius: 0.9,
+				innerRadius: 0.85,
 				show: true,
 				label: {
 					 show: false,
@@ -154,6 +157,7 @@ function media(data, placeholder, param, type){
                 threshold: 0.1
 				}
 			}
+
 		},
 		legend: {
 			show: false
@@ -165,26 +169,26 @@ function media(data, placeholder, param, type){
 	function update() {
 		containerlegenda.empty();
 
-		if (value > 80){ var cor = mobilisgreen}
-		else if (value > 60){ var cor = mobilislightblue; }
-		else{ var cor = mobilisred;	}
+		if (value > 80){ var cor = "#26a69a"}
+		else if (value > 60){ var cor = colors[1]; }
+		else{ var cor = "#E6354D";	}
 		
 
 		if(loop < value && (value - loop) > 5){
 	        valores[1] = {data: loop, color: cor};
-			valores[0] = {data: 100-loop, color: "white"};
+			valores[0] = {data: 100-loop, color: "grey"};
 			
 			loop += 2;
 		}
 		else if (loop < value && (value - loop) > 2){
 			valores[1] = {data: loop, color: cor};
-			valores[0] = {data: 100-loop, color: "white"};
+			valores[0] = {data: 100-loop, color: "grey"};
 
 			loop+= 0.5;
 		}
 		else if (loop < value && (value - loop) > 0){
 			valores[1] = {data: loop, color: cor};
-			valores[0] = {data: 100-loop, color: "white"};
+			valores[0] = {data: 100-loop, color: "grey"};
 
 			loop+=0.1;
 		}
@@ -207,7 +211,13 @@ function media(data, placeholder, param, type){
 
 }
 
+function labelFormatter(label, series) {
+	return "<div style='font-size:0.7em; text-align:center; padding:2px; color:white;'>" + label + "</div>";
+}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function plotPie(data, placeholder, type){
 
 	var placeholder = $("#"+placeholder);
@@ -252,8 +262,9 @@ function plotPie(data, placeholder, type){
 
 		function toolTip(f, h, x,y, leg, index) {
 			var legenda = leg.parent().next();
-
+			console.log('legenda: ',legenda);
 			var place = leg;
+			console.log('place: ',place)
 			var pos = place.position();
 			var height = place.height();
 			var width = place.width();
@@ -297,8 +308,8 @@ function plotPie(data, placeholder, type){
 	      		position: 'relative',
 		        width: '50px',
 		        color: colors[1],
-		        top: - (pos.top + height/2 -5),
-		        left:  - (pos.left - width/2 +2),
+		        top: -(height/2)-33,
+		        left: (width/2) - 22,
 		        'background-color': "transparent",
 		        opacity: 0.8
 		    }).fadeIn(200);
@@ -328,6 +339,3 @@ function plotPie(data, placeholder, type){
 	    });
 }
 
-function labelFormatter(label, series) {
-	return "<div style='font-size:0.7em; text-align:center; padding:2px; color:white;'>" + label + "</div>";
-}

@@ -18,8 +18,8 @@ $(function(){
 
 	setTimeout(function(){
 		var $toastContent = $('<span> Dados referentes às últimas atualizações de cada veículo</span>');
-  		Materialize.toast($toastContent, 5000, 'rounded');
-	}, 3000);
+  		Materialize.toast($toastContent, 2000, 'rounded');
+	}, 5000);
 	
 
 	$("#reload").click(function(){
@@ -47,10 +47,10 @@ $(function(){
 		var intervalo = $(this).text();
 		$("#btnDropdown2").text(intervalo);
 		switch (intervalo){
-			case "Últimas 24 Horas": avisos(dataEvt,"dia", 1); break;
-			case "Última Semana": avisos(dataEvt,"semana", 1); break
-			case "Último Mês": avisos(dataEvt,"mes", 1); break;
-			case "Último Ano": avisos(dataEvt, "ano", 1);
+			case "Últimas 24 Horas": avisos(dataEvt,"dia", 50); break;
+			case "Última Semana": avisos(dataEvt,"semana", 50); break
+			case "Último Mês": avisos(dataEvt,"mes", 50); break;
+			case "Último Ano": avisos(dataEvt, "ano", 50);
 		}
 	});
 
@@ -65,13 +65,27 @@ $(function(){
 		}
 	});
 
+	$("#dropdown-select li").click(function () {	
+		var intervalo = $(this).text();
+		var id= $(this).children().attr('value');
+		$("#"+id).slideToggle();
+		if($(this).children().children().text() == "visibility"){
+			$(this).children().children().text('visibility_off');
+		} else{
+			$(this).children().children().text('visibility');
+		}
+	});
+
 	$("#filtro").change(function(){
 		var options = $(this);
 		filtrar(options);
 	});
 
 	$(".fechar").click(function(){
-		$(this).parent().parent().hide();
+		$(this).parent().parent().slideUp(400);
+		var id = $(this).parent().parent().attr('id');
+		var link = $("#dropdown-select li a[value="+id+"]");
+		link.children().text('visibility_off');
 	});
 
 }); //end do document ready
@@ -89,17 +103,14 @@ function begin(){
 	$('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
-      constrainWidth: true, // Does not change width of dropdown to that of the activator
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
       hover: false, // Activate on hover
-      gutter: 5, // Spacing from edge
+      gutter: 25, // Spacing from edge
       belowOrigin: true, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false
     	}
 	);
-
-	
-
 	
 }
 
@@ -1056,22 +1067,30 @@ function avisos(data, type, waittime){
 			num_aviso ++;
 		}
 	}
-
+	console.log('entrou avisos');
 	if(num_erro > 0){
 		setTimeout(function(){
 			$("#card-falha").slideDown();
+			$("#card-congrats").slideUp();
 		}, waittime);
 		
 	}
 	if(num_aviso > 0){
 		setTimeout(function(){
+			console.log($("#card-alerta"));
 			$("#card-alerta").slideDown();
+			$("#card-congrats").slideUp();
+
+	console.log('entrou alerta');
 		}, waittime);
 		
 	}
 	if(num_erro == 0 && num_aviso ==0){
 		setTimeout(function(){
 			$("#card-congrats").slideDown();
+			$("#card-falha").slideUp();
+			$("#card-alerta").slideUp();
+	console.log('entrou congrats');
 		}, waittime);
 		
 	}

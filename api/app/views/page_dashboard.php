@@ -103,8 +103,25 @@ div.legendaMedia {
 
 }
 
-.fechar{
-   padding: 0 0.5rem;
+
+
+#btnselect{
+  margin-top: 5px;
+  max-width: 15%;
+  margin-left: 10.5px
+}
+
+
+@media only screen and (max-width: 1200px) and (min-width: 993px) {
+ #card-temp2{
+  margin-left: auto;
+  left: auto;
+  right: auto;
+    }
+
+ #card-temp2{
+    width: 100%;
+  }
 }
 
 
@@ -115,9 +132,9 @@ div.legendaMedia {
 <div class="container">
   
 
-  <div class="row">
+  <div class="row center">
 
-    <div class="input-field col s3">
+ <!--   <div class="input-field col s3 ">
     <select multiple id="filtro">
       <option value="" disabled>Choose your option</option>
       <option value="1" selected>Última atualização</option>
@@ -128,17 +145,35 @@ div.legendaMedia {
       <option value="6" selected>Temp Máxima 2</option>
       <option value="7" selected>Temp Máxima 3</option>
     </select>
-  </div>
+  </div> -->
+  <!-- Dropdown Trigger -->
+  <a class='dropdown-button btn col s12 m2 hide-on-small-only' href='#' data-activates='dropdown-select' id='btnselect'>Visualizar</a>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown-select' class='dropdown-content'>
+    <li><a href="#!" value="card-lastupdate"><i class="tiny material-icons left">visibility</i>Última Atualização</a></li>
+    <li><a href="#!" value="card-temporestante"><i class="tiny material-icons left">visibility</i>Estado de Carga</a></li>
+    <li><a href="#!" value="card-horimetro-barra"><i class="tiny material-icons left">visibility</i>Horimetro (barras)</a></li>
+    <li><a href="#!" value="card-odometro-barra"><i class="tiny material-icons left">visibility</i>Odometro (barras)</a></li>
+    <li><a href="#!" value="card-ligar"><i class="tiny material-icons left">visibility</i>Eventos de Ligar</a></li>
+    <li><a href="#!" value="card-horimetro"><i class="tiny material-icons left">visibility</i>Horimetro</a></li>
+    <li><a href="#!" value="card-temp2"><i class="tiny material-icons left">visibility</i>Temp Maximas</a></li>
+    <li><a href="#!" value="card-temp1"><i class="tiny material-icons left">visibility</i>Temp Max Bateria</a></li>
+    <li><a href="#!" value="card-odometro"><i class="tiny material-icons left">visibility</i>Odometro</a></li>
+    <li><a href="#!" value="card-temp3"><i class="tiny material-icons left">visibility</i>Temp Max Bateria (horizontal)</a></li>
+    <li><a href="#!" value="card-densidadeeventos"><i class="tiny material-icons left">visibility</i>Densidade de eventos</a></li>
+    <li><a href="#!" value="card-type"><i class="tiny material-icons left">visibility</i>Eventos</a></li>
+  </ul>
     
-        <h5 class="header col s9 light">Painel de Controle</h5>
+  <h5 class="header col s12 m10 light"  style='padding-right: 15%;'>Painel de Controle</h5>
 
         <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota. Os dados são referêntes às últimas atualizações de cada veículo. Verifique a conexão de cada carro para manter seu painel de controle atualizado' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
         </a>
         <a class="btn-floating right smallround" id="reload">
-          <i class='material-icons valign-wrapper'>loop</i>
+          <i class='material-icons valign-wrapper'>update</i>
         </a>
-  </div>
+  </div> <!-- fim div row header -->
 
 
 <div class="divider"></div>
@@ -152,10 +187,12 @@ div.legendaMedia {
         </a>
     </div>
 </div>
-<div class="row">
+
+<div class="row rowmaster">
     <div class="col s12 m12 card-big" id='card-congrats' hidden>
      <div class="card-panel cardteste style-congrats">
-        <p class="title">Parabéns! Não foram registradas falhas na sua frota <a class='btn-flat right fechar'>x</a></p>
+     <a class='btn-flat right fechar'><span>x</span></a>
+        <p class="title">Parabéns! Não foram registradas falhas na sua frota </p>
        
     </div>
     </div>
@@ -163,7 +200,8 @@ div.legendaMedia {
     
     <div class="col s12 m12" id='card-falha' hidden>
      <div class="card-panel cardteste style-falha">
-        <p class="title">Falhas<a class='btn-flat right fechar'>x</a></p>
+     <a class='btn-flat right fechar'><span>x</span></a>
+        <p class="title">Falhas</p>
         <div>
           <ul id="placeholder-falha" class="collection"></ul>
        </div>
@@ -174,17 +212,18 @@ div.legendaMedia {
     
     <div class="col s12 m12" id='card-alerta' hidden>
      <div class="card-panel cardteste style-alerta">
-        <p class="title">Alertas<a class='btn-flat right fechar'>x</a></p>
-        
+     <a class='btn-flat right fechar'><span>x</span></a>
+        <p class="title">Alertas</p>
         <div>
           <ul id="placeholder-alerta" class="collection"></ul>
        </div>
     </div>
-    </div>
+    </div> 
 
 
-   <div class="col s12 m3" id='card-lastupdate'>
+   <div class="col s12 m6 l3" id='card-lastupdate'>
      <div class="card-panel cardteste big">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Última atualização</p>
         <div>
           <ul id="placeholder-lastupdate" class="collection" hidden></ul>
@@ -192,8 +231,9 @@ div.legendaMedia {
     </div>
   </div>
 
-  <div class="col s12 m3" id='card-temporestante'>
+  <div class="col s12 m6 l3" id='card-temporestante'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Estado de Carga da Bateria</p>
         <div class="wrap">
           <div id="placeholder-estadocarga" class="placeholder"></div>
@@ -202,8 +242,9 @@ div.legendaMedia {
     </div>
   </div>
 
-    <div class="col s12 m3" id='card-horimetro-barra'>
+    <div class="col s12 m6 l3" id='card-horimetro-barra'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Horímetro</p>
         <div class="wrap">
           <div id="placeholder-horimetro-barra" class="placeholder"></div>
@@ -212,8 +253,9 @@ div.legendaMedia {
     </div>
   </div>
 
-  <div class="col s12 m3" id='card-odometro-barra'>
+  <div class="col s12 m12 l3" id='card-odometro-barra'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Odometro</p>
         <div class="wrap center">
           <div id="placeholder-odometro-barra" class="placeholder"></div>
@@ -228,6 +270,7 @@ div.legendaMedia {
 
    <div class="col s12 m6" id='card-ligar'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title  col s8">Número de carros ligados nas últimas 24hrs</p>
      <!--   <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown3" id='btnDropdown3'>  Últimas 24 Horas
@@ -240,8 +283,9 @@ div.legendaMedia {
   </div>
   </div>
 
-  <div class="col s12 m3" id='card-horimetro'>
+  <div class="col s12 m6 l3" id='card-horimetro'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Horímetro</p>
         <div class="wrap">
           <div id="placeholder-hor" class="placeholder"></div>
@@ -250,8 +294,9 @@ div.legendaMedia {
     </div>
   </div>
 
-   <div class="col s12 m6" id='card-temp2'>
+   <div class="col s12 m12 l6" id='card-temp2'>
     <div class="card-panel cardteste big">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Temperaturas Máximas</p>
         <p  class="subtitle">Máximas temperaturas já registradas</p>
         <div class="wrap">
@@ -265,8 +310,9 @@ div.legendaMedia {
 
    
 
-   <div class="col s12 m3" id='card-temp1'>
+   <div class="col s12 m6 l3" id='card-temp1'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Temperatura Máxima da Bateria</p>
         <p class="subtitle">Máxima temperatura registrada<p>
         <div class="wrap">
@@ -276,8 +322,9 @@ div.legendaMedia {
     </div>
   </div>
 
-    <div class="col s12 m3" id='card-odometro'>
+    <div class="col s12 m6 l3" id='card-odometro'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Odometro</p>
         <div class="wrap center">
           <div id="placeholder-odo" class="placeholder"></div>
@@ -289,8 +336,9 @@ div.legendaMedia {
   
 
     
-    <div class="col s12 m6" id='card-temp3'>
+    <div class="col s12 m12 l6" id='card-temp3'>
      <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Temperaturas Máximas na Bateria</p>
         <p  class="subtitle">Máximas temperaturas já registradas na Bateria do veículo</p>
         <div class="wrap">
@@ -302,6 +350,7 @@ div.legendaMedia {
 
     <div class="col s12 m6" id='card-densidadeeventos'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title  col s8">Densidade de Eventos</p>
         <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
@@ -316,6 +365,7 @@ div.legendaMedia {
 
      <div class="col s12 m6" id='card-type'>
     <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title  col s8">Eventos por Tipos</p>
      <!--   <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown3" id='btnDropdown3'>  Últimas 24 Horas
@@ -356,7 +406,7 @@ div.legendaMedia {
 
 <!--Menus Dropdowns-->
 
-<ul id="dropdown1" class="dropdown-content subtitle">
+<ul id="dropdown1" class="dropdown-content subtitle drop">
   <li><a href="#!">Últimas 24 Horas</a></li>
   <li><a href="#!">Última Semana</a></li>
   <li><a href="#!">Último Mês</a></li>
@@ -364,7 +414,7 @@ div.legendaMedia {
 
 </ul>
 
-<ul id="dropdown2" class="dropdown-content subtitle">
+<ul id="dropdown2" class="dropdown-content subtitle drop">
   <li><a href="#!">Últimas 24 Horas</a></li>
   <li><a href="#!">Última Semana</a></li>
   <li><a href="#!">Último Mês</a></li>
@@ -372,7 +422,7 @@ div.legendaMedia {
 
 </ul>
 
-<ul id="dropdown3" class="dropdown-content subtitle">
+<ul id="dropdown3" class="dropdown-content subtitle drop">
   <li><a href="#!">Últimas 24 Horas</a></li>
   <li><a href="#!">Última Semana</a></li>
   <li><a href="#!">Último Mês</a></li>

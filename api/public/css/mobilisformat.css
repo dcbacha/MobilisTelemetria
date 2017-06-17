@@ -120,6 +120,10 @@ table.plot_values > tbody > tr:nth-child(odd) {
     line-height: 17px;
 }
 
+.drop li{
+  border: 1px solid lightgrey;
+
+}
 .smallround {
   display: inline-block;
   color: #fff;
@@ -172,3 +176,47 @@ table.plot_values > tbody > tr:nth-child(odd) {
   max-width: 200px;
   opacity: 0.8;
 }
+.fechar{
+   padding: 0 0.5rem;
+   position: absolute;
+   right: 0;
+   top:0;
+   height: 24.5px;
+}
+.fechar span{
+  font-size: 0.5em;
+  font-weight: 600;
+  position: relative;
+  top: -7.75px;
+  left: 0;
+}
+
+.fechar:hover{
+  background-color:#E6354D;
+  color: white;
+}
+
+#dropdown-select{
+  font-size: 0.8em
+}
+
+#dropdown-select li>a>i{
+  color: grey;
+  margin-right: 0px;
+}
+
+
+
+.dropdown-content li{
+  border-bottom: 1px solid lightgrey;
+}
+
+#reload i, #info i{
+    color: #575756;
+}
+
+@media only screen and (max-width: 1500px){
+  .title{
+    font-size: 0.8em;
+  }
+} 

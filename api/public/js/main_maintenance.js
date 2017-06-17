@@ -14,7 +14,7 @@ var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
 
 
 $(function(){
-
+		$('select').material_select();
 	begin();
 	req_evt();
 	req_logperm();
@@ -34,7 +34,27 @@ $(function(){
 		filtrar(options);
 	});
 
+	$(".fechar").click(function(){
+		$(this).parent().parent().slideUp(400);
+		var id = $(this).parent().parent().attr('id');
+		var link = $("#dropdown-select li a[value="+id+"]");
+		link.children().text('visibility_off');
+	});
+
+
+	$("#dropdown-select li").click(function () {	
+		var intervalo = $(this).text();
+		var id= $(this).children().attr('value');
+		$("#"+id).slideToggle();
+		if($(this).children().children().text() == "visibility"){
+			$(this).children().children().text('visibility_off');
+		} else{
+			$(this).children().children().text('visibility');
+		}
+	});
+
 	
+
 });
 
 function change(text){
@@ -45,8 +65,10 @@ function processLogPerm(data){
 	dataLogPerm = data;
 	//console.log(dataLogPerm);
 	stacking(dataLogPerm, "placeholder-carga");
+	
 	media(dataLogPerm, "placeholder-soh", "soh", "média");
 	media(dataLogPerm, "placeholder-efi", "efi", "média");
+	
 	ranking(dataLogPerm, "placeholder-autrank", "aut");
 	ranking(dataLogPerm, "placeholder-sohrank", "soh");
 	ranking(dataLogPerm, "placeholder-efirank", "efi");
@@ -97,38 +119,47 @@ function processFleet(data){
 	update_dropdown(dataFleet);
 }
 
+function update_dropdown(data){
+	for(let i = 0 ; i < data.length ; i++){
+		var html = "<li><a href='#!'>Carro "+data[i].idcarro+"</a></li>";
+		$(".drop").append(html);
+	}
+}
+
 
 
 function begin(){
 	sessions(token);
 	$('select').material_select();
 
+	
+
+	$("#dropdown2 li").click(function(){
+		var text = $(this).text();
+		$("#btnDropdown2").text(text);		
+		media(dataLogPerm, "placeholder-efi", "efi", text);
+	});
+
+	$("#dropdown-soh li a").click(function(){
+		var text = $(this).text();
+		$("#btnDropdown-soh").text(text);
+		console.log(text);
+		media(dataLogPerm, "placeholder-soh", "soh", text);
+	});
+	
+
 	$('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
-      constrainWidth: true, // Does not change width of dropdown to that of the activator
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
       hover: false, // Activate on hover
-      gutter: 5, // Spacing from edge
+      gutter: 25, // Spacing from edge
       belowOrigin: true, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false
     	}
-	);
-
-	$("#dropdown1 li").click(function(){
-		var text = $(this).text();
-		$("#btnDropdown1").text(text);
-		
-		media(dataLogPerm, "placeholder-soh", "soh", text);
-	})
-
-	$("#dropdown2 li").click(function(){
-		var text = $(this).text();
-		$("#btnDropdown2").text(text);
-		//console.log(text);
-		
-		media(dataLogPerm, "placeholder-efi", "efi", text);
-	})
+	)
+	
 }
 
 
@@ -346,17 +377,6 @@ function rankErro(data){
 	}
 
 	$('#user-rank').slideDown();
-}
-
-function update_dropdown(data){
-	
-		for(let i = 0 ; i < data.length ; i++){
-			var html = "<li><a href='#!'>Carro "+data[i].idcarro+"</a></li>";
-			$(".drop").append(html);
-		}
-	
-
-	begin();
 }
 
 

@@ -84,6 +84,16 @@ div.legendaMedia {
   margin: 0px;
 }
 
+#btnselect{
+  margin-top: 5px;
+  max-width: 15%;
+  margin-left: 10.5px
+}
+
+.dropdown-content{
+  padding-left: 50px;
+
+}
 
 
 
@@ -92,10 +102,10 @@ div.legendaMedia {
 <!--<body class="mobilislightblue"> -->
 <div class="container">
 
-  <div class="row">
+  <div class="row center">
 
 
-    <div class="input-field col s3">
+ <!--   <div class="input-field col s3">
     <select multiple id="filtro">
       <option value="" disabled>Choose your option</option>
       <option value="1" selected>Ranking Usuários</option>
@@ -106,14 +116,18 @@ div.legendaMedia {
       <option value="6" selected>Horimetro</option>
       <option value="7" selected>Odometro</option>
     </select>
-  </div>
+  </div> -->
 
-        <h5 class="header col s9 light">Manutenção</h5>
+ 
+  <a class='dropdown-button btn col s12 m2 hide-on-small-only'  href='#' data-activates='dropdown-select' id='btnselect'>Visualizar</a>
+
+
+        <h5 class="header col s12 m10 light" style='padding-right: 15%;'>Manutenção</h5>
         <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Aqui vão as informações semanais da frota, assim como indica cuidados' id="info">
           <i class='material-icons valign-wrapper '>info_outline</i>
         </a>
         <a class="btn-floating right smallround" id="reload">
-          <i class='material-icons valign-wrapper'>loop</i>
+          <i class='material-icons valign-wrapper'>update</i>
         </a>
   </div>
   <div class="divider"></div>
@@ -121,10 +135,11 @@ div.legendaMedia {
         
 
 
-<div class="row">
+<div class="row rowmaster">
 
-<div class="col s12 m3" id='card-rankuser'>
+<div class="col s12 m6 l3" id='card-rankuser'>
     <div class="card-panel cardteste big">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Ranking Usuarios</p>
         <p class="subtitle">De acordo com numero de falhas cometidas</p>
         <div>
@@ -135,8 +150,9 @@ div.legendaMedia {
 
 
 
-<div class="col s12 m6" id='card-horascarga'>
+<div class="col s12 m6 l6" id='card-horascarga'>
     <div class="card-panel cardteste big">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Horas de Carga</p>
         <p class="subtitle">Porcentagem do período de uso em cargas diferentes</p>
         <div class="wrap">
@@ -147,8 +163,9 @@ div.legendaMedia {
   </div>
 
 
-  <div class="col s12 m3" id='card-autonomia'>
+  <div class="col s12 m6 l3" id='card-autonomia'>
      <div class="card-panel cardteste big">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Autonomia</p>
         <p class="subtitle">Ranking da frotas</p>
         <div>
@@ -160,11 +177,14 @@ div.legendaMedia {
 
 <div class="col s12 m3" id='card-soh' >
     <div class="card-panel cardteste medium">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title col s8">State of Health</p>
-        
-        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Média
+        <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown-soh" id='btnDropdown-soh'>Média
         </a>
+        <ul id="dropdown-soh" class="dropdown-content subtitle drop">
+          <li><a href="#!">média</a></li>
+        </ul>
       </div>
         
         <div class="wrap">
@@ -177,10 +197,14 @@ div.legendaMedia {
  
    <div class="col s12 m3" id='card-efi' >
     <div class="card-panel cardteste medium">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title col s8">Indice de Eficiência</p>
         
         <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown2" id='btnDropdown2'>Média</a>
+        <ul id="dropdown2" class="dropdown-content subtitle drop" >
+          <li><a href="#!">média</a></li>
+        </ul>
         </div>
         
         <div class="wrap">
@@ -198,6 +222,7 @@ div.legendaMedia {
 
   <div class="col s12 m3" id='card-horimetro'>
     <div class="card-panel cardteste medium">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Horímetro</p>
         <div class="wrap">
           <div id="placeholder" class="placeholder"></div>
@@ -208,6 +233,7 @@ div.legendaMedia {
 
   <div class="col s12 m3" id='card-odometro'>
     <div class="card-panel cardteste medium">
+        <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Odometro</p>
         <div class="wrap center">
           <div id="placeholder9" class="placeholder"></div>
@@ -249,12 +275,17 @@ div.legendaMedia {
 
 
 <!--DropDowns -->
-<ul id="dropdown1" class="dropdown-content subtitle drop">
-  <li><a href="#!">média</a></li>
 
-</ul>
 
-<ul id="dropdown2" class="dropdown-content subtitle drop" >
-  <li><a href="#!">média</a></li>
 
-</ul>
+
+  <ul id='dropdown-select' class='dropdown-content'>
+    <li><a href="#!" value="card-rankuser"><i class="tiny material-icons left">visibility</i>Ranzing usuario</a></li>
+    <li><a href="#!" value="card-horascarga"><i class="tiny material-icons left">visibility</i>Tempo de Carga</a></li>
+    <li><a href="#!" value="card-autonomia"><i class="tiny material-icons left">visibility</i>Autonomia</a></li>
+    <li><a href="#!" value="card-soh"><i class="tiny material-icons left">visibility</i>State of Health</a></li>
+    <li><a href="#!" value="card-efi"><i class="tiny material-icons left">visibility</i>Indice de Eficiencia</a></li>
+    <li><a href="#!" value="card-horimetro"><i class="tiny material-icons left">visibility</i>Horimetro</a></li>
+    <li><a href="#!" value="card-odometro"><i class="tiny material-icons left">visibility</i>Odometro</a></li>
+    
+  </ul>

@@ -16,7 +16,16 @@
     right: 0%;
     width: 100px;
   }*/
-  
+
+   
+    .collapsible-body{
+      border-top: 0;
+    }
+    .collapsible-header.active{
+      border-bottom: 0;
+    }
+    
+
   </style>
 
 <div class="container">
