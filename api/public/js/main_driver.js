@@ -15,8 +15,8 @@ $(function(){
 			
 }); //fim on ready
 
-console.time('processData');
-console.timeEnd('processData');
+//console.time('processData');
+//console.timeEnd('processData');
 
 
 //************************************ Funções ************************************//
@@ -154,13 +154,13 @@ function getInfo(id){
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status, xhr) {
-				console.log("erro ajax get Info");
-				console.log(data);
+				//console.log("erro ajax get Info");
+				//console.log(data);
 				
 			},
 			success: function(data, status) {
-				console.log("sucesso ajax get Info");
-				console.log(data);
+				//console.log("sucesso ajax get Info");
+				//console.log(data);
 
 				var nome = data[0].nome;
 				var email = data[0].email;
@@ -172,7 +172,7 @@ function getInfo(id){
 							"Email:"+email+"";
 
 				$("#id1_"+id).attr("data-tooltip", tooltip);
-				console.log($("#id1_"+id));
+				//console.log($("#id1_"+id));
 				$('.tooltipped').tooltip({delay: 50});
 
 			}

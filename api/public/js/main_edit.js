@@ -28,7 +28,7 @@ $(function(){
 	});
 
 	$("#voltar").click(function(){
-		console.log("clicou");
+		//console.log("clicou");
 		var url = "?t="+token;
 		document.location = url_drivers+url;
 	});
@@ -51,12 +51,12 @@ function getInfo(){
 			data: json,
 			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				console.log("erro ajax get Info");
-				console.log(data.resposeText);
+				//console.log("erro ajax get Info");
+				//console.log(data.resposeText);
 				
 			},
 			success: function(data, status) {
-				console.log("sucesso ajax get Info");
+				//console.log("sucesso ajax get Info");
 				//console.log(data);
 				fillInfo(data);
 				
@@ -98,7 +98,7 @@ function enviar(){
 	var json;
 
 	if($("#checksenha").attr("checked")){
-		console.log("selecionado");
+		//console.log("selecionado");
 		var senhaatual = $("#senhaatual").val();
 		var senhanova = $("#novasenha").val();
 		var senhanova2 = $("#novasenha2").val();
@@ -119,7 +119,7 @@ function enviar(){
 			requisicaoEnviar(json);
 		}
 		else{
-			console.log("diferente");
+			//console.log("diferente");
 		}
 		
 	}
@@ -144,7 +144,7 @@ function enviar(){
 }
 
 function requisicaoEnviar(json){
-	console.log(json);
+	//console.log(json);
 
 	$.ajax({
 			type: "GET",
@@ -153,9 +153,9 @@ function requisicaoEnviar(json){
 			data: json,
 			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				console.log("erro ajax get Info");
-				console.log(data);
-				console.log(data.responseText);
+				//console.log("erro ajax get Info");
+				//console.log(data);
+				//console.log(data.responseText);
 
 				if(data.responseText == "Senha errada"){ 
 					$("#errosenha").slideToggle();
@@ -180,9 +180,9 @@ function requisicaoEnviar(json){
 				
 			},
 			success: function(data, status) {
-				console.log("sucesso ajax requisicao");
-				console.log(data);
-				console.log(data.responseText);
+				//console.log("sucesso ajax requisicao");
+				//console.log(data);
+				//console.log(data.responseText);
 
 				$("#success").slideToggle();
 				setTimeout(function(){

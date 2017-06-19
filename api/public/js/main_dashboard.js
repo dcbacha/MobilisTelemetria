@@ -28,6 +28,7 @@ $(function(){
 		req_logperm();
 		req_evt();
 		//req_evt_teste();
+		begin();
 
 	});
 
@@ -717,9 +718,9 @@ function stacking(data){
 	          $('#tooltip').remove();
 	          var x = h.datapoint[0],
 	          	y = h.datapoint[1];
-	          	console.log(h);
+	          	//console.log(h);
 	          var porcent = h.datapoint[1] - h.datapoint[2] ;
-	          console.log($(this).position());
+	         // console.log($(this).position());
 	          toolTip(h.pageX, h.pageY, x,y, porcent);
 	        }
 	      } else {
@@ -1067,7 +1068,7 @@ function avisos(data, type, waittime){
 			num_aviso ++;
 		}
 	}
-	console.log('entrou avisos');
+	//console.log('entrou avisos');
 	if(num_erro > 0){
 		setTimeout(function(){
 			$("#card-falha").slideDown();
@@ -1077,11 +1078,11 @@ function avisos(data, type, waittime){
 	}
 	if(num_aviso > 0){
 		setTimeout(function(){
-			console.log($("#card-alerta"));
+			//console.log($("#card-alerta"));
 			$("#card-alerta").slideDown();
 			$("#card-congrats").slideUp();
 
-	console.log('entrou alerta');
+	//console.log('entrou alerta');
 		}, waittime);
 		
 	}
@@ -1090,7 +1091,7 @@ function avisos(data, type, waittime){
 			$("#card-congrats").slideDown();
 			$("#card-falha").slideUp();
 			$("#card-alerta").slideUp();
-	console.log('entrou congrats');
+	//console.log('entrou congrats');
 		}, waittime);
 		
 	}
@@ -1327,7 +1328,7 @@ function typeEvt(data, placeholder, type){
 	var value = [max1, max2, max3];
 	maxglobal = Math.max.apply( Math, value );
 
-	console.log(maxglobal);
+	//console.log(maxglobal);
 
 	switch (type){
 		case "dia": 

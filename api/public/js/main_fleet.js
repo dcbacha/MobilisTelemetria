@@ -124,9 +124,9 @@ function getPermLog(){
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status) {
-				console.log("erro ajax -> get perm log");
-				console.log(data);
-				console.log(data.responseText);
+				//console.log("erro ajax -> get perm log");
+				//console.log(data);
+				//console.log(data.responseText);
 			},
 			success: function(data, status) {
 				var num_carros = data.length;
@@ -170,9 +170,9 @@ function getGroup(){
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status) {
-				console.log("erro ajax -> get perm log");
-				console.log(data);
-				console.log(data.responseText);
+				//console.log("erro ajax -> get perm log");
+				//console.log(data);
+				//console.log(data.responseText);
 			},
 			success: function(data, status) {
 				var num_users = data.length;

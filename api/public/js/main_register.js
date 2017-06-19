@@ -42,7 +42,7 @@ function formSender(){
 		nivel: nivel
 	};
 
-	console.log(form_json);
+	//console.log(form_json);
 
 	if($("#cad_email")[0].className == "validate invalid"){
 		$("#emailerror").slideToggle(400);
@@ -73,11 +73,11 @@ function cadastra(form_json){
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status, xhr) {
-				console.log("erro ajax cadastro");
-				console.log(data);
-				console.log(data.responseText);
-				console.log(status);
-				console.log(xhr);
+				//console.log("erro ajax cadastro");
+				//console.log(data);
+				//console.log(data.responseText);
+				//console.log(status);
+				//console.log(xhr);
 				//redirect("timeout");
 				if(data.responseText == "sucesso"){
 					//console.log("erro de sucesso ??")
@@ -94,8 +94,8 @@ function cadastra(form_json){
 				}
 			},
 			success: function(data, status) {
-				console.log("sucesso ajax cadastro");
-				console.log(data);
+				//console.log("sucesso ajax cadastro");
+				//console.log(data);
 
 				$("#sucesso").slideToggle(400);
 				setTimeout(function(){

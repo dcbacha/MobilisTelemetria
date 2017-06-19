@@ -114,7 +114,7 @@ function media(data, placeholder, param, type){
 				switch (param){
 					case "soh": value = parseInt(data[i].soh); break;
 					case "efi": 
-					console.log(Math.ceil(data[i].indice_eficiencia*100));
+					//console.log(Math.ceil(data[i].indice_eficiencia*100));
 					value = Math.ceil(data[i].indice_eficiencia*100);
 				}
 			}
@@ -262,9 +262,9 @@ function plotPie(data, placeholder, type){
 
 		function toolTip(f, h, x,y, leg, index) {
 			var legenda = leg.parent().next();
-			console.log('legenda: ',legenda);
+			//console.log('legenda: ',legenda);
 			var place = leg;
-			console.log('place: ',place)
+			//console.log('place: ',place)
 			var pos = place.position();
 			var height = place.height();
 			var width = place.width();

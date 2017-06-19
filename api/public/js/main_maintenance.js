@@ -57,9 +57,6 @@ $(function(){
 
 });
 
-function change(text){
-	console.log("faz: ", text);
-}
 
 function processLogPerm(data){
 	dataLogPerm = data;
@@ -143,7 +140,7 @@ function begin(){
 	$("#dropdown-soh li a").click(function(){
 		var text = $(this).text();
 		$("#btnDropdown-soh").text(text);
-		console.log(text);
+		//console.log(text);
 		media(dataLogPerm, "placeholder-soh", "soh", text);
 	});
 	
@@ -220,7 +217,7 @@ function stacking(data, placeholder){
 		var tmp = [ {data: d1, label: "Carga 0", color: mobilislightblue},
 					{data: d2, label: "Carga 1", color: mobilisblue}, 
 					{data: d3, label: "Carga 2", color: mobilisred} ];
-		console.log('tmp: ', tmp);
+		//console.log('tmp: ', tmp);
 		
 
 		var plot = $.plot(placeholder, tmp , {
@@ -364,7 +361,7 @@ function rankErro(data){
 	  }
 	}
 
-	console.log("json: ", json);
+	//console.log("json: ", json);
 
 	var ranking = json.sort(keysrt('qnt'));
 	

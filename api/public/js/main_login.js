@@ -32,7 +32,7 @@ $("#login").click(function(){
                 data: data,
                 dataType: 'json',
                 success: function(data) {
-                   console.log(data)
+                   //console.log(data)
                    var status = data.status;
                    var token = data.token;
 
@@ -49,11 +49,11 @@ $("#login").click(function(){
                    } 
                 },
                 error: function(data, status, message) {
-                     console.log(data);
-                    console.log(data.responseText);
-                    console.log(status);
+                    // console.log(data);
+                    //console.log(data.responseText);
+                   // console.log(status);
                   //  console.log(message);
-                    console.log("Erro no login");
+                   // console.log("Erro no login");
                      $("#loginerror").stop().slideToggle();
 
                      setTimeout(function(){
@@ -81,8 +81,8 @@ $("#voltar").click(function(){
 
 $("#generate").click(function(){
   $("#loading").slideToggle();
-  console.log("generate");
-  console.log($("#name2").val());
+  //console.log("generate");
+  //console.log($("#name2").val());
 
   var email = $("#email2").val();
   var name = $("#name2").val();
@@ -92,7 +92,7 @@ $("#generate").click(function(){
       name: name
     };
 
-    console.log(data);
+   // console.log(data);
 
     $.ajax({
                 type: "GET",
@@ -101,7 +101,7 @@ $("#generate").click(function(){
                 data: data,
                 dataType: 'json',
                 success: function(data) {
-                   console.log(data);
+                  // console.log(data);
                    $("#loading").slideToggle();
 
                      $("#success2").stop().slideToggle();
@@ -112,11 +112,11 @@ $("#generate").click(function(){
                 },
                 error: function(data, status, message) {
                   $("#loading").slideToggle();
-                    console.log(data);
-                    console.log(data.responseText);
+                    //console.log(data);
+                    //console.log(data.responseText);
 
                     if(data.responseText == "Usuario nao existe"){
-                      console.log("deuruim");
+                      //console.log("deuruim");
                       $("#erroruser").stop().slideToggle();
 
                      setTimeout(function(){
@@ -124,7 +124,7 @@ $("#generate").click(function(){
                       }, 2500);
                     
                     }
-                    console.log(status);
+                    //console.log(status);
                
                 }
     });

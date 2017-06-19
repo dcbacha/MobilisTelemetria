@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.3/rds/api/public";
+var url_global = "http://192.168.0.35/rds/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -148,7 +148,7 @@ function checktoken(){
 		return token;
 	}
 	else{
-		console.log("nao tem token em");
+		//console.log("nao tem token em");
 		redirect("unauthorized");
 	}
 }
@@ -199,9 +199,9 @@ function req_logperm(){
 	  'Authorization': 'Bearer ' + token
 	},
 	error: function(data, status) {
-		console.log("erro ajax -> main fleet");
+		//console.log("erro ajax -> main fleet");
 		//console.log(data);
-		console.log(data.responseText);
+		//console.log(data.responseText);
 		//redirect("timeout");
 	},
 	success: function(data, status) {
@@ -222,9 +222,9 @@ function req_evt(){
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status) {
-				console.log("erro ajax -> main fleet");
+				//console.log("erro ajax -> main fleet");
 				//console.log(data);
-				console.log(data.responseText);
+				//console.log(data.responseText);
 				redirect("timeout");
 			},
 			success: function(data, status) {
@@ -245,13 +245,13 @@ function req_fleet(){
 		'Authorization': 'Bearer ' + token
 	},
 	error: function(data, status) {
-		console.log("erro ajax");
-		console.log(data);
-		console.log(data.responseText)
+		//console.log("erro ajax");
+		//console.log(data);
+		//console.log(data.responseText)
 		//redirect("timeout");
 	},
 	success: function(data, status) {
-		console.log("sucesso ajax");
+		//console.log("sucesso ajax");
 		//console.log(data);
 		processFleet(data);
 		
@@ -269,13 +269,13 @@ function req_evt_teste(){
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status) {
-				console.log("erro ajax -> main fleet");
-				console.log(data);
-				console.log(data.responseText);
+				//console.log("erro ajax -> main fleet");
+				//console.log(data);
+				//console.log(data.responseText);
 				//redirect("timeout");
 			},
 			success: function(data, status) {
-				console.log(data);
+				//console.log(data);
 				processEvtTeste(data);
 				begin();
 			}
