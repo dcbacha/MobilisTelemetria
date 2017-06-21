@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.35/rds/api/public";
+var url_global = "http://mobilisfleet.web1651.kinghost.net/api/public";
 
 //link views
 var url_fleet = 	url_global + "/fleet",

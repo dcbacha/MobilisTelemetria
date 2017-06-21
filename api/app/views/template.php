@@ -107,7 +107,7 @@ body{
   <nav role="navigation">
     <div class="nav-wrapper">
       <a id="logo-container" href="#" class="brand-logo" style="margin-left: 15px;">
-        <img src="img/logo_mobilis_colored.png" class="logo">
+        <img src="img/logo-mobilis-colored.PNG" class="logo">
       </a>
       
 

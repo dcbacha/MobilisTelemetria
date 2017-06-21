@@ -18,13 +18,13 @@ $(function(){
 
 	setTimeout(function(){
 		var $toastContent = $('<span> Dados referentes às últimas atualizações de cada veículo</span>');
-  		Materialize.toast($toastContent, 2000, 'rounded');
-	}, 5000);
+  		Materialize.toast($toastContent, 5000, 'rounded');
+	}, 10000);
 	
 
 	$("#reload").click(function(){
 		$(".collection").empty();
-		$(".drop").empty();
+		//$(".drop").empty();
 		req_logperm();
 		req_evt();
 		//req_evt_teste();
@@ -122,7 +122,7 @@ function processEvt(data){
 	useEvt(data, "placeholder-uso", "dia");
 
 	typeEvt(data, "placeholder-type", "dia");
-	avisos(data, "dia", 2000);
+	avisos(data, "dia", 5000);
 
 	
 }

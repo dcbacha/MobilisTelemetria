@@ -53,6 +53,7 @@ $(function(){
 		}
 	});
 
+
 	
 
 });
@@ -114,6 +115,21 @@ function processEvt(data){
 function processFleet(data){
 	dataFleet = data;
 	update_dropdown(dataFleet);
+
+	$("#dropdown2 li").click(function(){
+		var text = $(this).text();
+		console.log(text);
+		$("#btnDropdown2").text(text);		
+		media(dataLogPerm, "placeholder-efi", "efi", text);
+	});
+
+	$("#dropdown-soh li a").click(function(){
+		var text = $(this).text();
+		$("#btnDropdown-soh").text(text);
+		console.log(text);
+		media(dataLogPerm, "placeholder-soh", "soh", text);
+	});
+
 }
 
 function update_dropdown(data){
@@ -131,18 +147,7 @@ function begin(){
 
 	
 
-	$("#dropdown2 li").click(function(){
-		var text = $(this).text();
-		$("#btnDropdown2").text(text);		
-		media(dataLogPerm, "placeholder-efi", "efi", text);
-	});
-
-	$("#dropdown-soh li a").click(function(){
-		var text = $(this).text();
-		$("#btnDropdown-soh").text(text);
-		//console.log(text);
-		media(dataLogPerm, "placeholder-soh", "soh", text);
-	});
+	
 	
 
 	$('.dropdown-button').dropdown({

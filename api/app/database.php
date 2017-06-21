@@ -4,10 +4,10 @@
 //Configura conexão com servidor
 function getDB()
 {
-    $dbhost = "localhost"; //"192.155.249.213"; //
-    $dbuser = "root";		//"mobilise_user"; //
-    $dbpass = "";			//"3.+s&b.X&Az["; //
-    $dbname = "sistematelemetria"; //"mobilise_sistematelemetria"; //
+    $dbhost = 'mysql08-farm68.kinghost.net';//"localhost"; 
+    $dbuser = 'mobilisfle_add1';//"root";		
+    $dbpass = 'Abracadabra01';//"";			
+    $dbname = 'mobilisfleet';//"sistematelemetria";
  
     $mysql_conn_string = "mysql:host=$dbhost;dbname=$dbname";
     $dbConnection = new PDO($mysql_conn_string, $dbuser, $dbpass); 

@@ -185,6 +185,14 @@ div.legendaMedia {
     <div class="col s6 m2" style="padding: 0">
         <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown2" id='btnDropdown2'>  Últimas 24 Horas
         </a>
+        <ul id="dropdown2" class="dropdown-content subtitle drop">
+          <li><a href="#!">Últimas 24 Horas</a></li>
+          <li><a href="#!">Última Semana</a></li>
+          <li><a href="#!">Último Mês</a></li>
+          <li><a href="#!">Último Ano</a></li>
+
+        </ul>
+
     </div>
 </div>
 
@@ -355,6 +363,14 @@ div.legendaMedia {
         <p class="title  col s8">Densidade de Eventos</p>
         <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
         </a>
+
+          <ul id="dropdown1" class="dropdown-content subtitle drop">
+            <li><a href="#!">Últimas 24 Horas</a></li>
+            <li><a href="#!">Última Semana</a></li>
+            <li><a href="#!">Último Mês</a></li>
+            <li><a href="#!">Último Ano</a></li>
+
+          </ul>
         </div>
         <div class="wrap">
           <div id="densidadeevt" class="placeholder"></div>
@@ -406,21 +422,7 @@ div.legendaMedia {
 
 <!--Menus Dropdowns-->
 
-<ul id="dropdown1" class="dropdown-content subtitle drop">
-  <li><a href="#!">Últimas 24 Horas</a></li>
-  <li><a href="#!">Última Semana</a></li>
-  <li><a href="#!">Último Mês</a></li>
-  <li><a href="#!">Último Ano</a></li>
-
-</ul>
-
-<ul id="dropdown2" class="dropdown-content subtitle drop">
-  <li><a href="#!">Últimas 24 Horas</a></li>
-  <li><a href="#!">Última Semana</a></li>
-  <li><a href="#!">Último Mês</a></li>
-  <li><a href="#!">Último Ano</a></li>
-
-</ul>
+<!--
 
 <ul id="dropdown3" class="dropdown-content subtitle drop">
   <li><a href="#!">Últimas 24 Horas</a></li>
@@ -428,4 +430,4 @@ div.legendaMedia {
   <li><a href="#!">Último Mês</a></li>
   <li><a href="#!">Último Ano</a></li>
 
-</ul>
+</ul>-->
