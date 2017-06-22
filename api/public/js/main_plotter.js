@@ -2,7 +2,7 @@
 
 $.ajax({
 	type: "GET",
-	url: "http://mobilisfleet.web1651.kinghost.net/api/public/plotter",
+	url: "http://mobilis.web1649.kinghost.net/api/public/plotter",
 	dataType: 'json',
 
 	error: function(data, status) {

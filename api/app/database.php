@@ -5,9 +5,9 @@
 function getDB()
 {
     $dbhost = 'mysql08-farm68.kinghost.net';// "localhost"; //'mysql08-farm68.kinghost.net';// 
-    $dbuser = 'mobilisfle_add1';//"root"; // 'mobilisfle_add1';//		
+    $dbuser = 'mobilis001_add1';//"root"; // 'mobilisfle_add1';//		
     $dbpass = 'Abracadabra01';//"";	// 'Abracadabra01';//	
-    $dbname = 'mobilisfleet';// "sistematelemetria"; // 'mobilisfleet';// 
+    $dbname = 'mobilis01';// "sistematelemetria"; // 'mobilisfleet';// 
  
     $mysql_conn_string = "mysql:host=$dbhost;dbname=$dbname";
     $dbConnection = new PDO($mysql_conn_string, $dbuser, $dbpass); 

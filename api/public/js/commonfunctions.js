@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global ="http://mobilisfleet.web1651.kinghost.net/api/public"; //  "http://192.168.0.3/rds/MobilisTelemetria/api/public"; // 
+var url_global ="http://mobilis.web1649.kinghost.net/api/public"; //  "http://192.168.0.3/rds/MobilisTelemetria/api/public"; // 
 
 //link views
 var url_fleet = 	url_global + "/fleet",
