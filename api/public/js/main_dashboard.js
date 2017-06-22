@@ -14,6 +14,7 @@ $(function(){
 
 	req_logperm();
 	req_evt();
+	$(".loadingcard").hide();
 	//req_evt_teste();
 
 	setTimeout(function(){
@@ -24,10 +25,12 @@ $(function(){
 
 	$("#reload").click(function(){
 		$(".collection").empty();
+		$(".loadingcard").show();
 		//$(".drop").empty();
 		req_logperm();
 		req_evt();
 		//req_evt_teste();
+		$(".loadingcard").hide();
 		begin();
 
 	});
@@ -192,7 +195,8 @@ function processLogPerm(data){
 	plotPie(d1, "placeholder-hor", 'hor');
 	plotPie(d3, "placeholder-odo", 'odo');
 
-	plotBars(d2 , "placeholder2");
+	//plotBars(d2 , "placeholder2");
+	plotBarsHorizontal2(data, "placeholder2", "kmleft");
 	
 	plotBarsHorizontal2(data, "placeholder3", "temp");
 	plotBarsHorizontal2(data, "placeholder-estadocarga", "soc");
@@ -215,7 +219,7 @@ function processLogPerm(data){
 
 	ranking(data, "placeholder-lastupdate", "last")
 
-		
+			
 	
 }
 
@@ -418,36 +422,43 @@ function plotBarsHorizontal2(data, placeholder, type){
 
 	for (let i = 0; i < size; i++) {
 
-		var idcarro = data[i].idcarro;
-		var	temp_bateria = data[i].temp_max_bateria;
-		var odometro = data[i].odometro;
-		var horimetro = data[i].horimetro;
-		var soh = data[i].soh;
-		
+		var idcarro = parseInt(data[i].idcarro);
+		var	temp_bateria = parseInt(data[i].temp_max_bateria);
+		var odometro = parseInt(data[i].odometro);
+		var horimetro = parseInt(data[i].horimetro);
+		var soh = parseInt(data[i].soh);
+		var autono = parseInt(data[i].km_kwh);
 		switch (type){
 			case "temp": 
-				json.push({carro: idcarro, value: parseInt(temp_bateria)});
-				value[i] = parseInt(temp_bateria);
-				var legenda = 'ºC'; var tick = 'ºC';
+				json.push({carro: idcarro, value: temp_bateria});
+				value[i] = temp_bateria;
+				var legenda = 'ºC'; var tick = ' ºC';
 				var reverse = true;
 				break;
 			case "soc": 
-				json.push({carro: idcarro, value: parseInt(soh)});
-				value[i] = parseInt(soh);
-				var legenda = '%'; var tick = '%';
+				json.push({carro: idcarro, value: soh});
+				value[i] = soh;
+				var legenda = '%'; var tick = ' %';
 				var reverse = true;
 				break;
 			case "hor":
-				json.push({carro: idcarro, value: parseInt(horimetro)});
-				value[i] = parseInt(horimetro);
-				var legenda = ''; var tick = 'h';
+				json.push({carro: idcarro, value: horimetro});
+				value[i] = horimetro;
+				var legenda = ''; var tick = ' h';
 				var reverse = false;
 				break;
 			case "odo":
-				json.push({carro: idcarro, value: parseInt(odometro)});
-				value[i] = parseInt(odometro);
-				var legenda = ''; var tick = 'km';
+				json.push({carro: idcarro, value: odometro});
+				value[i] = odometro;
+				var legenda = ''; var tick = ' km';
 				var reverse = false;
+				break;
+			case 'kmleft':
+				var kmleft =  (soh*autono/100)
+				json.push({carro: idcarro, value: kmleft});
+				value[i] = kmleft;
+				var legenda = 'km'; var tick = ' km';
+				var reverse = true;
 				
 		}
 
@@ -564,6 +575,7 @@ function plotBarsHorizontal2(data, placeholder, type){
 	        $('#tooltip').remove();
 	        var x = h.datapoint[0],
 	        	y = h.datapoint[1];
+	        	console.log(x);
 	        toolTip(h.pageX, h.pageY, x,y)
 	    }
 	    } else {

@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://mobilisfleet.web1651.kinghost.net/api/public";
+var url_global ="http://mobilisfleet.web1651.kinghost.net/api/public"; //  "http://192.168.0.3/rds/MobilisTelemetria/api/public"; // 
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -74,7 +74,7 @@ function direct(new_window){
 
 //******************* Configurações Menu Lateral *************************//
 $('.button-collapse').sideNav({
-    menuWidth: 200, // Default is 200
+    menuWidth: 210, // Default is 200
     edge: 'left', // Choose the horizontal origin
     closeOnClick: false // Closes side-nav on <a> clicks, useful for Angular/Meteor
    	}

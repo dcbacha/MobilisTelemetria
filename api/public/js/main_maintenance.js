@@ -118,7 +118,7 @@ function processFleet(data){
 
 	$("#dropdown2 li").click(function(){
 		var text = $(this).text();
-		console.log(text);
+		//console.log(text);
 		$("#btnDropdown2").text(text);		
 		media(dataLogPerm, "placeholder-efi", "efi", text);
 	});
@@ -126,7 +126,7 @@ function processFleet(data){
 	$("#dropdown-soh li a").click(function(){
 		var text = $(this).text();
 		$("#btnDropdown-soh").text(text);
-		console.log(text);
+		//console.log(text);
 		media(dataLogPerm, "placeholder-soh", "soh", text);
 	});
 

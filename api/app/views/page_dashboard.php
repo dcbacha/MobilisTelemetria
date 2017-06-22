@@ -111,6 +111,13 @@ div.legendaMedia {
   margin-left: 10.5px
 }
 
+.loadingcard{
+  position: relative;
+  top: 60px;
+  left: 46%;
+}
+
+
 
 @media only screen and (max-width: 1200px) and (min-width: 993px) {
  #card-temp2{
@@ -123,7 +130,6 @@ div.legendaMedia {
     width: 100%;
   }
 }
-
 
 
 </style>
@@ -233,6 +239,7 @@ div.legendaMedia {
      <div class="card-panel cardteste big">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Última atualização</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div>
           <ul id="placeholder-lastupdate" class="collection" hidden></ul>
        </div>
@@ -243,6 +250,7 @@ div.legendaMedia {
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Estado de Carga da Bateria</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div class="wrap">
           <div id="placeholder-estadocarga" class="placeholder"></div>
        </div>
@@ -250,10 +258,23 @@ div.legendaMedia {
     </div>
   </div>
 
+    <div class="col s12 m6 l3" id='card-temp1'>
+    <div class="card-panel cardteste medium">
+     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
+        <p class="title">Autonomia atual</p>
+        <img src="img/loading.gif" class="loadingcard">
+        <div class="wrap">
+          <div id="placeholder2" class="placeholder"></div>
+       </div>
+       <div id="legenda2" style="padding-left: 15%;"></div>
+    </div>
+  </div>
+
     <div class="col s12 m6 l3" id='card-horimetro-barra'>
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Horímetro</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div class="wrap">
           <div id="placeholder-horimetro-barra" class="placeholder"></div>
        </div>
@@ -261,16 +282,7 @@ div.legendaMedia {
     </div>
   </div>
 
-  <div class="col s12 m12 l3" id='card-odometro-barra'>
-    <div class="card-panel cardteste medium">
-     <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
-        <p class="title">Odometro</p>
-        <div class="wrap center">
-          <div id="placeholder-odometro-barra" class="placeholder"></div>
-       </div>
-       <div class="legendaPie" style="padding-left: 5%;"></div>
-    </div>
-  </div>
+
  
  
 
@@ -281,6 +293,7 @@ div.legendaMedia {
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title  col s8">Número de carros ligados nas últimas 24hrs</p>
+        <img src="img/loading.gif" class="loadingcard">
      <!--   <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown3" id='btnDropdown3'>  Últimas 24 Horas
         </a> -->
         </div>
@@ -291,22 +304,26 @@ div.legendaMedia {
   </div>
   </div>
 
-  <div class="col s12 m6 l3" id='card-horimetro'>
+  
+  <div class="col s12 m12 l3" id='card-odometro-barra'>
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
-        <p class="title">Horímetro</p>
-        <div class="wrap">
-          <div id="placeholder-hor" class="placeholder"></div>
+        <p class="title">Odometro</p>
+        <img src="img/loading.gif" class="loadingcard">
+        <div class="wrap center">
+          <div id="placeholder-odometro-barra" class="placeholder"></div>
        </div>
        <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
   </div>
+
 
    <div class="col s12 m12 l6" id='card-temp2'>
     <div class="card-panel cardteste big">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Temperaturas Máximas</p>
         <p  class="subtitle">Máximas temperaturas já registradas</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div class="wrap">
           <div id="placeholder5" class="placeholder"></div>
        </div>
@@ -316,24 +333,25 @@ div.legendaMedia {
 
 
 
-   
-
-   <div class="col s12 m6 l3" id='card-temp1'>
+   <div class="col s12 m6 l3" id='card-horimetro'>
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
-        <p class="title">Temperatura Máxima da Bateria</p>
-        <p class="subtitle">Máxima temperatura registrada<p>
+        <p class="title">Horímetro</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div class="wrap">
-          <div id="placeholder2" class="placeholder"></div>
+          <div id="placeholder-hor" class="placeholder"></div>
        </div>
-       <div id="legenda2" style="padding-left: 15%;"></div>
+       <div class="legendaPie" style="padding-left: 5%;"></div>
     </div>
   </div>
+
+  
 
     <div class="col s12 m6 l3" id='card-odometro'>
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Odometro</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div class="wrap center">
           <div id="placeholder-odo" class="placeholder"></div>
        </div>
@@ -349,6 +367,7 @@ div.legendaMedia {
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Temperaturas Máximas na Bateria</p>
         <p  class="subtitle">Máximas temperaturas já registradas na Bateria do veículo</p>
+        <img src="img/loading.gif" class="loadingcard">
         <div class="wrap">
           <div id="placeholder3" class="placeholder"></div>
        </div>
@@ -361,6 +380,7 @@ div.legendaMedia {
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title  col s8">Densidade de Eventos</p>
+        <img src="img/loading.gif" class="loadingcard">
         <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown1" id='btnDropdown1'>  Últimas 24 Horas
         </a>
 
@@ -384,6 +404,7 @@ div.legendaMedia {
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
       <div class="row">
         <p class="title  col s8">Eventos por Tipos</p>
+        <img src="img/loading.gif" class="loadingcard">
      <!--   <a class="btn-flat smalldrop dropdown-button subtitle" data-activates="dropdown3" id='btnDropdown3'>  Últimas 24 Horas
         </a> -->
         </div>

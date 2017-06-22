@@ -39,11 +39,11 @@ function ranking(data, placeholder, param){
 		switch(param){
 			case "soh":
 				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>"+value+"%</span></div></li>");
+			"<span class='secondary-content'>"+value+" %</span></div></li>");
 				break;
 			case "aut":
 				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
-			"<span class='secondary-content'>"+value+"km/kwh</span></div></li>");
+			"<span class='secondary-content'>"+value+" km</span></div></li>");
 				break;
 			case "efi":
 				placeholder.append("<li class='collection-item'><div><strong>"+(i+1)+"º</strong> Carro "+id+""+
@@ -63,7 +63,7 @@ function ranking(data, placeholder, param){
 				var min = (((dec*60)/100)*100);
 
 				min = Math.floor(min);
-				min = minTwoDigits(min);
+				min = (min < 10 ? '0' : '') + min;
 				horas = Math.floor(horas);
 
 				if(dias> 0){ var msg = dias+"d "+horas+"h "+min+"min";}
@@ -175,20 +175,20 @@ function media(data, placeholder, param, type){
 		
 
 		if(loop < value && (value - loop) > 5){
-	        valores[1] = {data: loop, color: cor};
-			valores[0] = {data: 100-loop, color: "grey"};
+	        valores[1] = {data: 100-loop, color: "grey"};
+			valores[0] = {data: loop, color: cor};
 			
 			loop += 2;
 		}
 		else if (loop < value && (value - loop) > 2){
-			valores[1] = {data: loop, color: cor};
-			valores[0] = {data: 100-loop, color: "grey"};
+			valores[1] = {data: 100-loop, color: "grey"};
+			valores[0] = {data: loop, color: cor};
 
 			loop+= 0.5;
 		}
 		else if (loop < value && (value - loop) > 0){
-			valores[1] = {data: loop, color: cor};
-			valores[0] = {data: 100-loop, color: "grey"};
+			valores[1] = {data: 100-loop, color: "grey"};
+			valores[0] = {data: loop, color: cor};
 
 			loop+=0.1;
 		}
@@ -197,7 +197,7 @@ function media(data, placeholder, param, type){
 		plot.setData(valores);
 
  		plot.draw();
- 		containerlegenda.append(valores[1].data.toFixed(1)+"%");
+ 		containerlegenda.append(valores[0].data.toFixed(1)+"%");
  		var plus = 0;
          if(loop - value < 0){
          	  setTimeout(update, updateInterval);
@@ -273,7 +273,7 @@ function plotPie(data, placeholder, type){
 
 			x = Math.round(x);
 
-			absoluto= minTwoDigits(absoluto);
+			absoluto= (absoluto < 100 ? '0' : '') + absoluto;
 
 			switch(type){
 				case 'odo': var unidade = ' km'; break;

@@ -49,11 +49,11 @@ $("#login").click(function(){
                    } 
                 },
                 error: function(data, status, message) {
-                    // console.log(data);
-                    //console.log(data.responseText);
-                   // console.log(status);
-                  //  console.log(message);
-                   // console.log("Erro no login");
+                     console.log(data);
+                    console.log(data.responseText);
+                    console.log(status);
+                    console.log(message);
+                    console.log("Erro no login");
                      $("#loginerror").stop().slideToggle();
 
                      setTimeout(function(){

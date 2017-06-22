@@ -56,11 +56,11 @@
   <div class="row">
     
 
-    <div id="MotoristaDinamico" class="col s11">
+    <div id="MotoristaDinamico" class="col s12 m11">
 
     </div>
     
-    <div class="col s1" id='scrollSpyId'>
+    <div class="col m1 hide-on-small-only " id='scrollSpyId'>
      <div class="toc-wrapper pinned" >
       <ul class="section table-of-contents" id='tablescrollspy'>
       </ul>
