@@ -308,7 +308,7 @@ $app->get("/updateuser", function ($request, $response, $arguments) use ($app) {
 /////////////////////////////////////////////////////////////////////////////////////
 
 $app->put("/diagnosticmail", function ($request, $response, $arguments) use ($app) {
-    $db = getDB();
+    //$db = getDB();
     
     $idgrupo = $this->get('jwt')->idg;
     $email = $this->get('jwt')->eml;
@@ -330,7 +330,7 @@ $app->put("/diagnosticmail", function ($request, $response, $arguments) use ($ap
         return $response->withStatus(201)->write("Email enviado com sucesso");
     }
     else{
-        return $response->withStatus(401)->write("Algo deu errado");
+        return $response->withStatus(401)->write($mail);
     }
 
     
@@ -373,12 +373,16 @@ function mail_diagnostico($carro, $problema, $outro, $descricao, $nome, $email, 
     $mail = new PHPMailer();
 
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPDebug = 2;
+
+    $mail->Host = 'smtp.mobilis.eco.br';//'smtp.gmail.com';
     $mail->Port = 587;
-    $mail->SMTPSecure = 'tls';
+   // $mail->SMTPSecure = 'tls';
+    $mail->SMTPSecure = false;
+    $mail->SMTPAutoTLS = false;
     $mail->SMTPAuth = true;
-    $mail->Username = "engenharia05mobilis@gmail.com";
-    $mail->Password = "b&mvind0";
+    $mail->Username = 'suporte@mobilis.eco.br'; //"engenharia05mobilis@gmail.com";
+    $mail->Password = 'Abracadabra_1'; //"b&mvind0";
 
     // para funcionar no GoDaddy
     /*$mail->Host = 'relay-hosting.secureserver.net';
@@ -386,7 +390,7 @@ function mail_diagnostico($carro, $problema, $outro, $descricao, $nome, $email, 
     $mail->SMTPAuth = false;
     $mail->SMTPSecure = false;*/
 
-    $mail->setFrom("engenharia05mobilis@gmail.com", "Mobilis"); //quem está enviando
+    $mail->setFrom("suporte@mobilis.eco.br", "Mobilis"); //quem está enviando
     $mail->addAddress("engenharia05mobilis@gmail.com"); //quem vai receber
     $mail->Subject = "[Diagnostico] Carro {$carro}"; //título do email
     $mail->msgHTML($html); //corpo da mensagem em html
