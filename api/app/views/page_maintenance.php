@@ -104,25 +104,21 @@ div.legendaMedia {
 
   <div class="row center">
 
-
- <!--   <div class="input-field col s3">
-    <select multiple id="filtro">
-      <option value="" disabled>Choose your option</option>
-      <option value="1" selected>Ranking Usuários</option>
-      <option value="2" selected>Horas de Carga</option>
-      <option value="3" selected>Estado de Saúde</option>
-      <option value="4" selected>Indice de Eficiência</option>
-      <option value="5" selected>Autonomia</option>
-      <option value="6" selected>Horimetro</option>
-      <option value="7" selected>Odometro</option>
-    </select>
-  </div> -->
-
  
   <a class='dropdown-button btn col s12 m2 hide-on-small-only'  href='#' data-activates='dropdown-select' id='btnselect'>Visualizar</a>
 
+  <ul id='dropdown-select' class='dropdown-content'>
+    <li><a href="#!" value="card-rankuser"><i class="tiny material-icons left">visibility</i>Ranking usuario</a></li>
+    <li><a href="#!" value="card-horascarga"><i class="tiny material-icons left">visibility</i>Tempo de Carga</a></li>
+    <li><a href="#!" value="card-autonomia"><i class="tiny material-icons left">visibility</i>Autonomia</a></li>
+    <li><a href="#!" value="card-soh"><i class="tiny material-icons left">visibility</i>State of Health</a></li>
+    <li><a href="#!" value="card-efi"><i class="tiny material-icons left">visibility</i>Indice de Eficiencia</a></li>
+    <li><a href="#!" value="card-horimetro"><i class="tiny material-icons left">visibility</i>Horimetro</a></li>
+    <li><a href="#!" value="card-odometro"><i class="tiny material-icons left">visibility</i>Odometro</a></li>
+  </ul>
 
-        <h5 class="header col s12 m10 light" style='padding-right: 15%;'>Manutenção</h5>
+
+        <h5 class="header col s12 m10 light" style='padding-right: 15%;'>Oficina</h5>
         <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Aqui vão as informações semanais da frota, assim como indica cuidados' id="info">
           <i class='material-icons valign-wrapper '>info_outline</i>
         </a>
@@ -263,11 +259,12 @@ div.legendaMedia {
   </div>  
 -->
 
-</div>
+</div> <!-- fim row master-->
 
 
 </div> <!-- fim container -->
 
+  
 
 
 </body>
@@ -279,13 +276,4 @@ div.legendaMedia {
 
 
 
-  <ul id='dropdown-select' class='dropdown-content'>
-    <li><a href="#!" value="card-rankuser"><i class="tiny material-icons left">visibility</i>Ranzing usuario</a></li>
-    <li><a href="#!" value="card-horascarga"><i class="tiny material-icons left">visibility</i>Tempo de Carga</a></li>
-    <li><a href="#!" value="card-autonomia"><i class="tiny material-icons left">visibility</i>Autonomia</a></li>
-    <li><a href="#!" value="card-soh"><i class="tiny material-icons left">visibility</i>State of Health</a></li>
-    <li><a href="#!" value="card-efi"><i class="tiny material-icons left">visibility</i>Indice de Eficiencia</a></li>
-    <li><a href="#!" value="card-horimetro"><i class="tiny material-icons left">visibility</i>Horimetro</a></li>
-    <li><a href="#!" value="card-odometro"><i class="tiny material-icons left">visibility</i>Odometro</a></li>
-    
-  </ul>
+

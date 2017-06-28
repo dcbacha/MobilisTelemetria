@@ -373,7 +373,7 @@ function mail_diagnostico($carro, $problema, $outro, $descricao, $nome, $email, 
     $mail = new PHPMailer();
 
     $mail->isSMTP();
-    $mail->SMTPDebug = 2;
+    //$mail->SMTPDebug = 2;
 
     $mail->Host = 'smtp.mobilis.eco.br';//'smtp.gmail.com';
     $mail->Port = 587;

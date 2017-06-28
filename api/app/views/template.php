@@ -94,6 +94,27 @@ body{
   background-color: white;
 }
 
+@media only screen and (max-width : 992px) {
+   
+    .logo{
+      display:none;
+    }
+
+    .icon{
+      display: inline;
+      z-index: 998;
+      max-height: 30%;
+      position: absolute;
+      right: 10px;
+      top: 35%;
+    }
+
+    .titulo-pag{
+      text-align: center;
+    }
+
+}
+
 </style>
 
 
@@ -101,15 +122,16 @@ body{
 
 
 <body>
-
+   
   <header>
   <div class="navbar-fixed">
   <nav role="navigation">
     <div class="nav-wrapper">
       <a id="logo-container" href="#" class="brand-logo" style="margin-left: 15px;">
-        <img src="img/logo-mobilis-colored.PNG" class="logo">
+        <img src="img/logo-mobilis-colored.PNG" class='logo'>
+        
       </a>
-      
+       <img src="img/logo-mobilis-colored.PNG" class='icon' hidden>
 
       <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only">
         <i class="material-icons" style="width: 100%">menu</i>

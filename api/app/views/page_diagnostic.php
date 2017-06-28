@@ -17,7 +17,11 @@
     #delete1{
       display: none;
     }
-  
+    
+    .row {
+      margin-bottom: 0px;
+    }
+    
   </style>
 
 

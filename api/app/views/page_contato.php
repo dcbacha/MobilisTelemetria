@@ -11,6 +11,9 @@
       border-left: 0px;
     }
 
+    .row {
+      margin-bottom: 0px;
+    }
   
   </style>
 
@@ -23,9 +26,9 @@
   <div class="divider"></div>
 
 <div class='row'>
-<p>Mobilis</p>
+<p>Mobilis Veículos Elétricos</p>
 <p>Telefone </p>
-<p>Endereço </p>
+<p>Floarianópolis, SAnta Catarina</p>
 <p>ETC..</p>
 
 </div>

@@ -25,6 +25,9 @@
       border-bottom: 0;
     }
     
+    .row {
+      margin-bottom: 0px;
+    }
 
   </style>
 

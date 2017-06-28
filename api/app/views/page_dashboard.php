@@ -171,7 +171,7 @@ div.legendaMedia {
     <li><a href="#!" value="card-type"><i class="tiny material-icons left">visibility</i>Eventos</a></li>
   </ul>
     
-  <h5 class="header col s12 m10 light"  style='padding-right: 15%;'>Painel de Controle</h5>
+  <h5 class="header col s12 m10 light titulo-pag"  style='padding-right: 15%;'>Painel de Controle</h5>
 
         <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota. Os dados são referêntes às últimas atualizações de cada veículo. Verifique a conexão de cada carro para manter seu painel de controle atualizado' id="info">
           <i class='material-icons valign-wrapper'>info_outline</i>
@@ -270,7 +270,7 @@ div.legendaMedia {
     </div>
   </div>
 
-    <div class="col s12 m6 l3" id='card-horimetro-barra'>
+    <div class="col s12 m12 l3" id='card-horimetro-barra'>
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Horímetro</p>
@@ -305,7 +305,7 @@ div.legendaMedia {
   </div>
 
   
-  <div class="col s12 m12 l3" id='card-odometro-barra'>
+  <div class="col s12 m6 l3" id='card-odometro-barra'>
     <div class="card-panel cardteste medium">
      <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
         <p class="title">Odometro</p>
@@ -418,21 +418,6 @@ div.legendaMedia {
   
 
   </div> <!-- fim row cards -->
-
-  <div class="row">
-
-
-  </div>
-
-
-   <div class="row">
-
-
-
-
-   
-
-  </div>
 
 </div> <!-- fim container -->
 

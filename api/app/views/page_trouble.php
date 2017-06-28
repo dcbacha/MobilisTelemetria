@@ -6,7 +6,9 @@
   <script src="js/main_trouble.js"></script>
   <style type="text/css">
   	
-
+    .row {
+      margin-bottom: 0px;
+    }
   
   </style>
 
