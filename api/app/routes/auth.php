@@ -1,14 +1,11 @@
 <?php
-//Biblioteca de conexão do banco de dados
 require __DIR__ . '/../database.php'; 
-//Biblioteca para realizar login   
 use Firebase\JWT\JWT;
 
-//Rotina de login pela área de usuário
-$app->post("/login", function ($request, $response, $arguments) use ($app){ 
+//Rotina de login pelo usuário
+$app->post("/user/auth", function ($request, $response, $arguments) use ($app){ 
     $db = getDB(); 
   
-    // esses funcionam se rolar um post direto do formulario, sem json e etc
     $email = $request->getParam('email'); 
     $password = $request->getParam('password');
 
@@ -36,7 +33,6 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
         $server = $request->getServerParams();
 
         $payload = [
-           // "iat" => $now->getTimeStamp(),
             "exp" => $future->getTimeStamp(),
             "nme" => $rows->nome,
             "eml" => $rows->email,
@@ -44,7 +40,7 @@ $app->post("/login", function ($request, $response, $arguments) use ($app){
         ];     
         
         $secret = "SUPER_SECRET_KET";
-        $token = JWT::encode($payload, $secret, "HS256"); //define o json com as informacoes em JWT
+        $token = JWT::encode($payload, $secret, "HS256");
         $data["status"] = "ok";
         $data["token"] = $token;
                                                  
@@ -108,12 +104,10 @@ $app->post("/car/auth", function ($request, $response, $arguments)
     }
 });
 
-/////////////////////////////////////
 
-$app->get("/newpassword", function ($request, $response, $arguments) use ($app){ 
+$app->get("/user/newpassword", function ($request, $response, $arguments) use ($app){ 
     $db = getDB(); 
   
-    // esses funcionam se rolar um post direto do formulario, sem json e etc
     $email = $request->getParam('email'); 
     $name = $request->getParam('name');
        
@@ -139,20 +133,14 @@ $app->get("/newpassword", function ($request, $response, $arguments) use ($app){
          $senha_hash = password_hash($senhanova, PASSWORD_DEFAULT);
 
          try {   
-            $result = $db->prepare("UPDATE usuarios SET password = ?                                     WHERE idusuario = ?");
+            $result = $db->prepare("UPDATE usuarios SET password = ? WHERE idusuario = ?");
             $result->bindParam(1, $senha_hash);
             $result->bindParam(2, $id);
-           
             $result -> execute();
-
-            //return $response->withStatus(201)->write("Usuario alterado com sucesso"); 
         }
         catch(Exception $db) { return $response->withStatus(401)->write("Unauthorized");}
 
-
         $data["status"] = "sucesso";
-       // $data['id'] = $id;
-       // $data['senha'] = $senhanova;
 
         $mail = sendMailPassword($email, $senhanova);
         if($mail == "Message sent!"){
@@ -191,12 +179,13 @@ function sendMailPassword($email, $password){
     $mail = new PHPMailer();
 
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = 'smtp.mobilis.eco.br';//'smtp.gmail.com';
     $mail->Port = 587;
-    $mail->SMTPSecure = 'tls';
+    $mail->SMTPSecure = false;
+    $mail->SMTPAutoTLS = false;
     $mail->SMTPAuth = true;
-    $mail->Username = "engenharia05mobilis@gmail.com";
-    $mail->Password = "b&mvind0";
+    $mail->Username = 'suporte@mobilis.eco.br'; //"engenharia05mobilis@gmail.com";
+    $mail->Password = 'Abracadabra_1'; //"b&mvind0";
 
     // para funcionar no GoDaddy
     /*$mail->Host = 'relay-hosting.secureserver.net';
@@ -204,11 +193,10 @@ function sendMailPassword($email, $password){
     $mail->SMTPAuth = false;
     $mail->SMTPSecure = false;*/
 
-    $mail->setFrom("engenharia05mobilis@gmail.com", "Mobilis"); //quem está enviando
-    /// tem que mudar aqui para o email do usuario
-    $mail->addAddress("engenharia05mobilis@gmail.com"); //quem vai receber
-    $mail->Subject = "[Nova Senha]"; //título do email
-    $mail->msgHTML($html); //corpo da mensagem em html
+    $mail->setFrom("suporte@mobilis.eco.br", "Mobilis");
+    $mail->addAddress("engenharia05mobilis@gmail.com");
+    $mail->Subject = "[Nova Senha]";
+    $mail->msgHTML($html);
    
    // $mail->SMTPDebug = 2;
 

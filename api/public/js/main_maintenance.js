@@ -11,14 +11,14 @@ var mobilisgreen = "#4ee0b6";
 var orange = "#e06d4e";
 var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
 
-
-
 $(function(){
-		$('select').material_select();
-	begin();
+
+	sessions(token);
+	
 	req_evt();
 	req_logperm();
 	req_fleet();
+	begin();
 
 	$("#reload").click(function(){
 		$(".collection").empty();
@@ -26,21 +26,8 @@ $(function(){
 		req_evt();
 		req_logperm();
 		req_fleet();
-
+		begin();
 	});
-
-	$("#filtro").change(function(){
-		var options = $(this);
-		filtrar(options);
-	});
-
-	$(".fechar").click(function(){
-		$(this).parent().parent().slideUp(400);
-		var id = $(this).parent().parent().attr('id');
-		var link = $("#dropdown-select li a[value="+id+"]");
-		link.children().text('visibility_off');
-	});
-
 
 	$("#dropdown-select li").click(function () {	
 		var intervalo = $(this).text();
@@ -53,15 +40,32 @@ $(function(){
 		}
 	});
 
-
+	$(".fechar").click(function(){
+		$(this).parent().parent().slideUp(400);
+		var id = $(this).parent().parent().attr('id');
+		var link = $("#dropdown-select li a[value="+id+"]");
+		link.children().text('visibility_off');
+	});
 	
-
 });
 
+function begin(){
+	$('select').material_select();
+	$('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, 
+      hover: false,
+      gutter: 25, 
+      belowOrigin: true,
+      alignment: 'left',
+      stopPropagation: false
+    	}
+	);
+}
 
 function processLogPerm(data){
 	dataLogPerm = data;
-	//console.log(dataLogPerm);
 	stacking(dataLogPerm, "placeholder-carga");
 	
 	media(dataLogPerm, "placeholder-soh", "soh", "média");
@@ -71,44 +75,12 @@ function processLogPerm(data){
 	ranking(dataLogPerm, "placeholder-sohrank", "soh");
 	ranking(dataLogPerm, "placeholder-efirank", "efi");
 
-
-	var d1 = [];
-	var d3 = [];
-	var size = data.length;
-
-	for (let i = 0; i < size; i++) {
-
-		var	horimetro = data[i].horimetro;
-		var odometro = data[i].odometro;
-		var idcarro = data[i].idcarro;
-	
-		if(i > 2){
-			var rest = i % 3;
-			var azul = colors[rest];
-		}
-		else{
-			var azul = colors[i];
-		}
-		
-		d1[i] = {
-			label: "Carro " + (idcarro),
-			data: horimetro,
-			color: azul }
-
-		d3[i] = {
-			label: "Carro " + (idcarro),
-			data: odometro,
-			color: azul }
-	}
-
-	plotPie(d1, "placeholder", 'hor');
-	plotPie(d3, "placeholder9", 'odo')
+	plotPie(dataLogPerm, "placeholder", 'hor');
+	plotPie(dataLogPerm, "placeholder9", 'odo')
 }
 
 function processEvt(data){
 	dataEvt = data;
-	//console.log(dataEvt);
-	
 	rankErro(dataEvt);
 }
 
@@ -116,17 +88,15 @@ function processFleet(data){
 	dataFleet = data;
 	update_dropdown(dataFleet);
 
-	$("#dropdown2 li").click(function(){
+	$("#dropdown-efi li").click(function(){
 		var text = $(this).text();
-		//console.log(text);
-		$("#btnDropdown2").text(text);		
+		$("#btnDropdownEfi").text(text);		
 		media(dataLogPerm, "placeholder-efi", "efi", text);
 	});
 
 	$("#dropdown-soh li a").click(function(){
 		var text = $(this).text();
 		$("#btnDropdown-soh").text(text);
-		//console.log(text);
 		media(dataLogPerm, "placeholder-soh", "soh", text);
 	});
 
@@ -139,31 +109,9 @@ function update_dropdown(data){
 	}
 }
 
-
-
-function begin(){
-	sessions(token);
-	$('select').material_select();
-
-	
-
-	
-	
-
-	$('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: false, // Activate on hover
-      gutter: 25, // Spacing from edge
-      belowOrigin: true, // Displays dropdown below the button
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      stopPropagation: false
-    	}
-	)
-	
-}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function stacking(data, placeholder){
 		var placeholder = $("#"+placeholder);
@@ -334,6 +282,9 @@ function stacking(data, placeholder){
 	    });
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function rankErro(data){
 	var user = [];
@@ -379,39 +330,4 @@ function rankErro(data){
 	}
 
 	$('#user-rank').slideDown();
-}
-
-
-function filtrar(options){
-
-	for(let i=0; i < 8 ; i++){
-		
-		if(options[0].options[i].selected == false){
-			var value = options[0].options[i].value;
-			
-			switch (value){
-				case '1': $("#card-rankuser").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '2': $("#card-horascarga").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '3': $("#card-soh").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '4': $("#card-efi").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '5': $("#card-autonomia").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '6': $("#card-horimetro").css({'display': 'none'},{'visibility': 'hidden'}); break;
-				case '7': $("#card-odometro").css({'display': 'none'},{'visibility': 'hidden'}); break;
-			}
-		}
-		if(options[0].options[i].selected == true){
-			var value = options[0].options[i].value;
-
-			switch (value){
-				case '1': $("#card-rankuser").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '2': $("#card-horascarga").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '3': $("#card-soh").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '4': $("#card-efi").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '5': $("#card-autonomia").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '6': $("#card-horimetro").css({'display': 'block'},{'visibility': 'visible'}); break;
-				case '7': $("#card-odometro").css({'display': 'block'},{'visibility': 'visible'}); break;
-			}
-		}
-	}
-
 }

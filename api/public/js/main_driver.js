@@ -15,15 +15,10 @@ $(function(){
 			
 }); //fim on ready
 
-//console.time('processData');
-//console.timeEnd('processData');
-
-
 //************************************ Funções ************************************//
 
 function processEvt(data){
-	var num_evt = data.length;
-			//console.log(num_evt);		
+	var num_evt = data.length;	
 	var listausers = [];
 	var listacarros = [];	
 
@@ -111,6 +106,7 @@ function processEvt(data){
 		var tabela_total = dados_motorista + lista1;
 		$("#MotoristaDinamico").append(tabela_total);
 	}
+	begin();
 }
 
 function processScrollSpy(user, idmotorista){

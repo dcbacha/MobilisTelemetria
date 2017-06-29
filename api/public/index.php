@@ -1,8 +1,4 @@
 <?php
-/*header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization, X-Custom-Header, X-PINGOTHER');
-header('Access-Control-Request-Headers: X-Custom-Header');
-header('Access-Control-Request-Methods: GET, POST, PUT');*/
 require __DIR__ . '/../vendor/autoload.php';
 
 //Instancia a Slim Framework
@@ -41,10 +37,10 @@ require __DIR__ . '/../app/routes/auth.php';
 // Registrar routes de API de acesso pelo carro
 require __DIR__ . '/../app/routes/car.php';
 
-// Registrar routes de API de acesso de funções variadas
-require __DIR__ . '/../app/routes/misc.php';
+// Registrar routes de API de acesso pelo usuario
+require __DIR__ . '/../app/routes/client.php';
 
-//Registra routes de views
+//Registra routes de páginas
 require __DIR__ . '/../app/routes/views.php';
 
 $app->run();

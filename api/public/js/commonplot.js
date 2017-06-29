@@ -219,25 +219,60 @@ function labelFormatter(label, series) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function plotPie(data, placeholder, type){
+	var size = data.length;
+	var d = [];
+	var rawData =[];
+	var ticks = [];
+
+	for (let i = 0; i < size; i++) {
+		var	horimetro = data[i].horimetro;
+		var odometro = data[i].odometro;
+		var idcarro = data[i].idcarro;
+		var	temp_bateria = data[i].temp_max_bateria;
+	
+		if(i > 2){
+			var rest = i % 3;
+			var azul = colors[rest];
+		}
+		else{
+			var azul = colors[i];
+		}
+		
+		switch (type){
+			case "hor":
+				d[i] = {
+					label: "Carro " + (idcarro),
+					data: horimetro,
+					color: azul
+				}
+				break;
+			case "odo":
+				d[i] = {
+					label: "Carro " + (idcarro),
+					data: odometro,
+					color: azul
+				}
+		}
+	
+		rawData.push([parseInt(temp_bateria), i]);
+		ticks.push([i, "Carro "+ idcarro ]);
+	}
 
 	var placeholder = $("#"+placeholder);
-	var size = data.length;
+	var size = d.length;
 	var total = 0;
 	var parcial = [];
 	var label = [];
 
 	for(let i=0 ; i < size ; i++){
-		total += parseInt(data[i].data);
-		parcial[i] = parseInt(data[i].data);
-		label[i] = data[i].label;
+		total += parseInt(d[i].data);
+		parcial[i] = parseInt(d[i].data);
+		label[i] = d[i].label;
 
 	}
 
-	
-
 	placeholder.unbind();
-
-	$.plot(placeholder, data, {
+	$.plot(placeholder, d, {
 		series: {
 			pie: { 
 				radius: 1,
@@ -262,9 +297,7 @@ function plotPie(data, placeholder, type){
 
 		function toolTip(f, h, x,y, leg, index) {
 			var legenda = leg.parent().next();
-			//console.log('legenda: ',legenda);
 			var place = leg;
-			//console.log('place: ',place)
 			var pos = place.position();
 			var height = place.height();
 			var width = place.width();
@@ -272,26 +305,12 @@ function plotPie(data, placeholder, type){
 			var absoluto = parseInt(y[0][1]);
 
 			x = Math.round(x);
-
 			absoluto= (absoluto < 100 ? '0' : '') + absoluto;
 
 			switch(type){
 				case 'odo': var unidade = ' km'; break;
 				case 'hor': var unidade = ' hrs';
 			}
-			
-
-	 /*     $('<div id="tooltip"><p style="font-size: 1.5em; font-weight: 900;margin: 0px">'+absoluto+'<span style="font-weight: 500; padding-left:5px; margin-bottom:25px;">'+unidade+'</span></p></div>').css({
-	        position: 'relative',
-	        width: '50px',
-	       "font-size": "0.8em",
-			"font-weight": 500,
-	        color: colors[1],
-	        top: top,
-	        left: left,
-	        'background-color': "transparent",
-	        opacity: 0.8
-	      }).appendTo(legenda).fadeIn(200)*/
 
 	      	$('<div id="tooltip"><p style="font-size: 1.5em; font-weight: 900;margin: 0px">'+absoluto+'<span id="tooltip2">'+unidade+'</span></p></div>'
 	      		).appendTo(legenda).fadeIn(200);
@@ -313,13 +332,9 @@ function plotPie(data, placeholder, type){
 		        'background-color': "transparent",
 		        opacity: 0.8
 		    }).fadeIn(200);
-
-		 
-	      
 	    }
 
 	    var b = null;
-
 	    placeholder.bind('plothover', function (i, k, h) {
 	      if (h) {
 	        if (b != h.datapoint) {
@@ -333,7 +348,6 @@ function plotPie(data, placeholder, type){
 	          toolTip(h.pageX, h.pageY, x,y, leg, index);
 	        }
 	      } else {
-	        //$("#tooltip").remove();
 	        b = null;
 	      }
 	    });

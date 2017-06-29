@@ -19,7 +19,6 @@ $(function(){
 
 }); //end do document ready
 
-//************************************ Funções ************************************//
 function processEvt(data){
 	var num_evt = data.length;
 	
@@ -43,16 +42,16 @@ function processEvt(data){
   		if ($.inArray(idcarro, listacarros) == -1){
   			listacarros.push(idcarro);
 
-  			objCarros[i] = createObjCarros(idcarro); //vou precisar do numero de serie e etc
+  			objCarros[i] = createObjCarros(idcarro);
   			i++;
   		}
 
   		objEvt[j] = createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados, nome);
   		j++;
   	
-	} //fim for
+	}
 
-	var num_carros = objCarros.length; 	//console.log("tamanho objCarros: "+num_carros);
+	var num_carros = objCarros.length; 
 	var tabela_total;
 	for(let x=0; x < num_carros ; x++){
 				
@@ -71,10 +70,46 @@ function processEvt(data){
 		
 		tabela_total += html_carro + html_lista_evt;
 	}
-	//console.log(tabela_total);
 	$("#tabelaDinamica").append(tabela_total);
 
 	getPermLog();
+	begin();
+}
+
+function begin(){
+	$('.collapsible').collapsible();
+
+	$("#tabelaDinamica tr:odd").addClass("odd");
+	$("#tabelaDinamica tr:not(.odd)").hide();
+	$("#tabelaDinamica tr:first-child").show();
+
+	var click = 0;
+	
+	$("#tabelaDinamica tr.odd").click(function(){
+		click ++;
+		$(this).next("tr").toggle(250);
+		$(this).find(".row").toggleClass("up");
+
+		if(click == 1){
+			$(this).find("i").css({
+		        "-webkit-transform": "rotate(270deg)",
+		        "-moz-transform": "rotate(270deg)"
+		    });
+		}
+		if(click == 2){
+			$(this).find("i").css({
+		        "-webkit-transform": "rotate(0deg)",
+		        "-moz-transform": "rotate(0deg)"
+		    });
+			click =0;
+		}
+	});
+	
+	$("#loadingFrota").removeClass("active");
+	$("#tabelaDinamica").fadeIn(500);
+
+	getGroup();
+	warningset();
 }
 
 
@@ -118,15 +153,12 @@ function getPermLog(){
 	
 	$.ajax({
 			type: "GET",
-			//url: "http://192.168.0.35/rds/api/public/listlogperm",
 			url: url_req_log_perm,
 			headers: {
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status) {
-				//console.log("erro ajax -> get perm log");
-				//console.log(data);
-				//console.log(data.responseText);
+				redirect('timeout');
 			},
 			success: function(data, status) {
 				var num_carros = data.length;
@@ -164,15 +196,12 @@ function setEconomy(){
 function getGroup(){
 	$.ajax({
 			type: "GET",
-			//url: "http://192.168.0.35/rds/api/public/listgroup",
 			url: url_req_group,
 			headers: {
 			  'Authorization': 'Bearer ' + token
 			},
 			error: function(data, status) {
-				//console.log("erro ajax -> get perm log");
-				//console.log(data);
-				//console.log(data.responseText);
+				redirect('timeout');
 			},
 			success: function(data, status) {
 				var num_users = data.length;
@@ -189,44 +218,6 @@ function getGroup(){
 			}
 		});
 }
-
-
-function begin(){
-	$('.collapsible').collapsible();
-
-	$("#tabelaDinamica tr:odd").addClass("odd");
-	$("#tabelaDinamica tr:not(.odd)").hide();
-	$("#tabelaDinamica tr:first-child").show();
-
-	var click = 0;
-	
-	$("#tabelaDinamica tr.odd").click(function(){
-		click ++;
-		$(this).next("tr").toggle(250);
-		$(this).find(".row").toggleClass("up");
-
-		if(click == 1){
-			$(this).find("i").css({
-		        "-webkit-transform": "rotate(270deg)",
-		        "-moz-transform": "rotate(270deg)"
-		    });
-		}
-		if(click == 2){
-			$(this).find("i").css({
-		        "-webkit-transform": "rotate(0deg)",
-		        "-moz-transform": "rotate(0deg)"
-		    });
-			click =0;
-		}
-	});
-	
-	$("#loadingFrota").removeClass("active");
-	$("#tabelaDinamica").fadeIn(500);
-
-	getGroup();
-	warningset();
-}
-
 
 
 

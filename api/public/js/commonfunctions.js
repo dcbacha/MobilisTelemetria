@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "https://mobilis.eco.br/api/public"; //  "http://192.168.0.3/rds/MobilisTelemetria/api/public"; // 
+var url_global = "https://mobilis.eco.br/api/public"; //"http://192.168.0.3/rds/MobilisTelemetria/api/public"; //    
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -18,22 +18,20 @@ url_config = 		url_global + "/config",
 url_trouble = 		url_global + "/trouble";
 
 // links servidor
-var url_req_readdata = 		url_global + "/carros/readdata",
-url_req_readdata_driver = 	url_global + "/carros/readdata-motor",
-url_req_login = 			url_global + "/login",
-url_req_new_password = 		url_global + "/newpassword",
-url_req_cadastro = 			url_global + "/cadastro",
-url_req_cadastro_car = 		url_global + "/cadastroveiculo",
-url_req_log_perm = 			url_global + "/listlogperm",
-url_req_fleet = 			url_global + "/listfleet",
-url_req_group =				url_global + "/listgroup",
-url_req_getInfo = 			url_global + "/getInfo",
-url_req_update_user =		url_global + "/updateuser",
-url_req_diagnostic_mail =	url_global + "/diagnosticmail",
-url_req_readdata_teste_evt =url_global + "/carros/readdata-teste";
+var url_req_login = 		url_global + "/user/auth",
+url_req_new_password = 		url_global + "/user/newpassword",
+url_req_events = 			url_global + "/client/readevents",
+url_req_cadastro = 			url_global + "/client/register",
+url_req_cadastro_car = 		url_global + "/client/registercar",
+url_req_log_perm = 			url_global + "/client/readlogperm",
+url_req_fleet = 			url_global + "/client/listfleet",
+url_req_group =				url_global + "/client/listgroup",
+url_req_getInfo = 			url_global + "/client/getInfo",
+url_req_update_user =		url_global + "/client/updateuser",
+url_req_diagnostic_mail =	url_global + "/client/maildiagnostic";
 
 //variaveis globais
-var arr_danger = ["FI01", "FI02", "FI03", "L5690"];//["L5690"]; //["FI01", "FI02", "FI03"];
+var arr_danger = ["FI01", "FI02", "FI03", "L5690"];
 var arr_warning = ["AI01", "AI02", "AI03", "AI04", "AI05", "AI06", "AI07", "AI08"];
 var num_warnings = 0;
 
@@ -42,29 +40,17 @@ var odometro_total =0;
 
 //******************* Botões do Tamplate *************************//
 $("#logout").click(function(){ document.location = url_home; });
-
 $("#btnfleet").click(function(){ direct(url_fleet); });
-
 $("#btndriver").click(function(){ direct(url_drivers); });
-
 $("#btndiagnostic").click(function(){ direct(url_diagnostic); });
-
 $("#btncadastro").click(function(){ direct(url_cadastro); });
-
 $("#btncadastroveiculo").click(function(){ direct(url_cadastro_car); });
-
 $("#btncadastromotorista").click(function(){ direct(url_cadastro_mot); });
-
 $("#btndashboard").click(function(){ direct(url_dashboard); });
-
 $("#btnmaintenance").click(function(){ direct(url_maintenance); });
-
 $("#btnfaq").click(function(){ direct(url_faq); });
-
 $("#btncontato").click(function(){ direct(url_contato); });
-
 $("#btnconfig").click(function(){ direct(url_config); });
-
 $("#btntrouble").click(function(){ direct(url_trouble); });
 
 function direct(new_window){
@@ -72,16 +58,14 @@ function direct(new_window){
 	document.location = new_window+url;
 }
 
-//******************* Configurações Menu Lateral *************************//
+//******************* Configurações Menu Lateral ****************//
 $('.button-collapse').sideNav({
-    menuWidth: 210, // Default is 200
-    edge: 'left', // Choose the horizontal origin
-    closeOnClick: false // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    menuWidth: 210,
+    edge: 'left',
+    closeOnClick: false
    	}
 );
-//***************************************************************//
-
-
+//************************ Funções comuns ************************//
 
 function minTwoDigits(n) {
 	return (n < 100 ? '0' : '') + n;
@@ -148,7 +132,6 @@ function checktoken(){
 		return token;
 	}
 	else{
-		//console.log("nao tem token em");
 		redirect("unauthorized");
 	}
 }
@@ -190,97 +173,58 @@ function warningset(){
 	}
 }
 
+//************** Funções de requisições BD ********//
+
 function req_logperm(){
 	$.ajax({
-	type: "GET",
-	//url: url_req_readdata,
-	url: url_req_log_perm,
-	headers: {
-	  'Authorization': 'Bearer ' + token
-	},
-	error: function(data, status) {
-		//console.log("erro ajax -> main fleet");
-		//console.log(data);
-		//console.log(data.responseText);
-		//redirect("timeout");
-	},
-	success: function(data, status) {
-		//console.log(data);
-		processLogPerm(data);
-		//inicializacao();
-	}
+		type: "GET",
+		url: url_req_log_perm,
+		headers: {
+		  'Authorization': 'Bearer ' + token
+		},
+		error: function(data, status) {
+			redirect("timeout");
+		},
+		success: function(data, status) {
+			processLogPerm(data);
+		}
 	});
 
 }
 
 function req_evt(){
 	$.ajax({
-			type: "GET",
-			//url: url_req_readdata,
-			url: url_req_readdata_driver,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
-			error: function(data, status) {
-				//console.log("erro ajax -> main fleet");
-				//console.log(data);
-				//console.log(data.responseText);
-				redirect("timeout");
-			},
-			success: function(data, status) {
-				//console.log(data);
-				processEvt(data);
-				begin();
-			}
-		});
-}
-
-function req_fleet(){
-	$.ajax({
-	type: "GET",
-	//url: "http://192.168.0.35/rds/api/public/listfleet",
-	url: url_req_fleet,
-	dataType: 'json',
-	headers: {
-		'Authorization': 'Bearer ' + token
-	},
-	error: function(data, status) {
-		//console.log("erro ajax");
-		//console.log(data);
-		//console.log(data.responseText)
-		//redirect("timeout");
-	},
-	success: function(data, status) {
-		//console.log("sucesso ajax");
-		//console.log(data);
-		processFleet(data);
-		
+		type: "GET",
+		url: url_req_events,
+		headers: {
+		  'Authorization': 'Bearer ' + token
+		},
+		error: function(data, status) {
+			redirect("timeout");
+		},
+		success: function(data, status) {
+			processEvt(data);
 		}
 	});
 }
 
-
-function req_evt_teste(){
+function req_fleet(){
 	$.ajax({
-			type: "GET",
-			//url: url_req_readdata,
-			url: url_req_readdata_teste_evt,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
-			error: function(data, status) {
-				//console.log("erro ajax -> main fleet");
-				//console.log(data);
-				//console.log(data.responseText);
-				//redirect("timeout");
-			},
-			success: function(data, status) {
-				//console.log(data);
-				processEvtTeste(data);
-				begin();
-			}
-		});
+		type: "GET",
+		url: url_req_fleet,
+		dataType: 'json',
+		headers: {
+			'Authorization': 'Bearer ' + token
+		},
+		error: function(data, status) {
+			redirect("timeout");
+		},
+		success: function(data, status) {
+			processFleet(data);
+		}
+	});
 }
+
 
 ///////nav bar dropdown style///////
 function styleDropdown(n){

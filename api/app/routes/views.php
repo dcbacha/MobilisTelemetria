@@ -70,9 +70,6 @@ $app->get('/trouble', function($request, $response){
 });
 
 
-
-
-
 ////////////////////////////////////////////////////
 $app->get('/log', function($request, $response){
     return $this->view->render($response, 'logsender.html');

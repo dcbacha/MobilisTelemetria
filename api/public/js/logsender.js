@@ -20,7 +20,7 @@ $.get('../static/LogEventosTeste.csv', function(data) {
   	$.ajax({
 			type: "POST",
 			//url: "http://192.168.0.35/rds/api/public/rpi",
-			url: "http://192.168.0.35/rds/api/public/logeventos",
+			url: url_global + "/car/dados/eventos",
 			//url: url_req_readdata_driver,
 			contentType: "application/json",
 			//dataType: 'json',
