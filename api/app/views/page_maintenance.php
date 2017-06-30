@@ -97,7 +97,7 @@
 
   <div class="row center">
 
-    <a class='dropdown-button btn col s12 m2 hide-on-small-only'  href='#' data-activates='dropdown-select' id='btnselect'>Visualizar</a>
+    <a class='dropdown-button btn col s12 m2 hide-on-small-only'  href='#' data-activates='dropdown-select' id='btnselect'>Personalizar Painel</a>
 
     <ul id='dropdown-select' class='dropdown-content'>
       <li><a href="#!" value="card-rankuser">

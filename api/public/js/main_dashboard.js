@@ -9,6 +9,12 @@ var mobilislightblue = "#4Ec1E0";
 var mobilisred = "#E6354D";
 var orange = "#e06d4e";
 var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
+var barcolor = { red: "#E6354D",
+			 	yellow : "#fcd054",
+			 	blue: "#4Ec1E0",
+			 	green: "#008000"};
+
+console.log(barcolor.red);
 
 $(function(){
 	
@@ -130,6 +136,8 @@ function plotBarsHorizontal(data, placeholder, type){
 	var value =[];
 	var zero = [];
 
+	var arr_colors = [];
+
 	for (let i = 0; i < size; i++) {
 
 		var idcarro = parseInt(data[i].idcarro);
@@ -228,6 +236,18 @@ function plotBarsHorizontal(data, placeholder, type){
 	var loop = 0;
 	var increment = 5;
 
+	/*if(type == "soc"){
+	   	console.log(rawData);
+	   	for(let i = 0 ; i < rawData.length ;i++){
+			if (rawData[i][0] < 20){ var finalcolor = barcolor.red;}
+			else if (rawData[i][0] < 50){ var finalcolor = barcolor.yellow;}
+			else if (rawData[i][0] < 100){var finalcolor = barcolor.blue;}
+			else {var finalcolor = barcolor.green;}
+	   	}
+	} else{
+		var finalcolor = colors[1];
+	}*/
+
 	function update() {
 		var tmp = [];
 		if(loop < max){
@@ -239,7 +259,12 @@ function plotBarsHorizontal(data, placeholder, type){
 	        	}else{
 	        		tmp.push([rawData[i][0], rawData[i][1] ]);
 	        	}
+
+	        	
+			
 	        }
+	       
+	
 
 			if(max < 300){ increment= 5 ;}
 			else if(max > 300){ increment= 20 ;  }
@@ -247,8 +272,10 @@ function plotBarsHorizontal(data, placeholder, type){
 			else if(max - loop < 10){increment= 1 ;}
 			
 			loop += increment;
+
+			//console.log(tmp);
 			
-	        var dataSet = [{data: tmp, color: colors[1] }]; 
+	        var dataSet = [{data: tmp, color: colors[1]}]; 
 			
 			plot.setData(dataSet);
 	 		plot.draw();

@@ -4,6 +4,7 @@ $("#btnmaintenance").parent().addClass("active");
 $("#btnmaintenance").addClass("active");
 $("#btnmaintenance").parent().siblings().removeClass("active");
 
+
 var mobilisblue = "#2A1856";
 var mobilislightblue = "#4Ec1E0";
 var mobilisred = "#E6354D";
@@ -319,7 +320,7 @@ function rankErro(data){
 
 	//console.log("json: ", json);
 
-	var ranking = json.sort(keysrt('qnt'));
+	var ranking = json.sort(keysrt('qnt')).reverse();
 	
 	for(let i = 0 ; i < ranking.length ; i++){
 		var nome = ranking[i].nome;

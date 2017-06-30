@@ -112,6 +112,7 @@
     left: 46%;
   }
 
+
   @media only screen and (max-width: 1200px) and (min-width: 993px) {
     #card-temp2{
       margin-left: auto;
@@ -130,7 +131,7 @@
 
   <div class="row center">
 
-    <a class='dropdown-button btn col s12 m2 hide-on-small-only' href='#' data-activates='dropdown-select' id='btnselect'>Visualizar</a>
+    <a class='dropdown-button btn col s12 m2 hide-on-small-only' href='#' data-activates='dropdown-select' id='btnselect'>Personalizar Painel</a>
 
     <ul id='dropdown-select' class='dropdown-content'>
       <li><a href="#!" value="card-lastupdate">
@@ -172,15 +173,15 @@
     </ul>
     
     <h5 class="header col s12 m10 light titulo-pag"  style='padding-right: 15%;'>Painel de Controle</h5>
-
-    <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota. Os dados são referêntes às últimas atualizações de cada veículo. Verifique a conexão de cada carro para manter seu painel de controle atualizado' id="info">
-      <i class='material-icons valign-wrapper'>info_outline</i>
-    </a>
-    <a class="btn-floating right smallround" id="reload">
-      <i class='material-icons valign-wrapper'>update</i>
-    </a>
+  
   </div> <!-- fim div row header -->
 
+  <a class="btn-floating right smallround  tooltipped hide-on-small-only" data-position='bottom' data-delay='500' data-tooltip='Informações diárias sobre a sua frota. Os dados são referêntes às últimas atualizações de cada veículo. Verifique a conexão de cada carro para manter seu painel de controle atualizado' id="info">
+    <i class='material-icons valign-wrapper'>info_outline</i>
+  </a>
+  <a class="btn-floating right smallround" id="reload">
+    <i class='material-icons valign-wrapper'>update</i>
+  </a>
 
   <div class="divider"></div>
 
@@ -322,7 +323,7 @@
       </div>
     </div>
 
-    <!--************************************************************************** --> 
+    <!--**************************************************************************  
     <div class="col s12 m6 l3" id='card-horimetro'>
       <div class="card-panel cardteste medium">
         <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
@@ -333,9 +334,9 @@
         </div>
         <div class="legendaPie" style="padding-left: 5%;"></div>
       </div>
-    </div>
+    </div>-->
 
-    <!--************************************************************************** --> 
+    <!--**************************************************************************  
     <div class="col s12 m6 l3" id='card-odometro'>
       <div class="card-panel cardteste medium">
         <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
@@ -346,9 +347,9 @@
         </div>
         <div class="legendaPie" style="padding-left: 5%;"></div>
       </div>
-    </div>
+    </div> -->
 
-    <!--************************************************************************** -->  
+    <!--**************************************************************************  
     <div class="col s12 m12 l6" id='card-tbateria'>
       <div class="card-panel cardteste medium">
         <a class='btn-flat right fechar hide-on-small-only'><span>x</span></a>
@@ -360,7 +361,7 @@
        </div>
        <div id="legenda3" style="padding-left: 5%;"></div>
       </div>
-    </div>
+    </div> --> 
 
     <!--************************************************************************** --> 
     <div class="col s12 m6" id='card-densidadeeventos'>

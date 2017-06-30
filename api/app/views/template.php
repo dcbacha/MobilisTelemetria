@@ -122,7 +122,18 @@
     <li class="menu"><a href="#!" id="btnfleet" class="link">Log da Frota</a></li>
     <li class="menu"><a href="#!" id="btndriver" class="link">Log do Usuário</a></li>
     <li class="no-padding menu">
-      <ul class="collapsible collapsible-accordion">
+      <ul class="collapsible collapsible-accordion disabled">
+  <!--       <li>
+          <li class="collapsible-header"><a href="#!" id="btnmaintenance" class="link">Oficina</a></li>
+          <div class="collapsible-body">
+            <ul>
+              <li class="dropdown"><a href="#!" id="btnfleet" style="color:black">Log da Frota</a></li>
+              <li class="dropdown"><a href="#!" id='btndriver' style="color:black">Log do Usuário</a></li>
+              
+            </ul>
+          </div>
+        </li> -->
+
         <li>
           <a class="collapsible-header">Configurações<i class="material-icons right">arrow_drop_down</i></a>
           <div class="collapsible-body">
