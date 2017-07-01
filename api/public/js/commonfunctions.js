@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.35/rds/api/public"; // "https://mobilis.eco.br/api/public"; //    
+var url_global = "https://mobilis.eco.br/api/public"; // "http://192.168.0.3/rds/MobilisTelemetria/api/public"; // "https://mobilis.eco.br/api/public"; //    
 
 //link views
 var url_fleet = 	url_global + "/fleet",
@@ -18,8 +18,8 @@ url_config = 		url_global + "/config",
 url_trouble = 		url_global + "/trouble";
 
 // links servidor
-var url_req_login = 		url_global + "/user/auth",
-url_req_new_password = 		url_global + "/user/newpassword",
+var url_req_login = 		url_global + "/client/auth",
+url_req_new_password = 		url_global + "/client/newpassword",
 url_req_events = 			url_global + "/client/readevents",
 url_req_cadastro = 			url_global + "/client/register",
 url_req_cadastro_car = 		url_global + "/client/registercar",

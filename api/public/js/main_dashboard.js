@@ -9,10 +9,10 @@ var mobilislightblue = "#4Ec1E0";
 var mobilisred = "#E6354D";
 var orange = "#e06d4e";
 var colors = ["#4ec1e0", "#4e78e0", "#4ee0b6"];
-var barcolor = { red: "#E6354D",
+var barcolor = { red: "#e90e20",
 			 	yellow : "#fcd054",
-			 	blue: "#4Ec1E0",
-			 	green: "#008000"};
+			 	blue: "#4e78e0",
+			 	green: "#2ecc71"};
 
 console.log(barcolor.red);
 
@@ -114,9 +114,9 @@ function processLogPerm(data){
 	plotPie(data, "placeholder-hor", 'hor');
 	plotPie(data, "placeholder-odo", 'odo');
 	
-	plotBarsHorizontal(data, "placeholder-autonomia", "kmleft");
-	plotBarsHorizontal(data, "placeholder-tbateria", "temp");
 	plotBarsHorizontal(data, "placeholder-estadocarga", "soc");
+	plotBarsHorizontal(data, "placeholder-autonomia", "kmleft");
+	//plotBarsHorizontal(data, "placeholder-tbateria", "temp");
 	plotBarsHorizontal(data, "placeholder-horimetro-barra", "hor");
 	plotBarsHorizontal(data, "placeholder-odometro-barra", "odo");
 	
@@ -196,7 +196,12 @@ function plotBarsHorizontal(data, placeholder, type){
 		ticks.push([i, "Carro "+ ranking[i].carro ]);
 	}
 
- 	var dataSet = [{data: rawData, color: colors[1] }]; 
+ 	
+ 	var info=  [{data: [[ rawData[0][0] , rawData[0][1] ]], color: colors[1]}, 
+            	{data: [[ rawData[1][0] , rawData[1][1] ]], color: colors[1]},
+            	{data: [[ rawData[2][0] , rawData[2][1] ]], color: colors[1]},
+            	{data: [[ rawData[3][0] , rawData[3][1] ]], color: colors[1]},
+            	{data: [[ rawData[4][0] , rawData[4][1] ]], color: colors[1]}];
 
     var options = {
         series: {
@@ -229,7 +234,7 @@ function plotBarsHorizontal(data, placeholder, type){
         }
     };
 
-    var plot = $.plot($("#"+placeholder), dataSet, options);
+    var plot = $.plot($("#"+placeholder), info, options);
     var placeholder = $("#"+placeholder);
 
     var updateInterval = 30;
@@ -247,24 +252,30 @@ function plotBarsHorizontal(data, placeholder, type){
 	} else{
 		var finalcolor = colors[1];
 	}*/
-
 	function update() {
 		var tmp = [];
+		
+
 		if(loop < max){
 	        
 	        for(let i = 0; i < rawData.length; i++){
-	        	
-	        	if(loop < rawData[i][0]){
-	        		tmp.push([loop, rawData[i][1] ]);
-	        	}else{
-	        		tmp.push([rawData[i][0], rawData[i][1] ]);
-	        	}
 
+	        	if (type == "soc"){
+	        		if(rawData[i][0] < 20){	var finalcolor = barcolor.red;} 
+	        		else if (rawData[i][0] < 50){ var finalcolor= barcolor.yellow; } 
+	        		else if (rawData[i][0] < 99){ var finalcolor= barcolor.blue;} 
+	        		else { var finalcolor= barcolor.green;}
 	        	
+	        	} else { var finalcolor = colors[1]; }
+
+	        	if(loop < rawData[i][0]){
+		        	tmp.push({data: [[ loop , rawData[i][1] ]], color: finalcolor});
+			    }else{
+			       	tmp.push({data: [[ rawData[i][0] , rawData[i][1] ]], color: finalcolor})
+			    }
 			
 	        }
 	       
-	
 
 			if(max < 300){ increment= 5 ;}
 			else if(max > 300){ increment= 20 ;  }
@@ -273,18 +284,14 @@ function plotBarsHorizontal(data, placeholder, type){
 			
 			loop += increment;
 
-			//console.log(tmp);
-			
-	        var dataSet = [{data: tmp, color: colors[1]}]; 
-			
-			plot.setData(dataSet);
+			plot.setData(tmp);
 	 		plot.draw();
 	        setTimeout(update, updateInterval);
 		}
     }
     update();
 
-    function toolTip(f, h, x,y) {
+    function toolTip(f, h, x,y, cor) {
       $('<div id="tooltip">'+x+tick+'</div>').css({
         position: 'absolute',
         display: 'none',
@@ -296,8 +303,8 @@ function plotBarsHorizontal(data, placeholder, type){
         'background-color': "white",
         opacity: 0.9,
         'border-radius':'25px',
-        border: '2px solid '+mobilisblue,
-	    color: mobilisblue
+        border: '2px solid '+cor,
+	    color: cor
       }).appendTo("body").fadeIn(200)
     }
 
@@ -309,8 +316,24 @@ function plotBarsHorizontal(data, placeholder, type){
 	        b = h.datapoint;
 	        $('#tooltip').remove();
 	        var x = h.datapoint[0],
-	        	y = h.datapoint[1];
-	        toolTip(h.pageX, h.pageY, x,y)
+	        	y = h.datapoint[1],
+	        	cor = colors[1];
+
+	        if (type == "soc"){
+	        	if(x < 20){
+	        		cor = barcolor.red;
+	        	} else if (x < 50){
+	        		cor= barcolor.yellow;
+	        	} else if (x < 99){
+	        		cor= barcolor.blue;
+				} else {
+	        		cor= barcolor.green;
+				}
+	        } else {
+	        	cor = colors[1];
+	        }
+
+	        toolTip(h.pageX, h.pageY, x,y, cor)
 	    }
 	    } else {
 	        $("#tooltip").remove();

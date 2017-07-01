@@ -109,7 +109,7 @@ $app->put("/client/register", function ($request, $response, $arguments) use ($a
         return $response->withStatus(201)->write("sucesso");
     }
     catch(Exception $db) {
-        return $response->withStatus(401)->write($db);
+        return $response->withStatus(401)->write("Algo deu errado");
     } 
 });
 
