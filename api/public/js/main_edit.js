@@ -1,18 +1,19 @@
 var token = checktoken();
-$("#btndriver").parent().addClass("active");
-$("#btndriver").addClass("active");
-$("#btndriver").parent().siblings().removeClass("active");
+$("#btnusers").parent().addClass("active");
+$("#btnusers").addClass("active");
+$("#btnusers").parent().siblings().removeClass("active");
 
 
 $(function(){
 
-	$("#loadingFrota").addClass("active");
+/*	$("#loadingFrota").addClass("active");
 
 	$("#loadingEconomy").addClass("active");
 	$("#loadingGroup").addClass("active");
 	$("#loadingWarning").addClass("active");
-
-	sessions(token);	
+*/
+	sessions(token);
+	styleDropdown(1);
 
 	getInfo();
 
@@ -21,16 +22,13 @@ $(function(){
 		$("#senhacontainer").slideToggle();
 		click ++;
 		
-
 		if(click == 1){$(this).attr("checked", true);}
 		if(click == 2){$(this).attr("checked", false); click = 0;}
 		
 	});
 
 	$("#voltar").click(function(){
-		//console.log("clicou");
-		var url = "?t="+token;
-		document.location = url_drivers+url;
+		direct(url_info_users);
 	});
 	
 	$("#envia").click(function(){
@@ -46,21 +44,15 @@ function getInfo(){
 	
 	$.ajax({
 			type: "GET",
-			url: url_req_getInfo,
+			url: url_get_info_user,
 			contentType: "application/x-www-form-urlencoded",
 			data: json,
 			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//console.log("erro ajax get Info");
-				//console.log(data.resposeText);
-				
+				redirect('timeout');
 			},
 			success: function(data, status) {
-				//console.log("sucesso ajax get Info");
-				//console.log(data);
 				fillInfo(data);
-				
-
 			}
 	});
 }
@@ -144,19 +136,14 @@ function enviar(){
 }
 
 function requisicaoEnviar(json){
-	//console.log(json);
-
 	$.ajax({
-			type: "GET",
-			url: url_req_update_user,
+			type: "POST",
+			url: url_post_update_user,
 			contentType: "application/x-www-form-urlencoded",
 			data: json,
 			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//console.log("erro ajax get Info");
-				//console.log(data);
-				//console.log(data.responseText);
-
+				
 				if(data.responseText == "Senha errada"){ 
 					$("#errosenha").slideToggle();
 					setTimeout(function(){
@@ -174,19 +161,16 @@ function requisicaoEnviar(json){
 					$("#success").slideToggle();
 					setTimeout(function(){
 						$("#success").slideToggle(400);
+						direct(url_info_users);
 					}, 2000);
 				}
-
 				
 			},
 			success: function(data, status) {
-				//console.log("sucesso ajax requisicao");
-				//console.log(data);
-				//console.log(data.responseText);
-
 				$("#success").slideToggle();
 				setTimeout(function(){
 					$("#success").slideToggle(400);
+					direct(url_info_users);
 				}, 2000);
 
 

@@ -1,9 +1,9 @@
 var token = checktoken();
 sessions(token);
 
-$("#btncadastro").parent().addClass("active");
-$("#btncadastro").addClass("active");
-$("#btncadastro").parent().siblings().removeClass("active");
+$("#btnusers").parent().addClass("active");
+$("#btnusers").addClass("active");
+$("#btnusers").parent().siblings().removeClass("active");
 
 
 $(function(){
@@ -13,7 +13,7 @@ $(function(){
 //$("#btncadastro").parent().parent().parent().prev().css({ 'background-color': 'rgba(0, 0, 0, 0.05)'});
 //$("#btncadastro").parent().parent().parent().parent().addClass("active");
 
-styleDropdown(1);
+	styleDropdown(1);
 
 	$('select').material_select();
 
@@ -65,25 +65,17 @@ function cadastra(form_json){
 
 	$.ajax({
 			type: "PUT",
-			url: url_req_cadastro,
+			url: url_put_cadastro,
 			contentType: "application/x-www-form-urlencoded",
-			//dataType: 'json',
 			data: form_json,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
+			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//console.log("erro ajax cadastro");
-				//console.log(data);
-				//console.log(data.responseText);
-				//console.log(status);
-				//console.log(xhr);
-				//redirect("timeout");
 				if(data.responseText == "sucesso"){
 					//console.log("erro de sucesso ??")
 					$("#sucesso").slideToggle(400);
 					setTimeout(function(){
 						$("#sucesso").slideToggle(400);
+						direct(url_info_users);
 					}, 2000);
 				}
 				else{
@@ -100,6 +92,7 @@ function cadastra(form_json){
 				$("#sucesso").slideToggle(400);
 				setTimeout(function(){
 					$("#sucesso").slideToggle(400);
+					direct(url_info_users);
 				}, 2000);
 				
 			}

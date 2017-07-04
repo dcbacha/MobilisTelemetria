@@ -28,7 +28,7 @@ $("#login").click(function(){
   $.ajax({
                 type: "POST",
                 contentType: "application/x-www-form-urlencoded",
-                url: url_req_login,
+                url: url_post_login,
                 data: data,
                 dataType: 'json',
                 success: function(data) {
@@ -95,9 +95,9 @@ $("#generate").click(function(){
    // console.log(data);
 
     $.ajax({
-                type: "GET",
+                type: "POST",
                 contentType: "application/x-www-form-urlencoded",
-                url: url_req_new_password,
+                url: url_post_new_password,
                 data: data,
                 dataType: 'json',
                 success: function(data) {

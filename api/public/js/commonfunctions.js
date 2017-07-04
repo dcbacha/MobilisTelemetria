@@ -1,34 +1,47 @@
 //*********************** Variaveis Globais **********************//
-var url_global = "http://192.168.0.35/rds/api/public"; // "https://mobilis.eco.br/api/public"; //    
+var url_global ="http://192.168.0.35/rds/api/public"; // "https://mobilis.eco.br/api/public"; //     
 
 //link views
-var url_fleet = 	url_global + "/fleet",
-url_drivers = 		url_global + "/drivers",
-url_home = 			url_global + "/home",
-url_diagnostic = 	url_global + "/diagnostic",
-url_cadastro = 		url_global + "/reg",
-url_cadastro_car = 	url_global + "/regvehicle",
-url_cadastro_mot = 	url_global + "/regdriver",
-url_dashboard =		url_global + "/dashboard",
-url_edit_user = 	url_global + "/edit",
-url_maintenance = 	url_global + "/maintenance",
-url_faq	=			url_global + "/faq",
-url_contato = 		url_global + "/contato",
-url_config = 		url_global + "/config",
-url_trouble = 		url_global + "/trouble";
+var url_home = 		url_global + '/home',
+url_dashboard =		url_global + '/dashboard',
+url_maintenance = 	url_global + '/maintenance',
+url_evt_fleet = 	url_global + '/evtfleet',
+url_evt_drivers = 	url_global + '/evtdrivers',
+url_info_users =	url_global + '/webusers',
+url_info_cars = 	url_global + '/cars',
+url_cadastro = 		url_global + '/reg',
+url_cadastro_car = 	url_global + '/regvehicle',
+url_cadastro_mot = 	url_global + '/regdriver',
+url_edit_user = 	url_global + '/edit',
+url_edit_car = 		url_global + '/editcar',
+url_diagnostic = 	url_global + '/diagnostic',
+url_faq	=			url_global + '/faq',
+url_contato = 		url_global + '/contato',
+url_config = 		url_global + '/config',
+url_trouble = 		url_global + '/trouble';
 
-// links servidor
-var url_req_login = 		url_global + "/user/auth",
-url_req_new_password = 		url_global + "/user/newpassword",
-url_req_events = 			url_global + "/client/readevents",
-url_req_cadastro = 			url_global + "/client/register",
-url_req_cadastro_car = 		url_global + "/client/registercar",
-url_req_log_perm = 			url_global + "/client/readlogperm",
-url_req_fleet = 			url_global + "/client/listfleet",
-url_req_group =				url_global + "/client/listgroup",
-url_req_getInfo = 			url_global + "/client/getInfo",
-url_req_update_user =		url_global + "/client/updateuser",
-url_req_diagnostic_mail =	url_global + "/client/maildiagnostic";
+// links requisições servidor
+var url_post_login = 		url_global + '/client/auth',
+url_post_new_password = 	url_global + '/client/newpassword',
+url_post_update_user =		url_global + '/client/updateuser',
+url_post_update_car =		url_global + '/client/updatecar',
+
+url_get_events = 			url_global + '/client/readevents',
+url_get_log_perm = 			url_global + '/client/readlogperm',
+url_get_fleet = 			url_global + '/client/listfleet',
+url_get_group =				url_global + '/client/listgroup',
+url_get_info_user = 		url_global + '/client/getInfo',
+url_get_info_car =			url_global + '/client/getInfoCar',
+url_get_webuser = 			url_global + '/client/getwebuser',
+
+url_put_cadastro = 			url_global + '/client/register',
+url_put_cadastro_car = 		url_global + '/client/registercar',
+url_put_diagnostic_mail =	url_global + '/client/maildiagnostic',
+
+url_delete_webuser = 		url_global + '/client/deletewebuser',
+url_delete_car = 			url_global + '/client/deletecar'
+
+url_get_can = 				url_global + '/plotter' ;
 
 //variaveis globais
 var arr_danger = ["FI01", "FI02", "FI03", "L5690"];
@@ -40,12 +53,12 @@ var odometro_total =0;
 
 //******************* Botões do Tamplate *************************//
 $("#logout").click(function(){ document.location = url_home; });
-$("#btnfleet").click(function(){ direct(url_fleet); });
-$("#btndriver").click(function(){ direct(url_drivers); });
+$("#btnfleet").click(function(){ direct(url_evt_fleet); });
+$("#btndriver").click(function(){ direct(url_evt_drivers); });
 $("#btndiagnostic").click(function(){ direct(url_diagnostic); });
-$("#btncadastro").click(function(){ direct(url_cadastro); });
-$("#btncadastroveiculo").click(function(){ direct(url_cadastro_car); });
-$("#btncadastromotorista").click(function(){ direct(url_cadastro_mot); });
+$("#btnusers").click(function(){ direct(url_info_users); });
+$("#btnveiculos").click(function(){ direct(url_info_cars); });
+$("#btnmotoristas").click(function(){ direct(url_cadastro_mot); });
 $("#btndashboard").click(function(){ direct(url_dashboard); });
 $("#btnmaintenance").click(function(){ direct(url_maintenance); });
 $("#btnfaq").click(function(){ direct(url_faq); });
@@ -178,7 +191,7 @@ function warningset(){
 function req_logperm(){
 	$.ajax({
 		type: "GET",
-		url: url_req_log_perm,
+		url: url_get_log_perm,
 		headers: {
 		  'Authorization': 'Bearer ' + token
 		},
@@ -195,7 +208,7 @@ function req_logperm(){
 function req_evt(){
 	$.ajax({
 		type: "GET",
-		url: url_req_events,
+		url: url_get_events,
 		headers: {
 		  'Authorization': 'Bearer ' + token
 		},
@@ -211,7 +224,7 @@ function req_evt(){
 function req_fleet(){
 	$.ajax({
 		type: "GET",
-		url: url_req_fleet,
+		url: url_get_fleet,
 		dataType: 'json',
 		headers: {
 			'Authorization': 'Bearer ' + token
@@ -230,7 +243,7 @@ function req_fleet(){
 function styleDropdown(n){
 
 	switch (n){
-		case 1: var elem = $("#btncadastro").parent().parent().parent(); break;
+		case 1: var elem = $("#btnusers").parent().parent().parent(); break;
 		case 2:	var elem = $("#btnfaq").parent().parent().parent();
 	}
 

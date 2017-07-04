@@ -30,6 +30,7 @@
 
   	<table class='striped' id='users'>
   		<thead>
+        <th>#</th>
   			<th>Nome</th>
   			<th>Sobrenome</th>
   			<th>E-mail</th>

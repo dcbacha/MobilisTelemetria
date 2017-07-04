@@ -138,9 +138,9 @@
           <a class="collapsible-header">Configurações<i class="material-icons right">arrow_drop_down</i></a>
           <div class="collapsible-body">
             <ul>
-              <li class="dropdown"><a href="#!" id="btncadastro" style="color:black">Cadastro usuários WEB</a></li>
-              <li class="dropdown"><a href="#!" id='btncadastromotorista' style="color:black">Cadastro operadores</a></li>
-              <li class="dropdown"><a href="#!" id="btncadastroveiculo" style="color:black">Cadastro veículos</a></li>
+              <li class="dropdown"><a href="#!" id="btnusers" style="color:black">Usuários WEB</a></li>
+              <li class="dropdown"><a href="#!" id="btnveiculos" style="color:black">Veículos</a></li>
+              <li class="dropdown"><a href="#!" id='btnmotoristas' style="color:black">Operadores / Motoristas</a></li>
               <li class="dropdown"><a href="#!" id='btnconfig' style="color:black">Configurar alertas</a></li>
             </ul>
           </div>
@@ -161,6 +161,6 @@
   </ul>
 
   <div class="footer">
-    Mobilis® - V0.0
+    Mobilis® - v1.0
   </div>
 </header>

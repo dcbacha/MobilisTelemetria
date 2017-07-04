@@ -30,10 +30,10 @@
 
   	<table class='striped' id='users'>
   		<thead>
-  			<th>id</th>
-  			<th>numserie</th>
-  			<th>chave de acesso</th>
-  			<th>responsável</th>
+  			<th>ID</th>
+  			<th>Nº de Série</th>
+  			<th>Chave de Acesso</th>
+  			<th>Responsável</th>
   			<th></th>
   		</thead>
   		<tbody>

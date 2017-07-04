@@ -12,9 +12,7 @@ $(function(){
 	//$("#btndiagnostic").parent().parent().parent().css({'display': 'block'});
 	styleDropdown(2);
 	
-
 	$("#btnsolicitar").click(function(){
-		
 		solicitar();
 	});
 
@@ -60,26 +58,15 @@ $(function(){
 
 $.ajax({
 	type: "GET",
-	//url: "http://192.168.0.35/rds/api/public/listfleet",
-	url: url_req_fleet,
+	url: url_get_fleet,
 	dataType: 'json',
-	data: {
-		alt: 'json-in-script'
-	},
-	headers: {
-		'Authorization': 'Bearer ' + token
-	},
+	data: { alt: 'json-in-script' },
+	headers: { 'Authorization': 'Bearer ' + token },
 	error: function(data, status) {
-		console.log("erro ajax");
-		console.log(data);
-		console.log(data.responseText)
-		//redirect("timeout");
+		redirect("timeout");
 	},
 	success: function(data, status) {
-		console.log("sucesso ajax");
-		//console.log(data);
 		processData(data);
-	
 	}
 });
 
@@ -150,14 +137,14 @@ function addProblem(){
     $("#formulario").append(html);
     $("#card"+total).slideDown();
 
-    iniciate(total);
+    begin(total);
     
 
 }
 var htmlfleet;
 var click = 0;
 
-function iniciate(total){
+function begin(total){
 	click++;
 	var del = $(".delete");
 	var position = del.parent().position();
@@ -233,16 +220,11 @@ function solicitar(){
 
 			$.ajax({
 				type: "PUT",
-				url: url_req_diagnostic_mail,
+				url: url_put_diagnostic_mail,
 				dataType: 'json',
 				data: json,
-				headers: {
-					'Authorization': 'Bearer ' + token
-				},
+				headers: { 'Authorization': 'Bearer ' + token },
 				error: function(data, status) {
-					console.log("erro ajax diagnostico mail");
-					console.log(data);
-					console.log(data.responseText)
 
 					if(data.responseText == "Email enviado com sucesso"){
 						$("#success").stop().slideToggle();
@@ -253,12 +235,10 @@ function solicitar(){
 					else{
 						$("#erromail").stop().slideToggle();
 					}
-
 					$("#loading").hide();
 				},
 				success: function(data, status) {
-					console.log("sucesso ajax diagnostico mail");
-					console.log(data);
+				
 					if(data.responseText == "Email enviado com sucesso"){
 						$("#success").stop().slideToggle();
 						setTimeout(function(){
@@ -268,7 +248,6 @@ function solicitar(){
 					else{
 						$("#erromail").stop().slideToggle();
 					}
-					
 					$("#loading").hide();
 				}
 			});

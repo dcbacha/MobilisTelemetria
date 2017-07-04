@@ -1,20 +1,20 @@
 var token = checktoken();
 
 
-$("#btncadastro").parent().addClass("active");
-$("#btncadastro").addClass("active");
-$("#btncadastro").parent().siblings().removeClass("active");
+$("#btnveiculos").parent().addClass("active");
+$("#btnveiculos").addClass("active");
+$("#btnveiculos").parent().siblings().removeClass("active");
 
 
 $(function(){
 	sessions(token);
+	styleDropdown(1);
 
 	getCars();
 
 	$("#add").click(function(){
 		console.log('aeee');
-		var url = "?t="+token;
-		document.location = url_cadastro+url;
+		direct(url_cadastro_car);
 	});
 
 	
@@ -22,26 +22,16 @@ $(function(){
 
 
 function getCars(){
-
 	$.ajax({
 			type: "GET",
-			url: url_global + '/client/listfleet',
+			url: url_get_fleet,
 			contentType: "application/x-www-form-urlencoded",
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
+			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//console.log("erro ajax get Info");
-				console.log(data);
 				redirect("timeout");
-				
 			},
 			success: function(data, status) {
-				//console.log("sucesso ajax get Info");
-				console.log(data);
-
 				createtable(data);
-
 			}
 	});
 
@@ -50,22 +40,13 @@ function getCars(){
 function createtable(data){
 
 	var size = data.length;
+	console.log(data);
 
 	for(let i = 0 ; i < size ; i ++){;
 		var numserie = data[i].numserie;
 		var chaveacesso = data[i].chaveacesso;
-		var idresponsavel = data[i].responsavel;
+		var responsavel = data[i].nome;
 		var id = data[i].idcarro;
-
-		var nome = testAjax(idresponsavel);
-
-		nome.then(function(result){
-			console.log(result[0].nome)
-			var responsavel = result[0].nome
-		
-
-
-		});
 
 		var html = "<tr>"+
 					"<td>"+id+"</td>"+
@@ -93,7 +74,7 @@ function createtable(data){
 
 		var url = "?t="+token;
 		var l = "?id="+id;
-		document.location = url_edit_user+url+l;
+		document.location = url_edit_car+url+l;
 	});
 
 	$(".delete").click(function(){
@@ -113,16 +94,13 @@ function createtable(data){
 function deleteCar(id) {
 	var json = {id: id};
 	
-	//console.log('nome: ', nome);
 
-	/*$.ajax({
+	$.ajax({
 			type: "delete",
-			url: url_global + "/client/deletewebuser",
+			url: url_delele_car,
 			contentType: "application/x-www-form-urlencoded",
 			data: json,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
+			headers: {'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
 				//console.log("erro ajax get Info");
 				console.log(data);
@@ -135,21 +113,8 @@ function deleteCar(id) {
 				$("#users tbody").empty();
 				getCars();
 			}
-	});*/
+	});
 
 
 
-}
-
-function testAjax(id) {
-	var json = {id: id};
-  return Promise.resolve($.ajax({
-     		type: "get",
-			url: url_global + "/client/getInfo",
-			contentType: "application/x-www-form-urlencoded",
-			data: json,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			}
-  }));
 }

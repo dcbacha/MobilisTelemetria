@@ -109,7 +109,7 @@ $app->put("/client/register", function ($request, $response, $arguments) use ($a
         return $response->withStatus(201)->write("sucesso");
     }
     catch(Exception $db) {
-        return $response->withStatus(401)->write($db);
+        return $response->withStatus(401)->write("Algo deu errado");
     } 
 });
 
@@ -128,10 +128,26 @@ $app->put("/client/registercar", function ($request, $response, $arguments) use 
 
 
     try{
-        $result = $db->prepare("INSERT INTO `veiculos` (`numserie`, `chaveacesso`,`idgrupo`) VALUES (?, ?, ?)" );
+        $result = $db->prepare("INSERT INTO `veiculos` (`numserie`, `chaveacesso`,`idgrupo`,`responsavel`) VALUES (?, ?, ?, ?)" );
         $result->bindParam(1, $numserie);
         $result->bindParam(2, $chaveacesso);
         $result->bindParam(3, $grupo);
+        $result->bindParam(4, $responsavel);
+
+        $result -> execute();
+       // return $response->withStatus(201)->write("sucesso");
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write($db);
+    } 
+
+    $lastid = $db->lastInsertId();
+
+    //return $response->withStatus(201)->write(json_encode($lastid, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+
+    try{
+        $result = $db->prepare("INSERT INTO `logpermanente` (`car-id`) VALUES (?)" );
+        $result->bindParam(1, $lastid);
 
         $result -> execute();
         return $response->withStatus(201)->write("sucesso");
@@ -147,7 +163,10 @@ $app->get("/client/listfleet", function ($request, $response, $arguments) use ($
     $idgrupo = $this->get('jwt')->idg;
 
     try{
-        $result = $db->prepare("SELECT idcarro, numserie, chaveacesso, responsavel FROM veiculos where idgrupo = ?");
+        $result = $db->prepare("SELECT v.idcarro, v.numserie, v.chaveacesso, v.responsavel, u.nome
+                                FROM veiculos as v
+                                    inner join usuarios as u on u.idusuario=v.responsavel
+                                where v.idgrupo = ?");
         $result->bindParam(1, $idgrupo);
         $result -> execute();  
     }
@@ -175,7 +194,7 @@ $app->get("/client/listgroup", function ($request, $response, $arguments) use ($
     $idgrupo = $this->get('jwt')->idg;
 
     try{
-        $result = $db->prepare("SELECT nome FROM usuarios where idgrupo = ?");
+        $result = $db->prepare("SELECT nome, idusuario FROM usuarios where idgrupo = ?");
         $result->bindParam(1, $idgrupo);
         $result -> execute(); 
 
@@ -229,13 +248,48 @@ $app->get("/client/getInfo", function ($request, $response, $arguments) use ($ap
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
+$app->get("/client/getInfoCar", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $id = $request->getParam('id');
+
+    try{
+        $result = $db->prepare("SELECT v.numserie, v.responsavel, v.chaveacesso, v.idgrupo, u.nome 
+                                FROM veiculos as v
+                                    INNER JOIN usuarios as u on v.responsavel=u.idusuario 
+                                WHERE v.idcarro = ?");
+        $result->bindParam(1, $id);
+        $result -> execute();  
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write($db);
+    } 
+            
+    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+    $num_rows = count($rows);
+
+    if($num_rows > 0){
+
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($rows, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    } // end if ususarios                                        
+    else {
+      return $response->withStatus(401)->write("Algo de errado não está certo");
+    } 
+
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
 $app->get("/client/getwebuser", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
     
     $idgrupo = $this->get('jwt')->idg;
 
     try{
-        $result = $db->prepare("SELECT idusuario, nome, sobrenome, email, username, nivelpermissao FROM usuarios where idgrupo = ?");
+        $result = $db->prepare("SELECT idusuario, nome, sobrenome, email, username, nivelpermissao 
+                                FROM usuarios 
+                                WHERE idgrupo = ?");
         $result->bindParam(1, $idgrupo);
         $result -> execute();  
     }
@@ -262,11 +316,11 @@ $app->get("/client/getwebuser", function ($request, $response, $arguments) use (
 $app->delete("/client/deletewebuser", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
     
-    $idgrupo = $request->getParam('id');
+    $id = $request->getParam('id');
 
     try{
         $result = $db->prepare("DELETE FROM `usuarios` WHERE `idusuario` = ?");
-        $result->bindParam(1, $idgrupo);
+        $result->bindParam(1, $id);
         $result -> execute(); 
     }
     catch(Exception $db) {
@@ -286,7 +340,34 @@ $app->delete("/client/deletewebuser", function ($request, $response, $arguments)
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
-$app->get("/client/updateuser", function ($request, $response, $arguments) use ($app) {
+$app->delete("/client/deletecar", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $id = $request->getParam('id');
+
+    try{
+        $result = $db->prepare("DELETE FROM `veiculos` WHERE `idcarro` = ?");
+        $result->bindParam(1, $id);
+        $result -> execute(); 
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write(json_encode($db, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }
+
+    $rows = $result->rowCount();
+
+    if($rows > 0){
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($rows, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }                                     
+    else {
+      return $response->withStatus(401)->write("Algo de errado não está certo");
+    } 
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+$app->post("/client/updateuser", function ($request, $response, $arguments) use ($app) {
     $db = getDB();
     
     $id = $request->getParam('id');
@@ -358,6 +439,31 @@ $app->get("/client/updateuser", function ($request, $response, $arguments) use (
         }
         catch(Exception $db) { return $response->withStatus(401)->write("Unauthorized");}                                   
    }
+
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+$app->post("/client/updatecar", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $idcar = $request->getParam('idcar');
+    $idresponsavel = $request->getParam('idresponsavel');
+    $grupo = $request->getParam('grupo');
+ 
+    try {   
+        $result = $db->prepare("UPDATE veiculos SET responsavel =  ?, idgrupo = ?
+                                WHERE idcarro = ?");
+        $result->bindParam(1, $idresponsavel);
+        $result->bindParam(2, $grupo);
+        $result->bindParam(3, $idcar);
+        $result -> execute();
+
+        return $response->withStatus(401)->write("Usuario alterado com sucesso");
+
+    } catch(Exception $db) { 
+        return $response->withStatus(401)->write($db);
+    }                                   
+   
 
 });
 

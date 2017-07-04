@@ -1,8 +1,8 @@
 var token = checktoken();
 
-$("#btncadastromotorista").parent().addClass("active");
-$("#btncadastromotorista").addClass("active");
-$("#btncadastromotorista").parent().siblings().removeClass("active");
+$("#btnmotoristas").parent().addClass("active");
+$("#btnmotoristas").addClass("active");
+$("#btnmotoristas").parent().siblings().removeClass("active");
 
 
 

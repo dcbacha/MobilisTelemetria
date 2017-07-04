@@ -2,7 +2,7 @@
 
 $.ajax({
 	type: "GET",
-	url: "http://mobilis.eco.br/api/public/plotter",
+	url: url_get_can,
 	dataType: 'json',
 
 	error: function(data, status) {

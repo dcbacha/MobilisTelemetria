@@ -127,9 +127,6 @@ function createObjUsers(user, idmotorista){
 								"<a class='btn-flat tooltipped' data-html='true' data-position='bottom' data-delay='50' data-tooltip='' id='id1_"+idmotorista+"'>"+
 									"<i class='material-icons valign-wrapper'>info_outline</i>"+
 								"</a>"+
-								"<a class='btn-flat edit tooltipped' id='id2_"+idmotorista+"'  data-position='bottom' data-delay='50' data-tooltip='Clique para editar'>"+
-									"<i class='material-icons valign-wrapper '>mode_edit</i>"+
-								"</a>"+
 								"</span>"+
 							"</span>"+
 							"<ul class='collapsible z-depth-0' data-collapsible='expandable'>"}; // hidden>"};  //para hover, esse hover tem q começar com hidden
@@ -143,20 +140,15 @@ function getInfo(id){
 
 	$.ajax({
 			type: "GET",
-			url: url_req_getInfo,
+			url: url_get_info_user,
 			contentType: "application/x-www-form-urlencoded",
 			data: json,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
+			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//console.log("erro ajax get Info");
-				//console.log(data);
+				redirect('timeout');
 				
 			},
 			success: function(data, status) {
-				//console.log("sucesso ajax get Info");
-				//console.log(data);
 
 				var nome = data[0].nome;
 				var email = data[0].email;
@@ -168,7 +160,6 @@ function getInfo(id){
 							"Email:"+email+"";
 
 				$("#id1_"+id).attr("data-tooltip", tooltip);
-				//console.log($("#id1_"+id));
 				$('.tooltipped').tooltip({delay: 50});
 
 			}
@@ -276,14 +267,6 @@ function begin(){
 		    });
 			click =0;
 		}
-	});
-
-	$(".edit").click(function(){
-		var url = "?t="+token;
-
-		var id = $(this).attr("id").split("_")[1];
-		var l = "?id="+id;
-		document.location = url_edit_user+url+l;
 	});
 
 }

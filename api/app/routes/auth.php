@@ -3,7 +3,7 @@ require __DIR__ . '/../database.php';
 use Firebase\JWT\JWT;
 
 //Rotina de login pelo usuário
-$app->post("/user/auth", function ($request, $response, $arguments) use ($app){ 
+$app->post("/client/auth", function ($request, $response, $arguments) use ($app){ 
     $db = getDB(); 
   
     $email = $request->getParam('email'); 
@@ -105,7 +105,7 @@ $app->post("/car/auth", function ($request, $response, $arguments)
 });
 
 
-$app->get("/user/newpassword", function ($request, $response, $arguments) use ($app){ 
+$app->post("/client/newpassword", function ($request, $response, $arguments) use ($app){ 
     $db = getDB(); 
   
     $email = $request->getParam('email'); 

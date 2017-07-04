@@ -1,45 +1,37 @@
 var token = checktoken();
 
-
-$("#btncadastro").parent().addClass("active");
-$("#btncadastro").addClass("active");
-$("#btncadastro").parent().siblings().removeClass("active");
+/*
+$("#btnusers").parent().addClass("active");
+$("#btnusers").addClass("active");
+$("#btnusers").parent().siblings().removeClass("active");
+*/
+$("#btnusers").parent().addClass("active");
+$("#btnusers").addClass("active");
+$("#btnusers").parent().siblings().removeClass("active");
 
 
 $(function(){
 	sessions(token);
-
+	styleDropdown(1);
 	getWebUsers();
 
 	$("#add").click(function(){
-		console.log('aeee');
-		var url = "?t="+token;
-		document.location = url_cadastro+url;
+		direct(url_cadastro);
 	});
 });
 
 
 function getWebUsers(){
-
 	$.ajax({
 			type: "GET",
-			url: url_global + '/client/getwebuser',
+			url: url_get_webuser,
 			contentType: "application/x-www-form-urlencoded",
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
+			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//console.log("erro ajax get Info");
-				console.log(data);
 				redirect("timeout");
-				
 			},
 			success: function(data, status) {
-				//console.log("sucesso ajax get Info");
-				console.log(data);
-
 				createtable(data);
-
 			}
 	});
 
@@ -58,6 +50,7 @@ function createtable(data){
 		var id = data[i].idusuario;
 
 		var html = "<tr>"+
+					"<td>"+(i+1)+".</td>"+
 					"<td>"+nome+"</td>"+
 					"<td>"+sobrenome+"</td>"+
 					"<td>"+email+"</td>"+
@@ -104,7 +97,7 @@ function deleteUser(id) {
 
 	$.ajax({
 			type: "delete",
-			url: url_global + "/client/deletewebuser",
+			url: url_delete_webuser,
 			contentType: "application/x-www-form-urlencoded",
 			data: json,
 			headers: {

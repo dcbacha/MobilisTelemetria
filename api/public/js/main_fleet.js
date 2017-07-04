@@ -72,7 +72,7 @@ function processEvt(data){
 	}
 	$("#tabelaDinamica").append(tabela_total);
 
-	getPermLog();
+	req_logperm();
 	begin();
 }
 
@@ -149,42 +149,30 @@ function createObjEvt(idcarro, errorcode, timestamp_evt, timestamp_rcv, dados, n
 	return obj;
 }
 
-function getPermLog(){
-	
-	$.ajax({
-			type: "GET",
-			url: url_req_log_perm,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
-			error: function(data, status) {
-				redirect('timeout');
-			},
-			success: function(data, status) {
-				var num_carros = data.length;
 
-				for(let x=0 ; x < num_carros; x++){
+function processLogPerm(data){
+	var num_carros = data.length;
+
+	for(let x=0 ; x < num_carros; x++){
 					
-					var idcarro=data[x].idcarro;
-					var odometro= data[x].odometro;
-					var	horimetro= data[x].horimetro;
-					var	numserie= data[x].numserie;
+	var idcarro=data[x].idcarro;
+	var odometro= data[x].odometro;
+	var	horimetro= data[x].horimetro;
+	var	numserie= data[x].numserie;
 
-					horimetro_total += parseInt(horimetro);
-					odometro_total += parseInt(odometro);
+	horimetro_total += parseInt(horimetro);
+	odometro_total += parseInt(odometro);
 
-					$("#tr_"+idcarro).append("<td><i class='material-icons'>keyboard_arrow_down</i></td>"+
-											"<td>"+idcarro+"</td>"+
-											"<td>"+numserie+"</td>"+
-											"<td>"+odometro+"</td>"+
-											"<td>"+horimetro+"</td>"+
-											"<td>"+
-												"<i class='material-icons' id=locate_'"+idcarro+"'>my_location</i>"+
-											"</td>");
-				}
-				setEconomy();
-			}
-		});
+	$("#tr_"+idcarro).append("<td><i class='material-icons'>keyboard_arrow_down</i></td>"+
+							"<td>"+idcarro+"</td>"+
+							"<td>"+numserie+"</td>"+
+							"<td>"+odometro+"</td>"+
+							"<td>"+horimetro+"</td>"+
+							"<td>"+
+								"<i class='material-icons' id=locate_'"+idcarro+"'>my_location</i>"+
+							"</td>");
+	}
+	setEconomy();
 }
 
 function setEconomy(){
@@ -196,10 +184,8 @@ function setEconomy(){
 function getGroup(){
 	$.ajax({
 			type: "GET",
-			url: url_req_group,
-			headers: {
-			  'Authorization': 'Bearer ' + token
-			},
+			url: url_get_group,
+			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status) {
 				redirect('timeout');
 			},
