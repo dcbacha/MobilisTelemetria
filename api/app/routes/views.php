@@ -69,6 +69,23 @@ $app->get('/trouble', function($request, $response){
     return $this->view->render($response, 'page_trouble.php');
 });
 
+$app->get('/listwebuser', function($request, $response){
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_list_webuser.php');
+});
+
+$app->get('/listdrivers', function($request, $response){
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_list_drivers.php');
+});
+
+$app->get('/listcars', function($request, $response){
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_list_cars.php');
+});
+
+
+
 
 ////////////////////////////////////////////////////
 $app->get('/log', function($request, $response){

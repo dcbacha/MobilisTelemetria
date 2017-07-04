@@ -147,7 +147,7 @@ $app->get("/client/listfleet", function ($request, $response, $arguments) use ($
     $idgrupo = $this->get('jwt')->idg;
 
     try{
-        $result = $db->prepare("SELECT idcarro, numserie FROM veiculos where idgrupo = ?");
+        $result = $db->prepare("SELECT idcarro, numserie, chaveacesso, responsavel FROM veiculos where idgrupo = ?");
         $result->bindParam(1, $idgrupo);
         $result -> execute();  
     }
@@ -226,6 +226,63 @@ $app->get("/client/getInfo", function ($request, $response, $arguments) use ($ap
       return $response->withStatus(401)->write("Algo de errado não está certo");
     } 
 
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+$app->get("/client/getwebuser", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $idgrupo = $this->get('jwt')->idg;
+
+    try{
+        $result = $db->prepare("SELECT idusuario, nome, sobrenome, email, username, nivelpermissao FROM usuarios where idgrupo = ?");
+        $result->bindParam(1, $idgrupo);
+        $result -> execute();  
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write($db);
+    } 
+            
+    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+    $num_rows = count($rows);
+
+    if($num_rows > 0){
+
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($rows, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    } // end if ususarios                                        
+    else {
+      return $response->withStatus(401)->write("Algo de errado não está certo");
+    } 
+
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+$app->delete("/client/deletewebuser", function ($request, $response, $arguments) use ($app) {
+    $db = getDB();
+    
+    $idgrupo = $request->getParam('id');
+
+    try{
+        $result = $db->prepare("DELETE FROM `usuarios` WHERE `idusuario` = ?");
+        $result->bindParam(1, $idgrupo);
+        $result -> execute(); 
+    }
+    catch(Exception $db) {
+        return $response->withStatus(401)->write(json_encode($db, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }
+
+    $rows = $result->rowCount();
+
+    if($rows > 0){
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($rows, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }                                     
+    else {
+      return $response->withStatus(401)->write("Algo de errado não está certo");
+    } 
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
