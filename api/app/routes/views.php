@@ -6,12 +6,12 @@ $app->get('/home', function($request, $response){
 
 $app->get('/evtfleet', function($request, $response){
 	$this->view->render($response, 'template.php');
-    return $this->view->render($response, 'page_fleet.php');
+    return $this->view->render($response, 'page_evt_fleet.php');
 });
 
 $app->get('/evtdrivers', function($request, $response){
 	$this->view->render($response, 'template.php');
-    return $this->view->render($response, 'page_driver.php');
+    return $this->view->render($response, 'page_evt_driver.php');
 });
 
 $app->get('/diagnostic', function($request, $response){
@@ -69,9 +69,14 @@ $app->get('/editcar', function($request, $response){
     return $this->view->render($response, 'page_edit_car.php');
 });
 
-$app->get('/listdrivers', function($request, $response){
+$app->get('/drivers', function($request, $response){
     $this->view->render($response, 'template.php');
     return $this->view->render($response, 'page_list_drivers.php');
+});
+
+$app->get('/editdriver', function($request, $response){
+    $this->view->render($response, 'template.php');
+    return $this->view->render($response, 'page_edit_driver.php');
 });
 
 $app->get('/reg', function($request, $response){

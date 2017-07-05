@@ -8,12 +8,14 @@ url_maintenance = 	url_global + '/maintenance',
 url_evt_fleet = 	url_global + '/evtfleet',
 url_evt_drivers = 	url_global + '/evtdrivers',
 url_info_users =	url_global + '/webusers',
+url_info_drivers =	url_global + '/drivers',
 url_info_cars = 	url_global + '/cars',
 url_cadastro = 		url_global + '/reg',
 url_cadastro_car = 	url_global + '/regvehicle',
 url_cadastro_mot = 	url_global + '/regdriver',
 url_edit_user = 	url_global + '/edit',
 url_edit_car = 		url_global + '/editcar',
+url_edit_driver = 	url_global + '/editdriver',
 url_diagnostic = 	url_global + '/diagnostic',
 url_faq	=			url_global + '/faq',
 url_contato = 		url_global + '/contato',
@@ -24,21 +26,26 @@ url_trouble = 		url_global + '/trouble';
 var url_post_login = 		url_global + '/client/auth',
 url_post_new_password = 	url_global + '/client/newpassword',
 url_post_update_user =		url_global + '/client/updateuser',
+url_post_update_driver =	url_global + '/client/updatedriver',
 url_post_update_car =		url_global + '/client/updatecar',
 
 url_get_events = 			url_global + '/client/readevents',
 url_get_log_perm = 			url_global + '/client/readlogperm',
 url_get_fleet = 			url_global + '/client/listfleet',
 url_get_group =				url_global + '/client/listgroup',
-url_get_info_user = 		url_global + '/client/getInfo',
-url_get_info_car =			url_global + '/client/getInfoCar',
+url_get_info_user = 		url_global + '/client/getinfo',
+url_get_info_car =			url_global + '/client/getinfo-car',
+url_get_info_driver =		url_global + '/client/getinfo-driver',
 url_get_webuser = 			url_global + '/client/getwebuser',
+url_get_drivers =			url_global + '/client/getdrivers',
 
 url_put_cadastro = 			url_global + '/client/register',
 url_put_cadastro_car = 		url_global + '/client/registercar',
+url_put_cadastro_driver = 	url_global + '/client/registerdriver',
 url_put_diagnostic_mail =	url_global + '/client/maildiagnostic',
 
 url_delete_webuser = 		url_global + '/client/deletewebuser',
+url_delete_driver = 		url_global + '/client/deletedriver',
 url_delete_car = 			url_global + '/client/deletecar'
 
 url_get_can = 				url_global + '/plotter' ;
@@ -52,19 +59,19 @@ var horimetro_total =0;
 var odometro_total =0;
 
 //******************* Botões do Tamplate *************************//
-$("#logout").click(function(){ document.location = url_home; });
-$("#btnfleet").click(function(){ direct(url_evt_fleet); });
-$("#btndriver").click(function(){ direct(url_evt_drivers); });
-$("#btndiagnostic").click(function(){ direct(url_diagnostic); });
-$("#btnusers").click(function(){ direct(url_info_users); });
-$("#btnveiculos").click(function(){ direct(url_info_cars); });
-$("#btnmotoristas").click(function(){ direct(url_cadastro_mot); });
-$("#btndashboard").click(function(){ direct(url_dashboard); });
-$("#btnmaintenance").click(function(){ direct(url_maintenance); });
-$("#btnfaq").click(function(){ direct(url_faq); });
-$("#btncontato").click(function(){ direct(url_contato); });
-$("#btnconfig").click(function(){ direct(url_config); });
-$("#btntrouble").click(function(){ direct(url_trouble); });
+$("#logout").click(function(){ 			document.location = url_home; });
+$("#btnfleet").click(function(){ 		direct(url_evt_fleet); });
+$("#btndriver").click(function(){ 		direct(url_evt_drivers); });
+$("#btndiagnostic").click(function(){ 	direct(url_diagnostic); });
+$("#btnusers").click(function(){ 		direct(url_info_users); });
+$("#btnveiculos").click(function(){ 	direct(url_info_cars); });
+$("#btnmotoristas").click(function(){ 	direct(url_info_drivers); });
+$("#btndashboard").click(function(){ 	direct(url_dashboard); });
+$("#btnmaintenance").click(function(){ 	direct(url_maintenance); });
+$("#btnfaq").click(function(){ 			direct(url_faq); });
+$("#btncontato").click(function(){ 		direct(url_contato); });
+$("#btnconfig").click(function(){ 		direct(url_config); });
+$("#btntrouble").click(function(){ 		direct(url_trouble); });
 
 function direct(new_window){
 	var url = "?t="+token;

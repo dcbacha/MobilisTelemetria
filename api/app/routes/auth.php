@@ -13,7 +13,7 @@ $app->post("/client/auth", function ($request, $response, $arguments) use ($app)
   // $password_hash = password_verify();
        
     try {   
-        $result = $db->prepare("SELECT nome, email, idgrupo, password FROM `usuarios` WHERE `email` = ? LIMIT 1");
+        $result = $db->prepare("SELECT idusuario, nome, email, idgrupo, password FROM `usuarios` WHERE `email` = ? LIMIT 1");
         $result->bindParam(1, $email);
         $result -> execute();  
     }

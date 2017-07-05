@@ -11,9 +11,9 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
                         '/car/dados/eventos', '/plotter', 
                         '/home', '/evtfleet', '/evtdrivers', '/diagnostic', '/reg', 
                         '/regvehicle', '/regdriver', '/dashboard', '/trouble', 
-                        '/edit', '/editcar','/maintenance',  '/faq', '/contato', '/config', 
+                        '/edit', '/editdriver', '/editcar','/maintenance',  '/faq', '/contato', '/config', 
                         '/plot', '/rpi','/log', '/404',
-                        '/webusers', '/listdrivers', '/cars'],
+                        '/webusers', '/drivers', '/cars'],
     "secret" => "SUPER_SECRET_KET",
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];

@@ -10,21 +10,11 @@ $(function(){
 	styleDropdown(1);
 	$('select').material_select();
 
-	getInfo();
 	getGroup();
-
-	var click = 0;
-	$("#checksenha").change(function(){
-		$("#senhacontainer").slideToggle();
-		click ++;
-		
-		if(click == 1){$(this).attr("checked", true);}
-		if(click == 2){$(this).attr("checked", false); click = 0;}
-		
-	});
+	getInfo();
 
 	$("#voltar").click(function(){
-		direct(url_info_users);
+		direct(url_info_cars);
 	});
 	
 	$("#envia").click(function(){
@@ -87,20 +77,12 @@ console.log(data);
 	var nomeresponsavel = data[0].nome;
 	var idgrupo = data[0].idgrupo;
 				
-	//if(!sobrenome){sobrenome = ""}
-	//if(!nivel){nivel = "-1"}
 
 	$("#num_serie").attr('value', numserie);
 	$("#chave_acesso").attr('value', chaveacesso);
 	$("#grupo").find("[value="+idgrupo+"]").attr("selected", true);
 	$("#responsavel").find("[value="+idresponsavel+"]").attr("selected", true);
-/*	$("#username").attr('value', user);
-	$("#email_edit").attr('value', email);
-	$("#nivel").find("[value="+nivel+"]").attr("selected", true);
 
-	Materialize.updateTextFields();
-	$('select').material_select();
-*/
 	Materialize.updateTextFields();
 	$('select').material_select();
 	
@@ -121,9 +103,7 @@ function enviar(){
 		grupo: grupo
 	}
 
-	console.log(json);
 	requisicaoEnviar(json);
-
 
 }
 
