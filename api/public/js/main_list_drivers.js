@@ -23,7 +23,7 @@ function getDrivers(){
 			contentType: "application/x-www-form-urlencoded",
 			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				//redirect("timeout");
+				redirect("timeout");
 				console.log(data.responseText);
 			},
 			success: function(data, status) {

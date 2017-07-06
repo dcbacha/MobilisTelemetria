@@ -38,11 +38,12 @@ function getGroup(){
 		contentType: "application/x-www-form-urlencoded",
 		headers: { 'Authorization': 'Bearer ' + token },
 		error: function(data, status, xhr) {
-			console.log(data);
-			console.log(data.resposeText);	
+			//console.log(data);
+			//console.log(data.resposeText);
+			redirect('timeout');	
 		},
 		success: function(data, status) {
-			console.log(data);
+			//console.log(data);
 
 			for(let i =0 ; i < data.length ; i++){
 				var id = data[i].idusuario;
@@ -69,8 +70,8 @@ function getInfo(){
 			data: json,
 			headers: { 'Authorization': 'Bearer ' + token },
 			error: function(data, status, xhr) {
-				console.log(data.responseText);
-				//redirect('timeout');
+				//console.log(data.responseText);
+				redirect('timeout');
 			},
 			success: function(data, status) {
 				fillInfo(data);

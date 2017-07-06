@@ -1,5 +1,5 @@
 //*********************** Variaveis Globais **********************//
-var url_global ="http://192.168.0.35/rds/api/public"; // "https://mobilis.eco.br/api/public"; //     
+var url_global = "https://mobilis.eco.br/api/public"; // "http://192.168.0.35/rds/api/public"; //     
 
 //link views
 var url_home = 		url_global + '/home',

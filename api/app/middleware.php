@@ -6,7 +6,7 @@
 //JWT Login Protection
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "path" => ["/", ""],
-    "secure" => false, //segurança "frouxa" -- só true se usarmos https no servidor, como não estamos, = false
+    "secure" => true, //segurança "frouxa" -- só true se usarmos https no servidor, como não estamos, = false
     "passthrough" => ['/client/auth', 'car/auth', '/client/newpassword',
                         '/car/dados/eventos', '/plotter', 
                         '/home', '/evtfleet', '/evtdrivers', '/diagnostic', '/reg', 
